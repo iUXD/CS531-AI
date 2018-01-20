@@ -1,6 +1,6 @@
 import numpy as np
 
-class SimpleDeterminAgent:
+class SimpleAgent:
 	def __init__(self, init_param):
 		self.deterministic = init_param
 		pass

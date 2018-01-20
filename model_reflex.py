@@ -20,7 +20,7 @@ class ModelAgent:
 		return state
     
 	def update_state(state):
-		# new_state: Dirty/BackHome/Straight/OneStep/NewR/FinalR/NewL/FinalL/RevertR
+		# new_state: Dirty/BackHome/Straight/OneStep/NewR/FinalR/NewL/FinalL/RevertR/RevertL
 		if self.memory == [0,0,0] and state == "Free":
 			new_state = "Straight"
 		elif self.memory == [0,0,0] and state == "Blocked":
@@ -28,7 +28,7 @@ class ModelAgent:
 		elif self.memory == [1,0,0] and state == "Free":
 			new_state = "OneStep"
 		if self.memory == [1,0,0] and state == "Blocked":
-			new_state = "FinalR"
+			new_state = "RevertL"
 		elif self.memory == [1,1,0] and state == "Free":
 			new_state = "FinalR"
 		elif self.memory == [1,1,0] and state == "Blocked":
@@ -58,7 +58,7 @@ class ModelAgent:
 			action = "GoHead"
 		elif state == "NewR" or state == "FinalR" or state == "RevertR":   
 			action = "TurnRight"     
-		elif state == "NewL" or state == "FinalL": 
+		elif state == "NewL" or state == "FinalL" or state == "RevertL": 
 			action = "TurnLeft" 
 		else: # BackHome
 			action = "Off"
