@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
+from kivy.uix.label import Label
 from kivy.graphics import Rectangle,  Color
 from kivy.graphics.instructions import InstructionGroup
 from kivy.uix.boxlayout import BoxLayout
@@ -17,7 +18,11 @@ ENV1 = 0    # environment 1
 ENV2 = 1    # environment 2
 ENV_GAP = 400
 homeSet = {(0, 0)}
-dirtyCellSet = {(0, 0), (1, 1), (2, 2),
+dirtyCellSet1 = {(0, 0), (1, 1), (2, 2),
+                (3, 3), (4, 4), (5, 5),
+                (6, 6), (7, 7), (8, 8),
+                (9, 9)}
+dirtyCellSet2 = {(0, 0), (1, 1), (2, 2),
                 (3, 3), (4, 4), (5, 5),
                 (6, 6), (7, 7), (8, 8),
                 (9, 9)}
@@ -32,8 +37,15 @@ outWallCellSet = {(-1, -1), (-1, 0), (-1, 1), (-1, 2), (-1, 3), (-1, 4), (-1, 5)
                   (0, 10), (1, 10), (2, 10), (3, 10), (4, 10), (5, 10),
                   (6, 10), (7, 10), (8, 10), (9, 10)}
 # presentation = Builder.load_file("grid.kv")
-agant1_status = 0
-agant2_status = 0
+# global variables
+agent1_status = 0
+agent1_actionNum = 0
+agent1_cleanedNum = 0
+agent2_status = 0
+agent2_actionNum = 0
+agent2_cleanedNum = 0
+class Label1(Label):
+    pass
 class Root(Widget):
     pass
 
@@ -132,8 +144,11 @@ class Sensor():
     def isHome(self):
         return (self.agent.i, self.agent.j) in homeSet
 
-    def isDirty(self):
-        return (self.agent.i, self.agent.j) in dirtyCellSet
+    def isDirty1(self):
+        return (self.agent.i, self.agent.j) in dirtyCellSet1
+
+    def isDirty2(self):
+        return (self.agent.i, self.agent.j) in dirtyCellSet2
 
 class Cell(Rectangle):
     # draw one cell
@@ -193,10 +208,44 @@ class Grid(Widget):
         self.agent2 = Agent(x=self.i2, y=self.j2, env=self.env2, dirt=self.direct2)
         self.sensor1 = Sensor(self.agent1)
         self.sensor2 = Sensor(self.agent2)
+        self.actionNum1 = 0
+        self.cleanedNum1 = 0
+        self.performancedNum1 = 0.0
+        self.actionNum2 = 0
+        self.cleanedNum2 = 0
+        self.performancedNum2 = 0
+        self.label1 = Label(text="action# :%5d"%self.actionNum1,          size=(10, 10), pos=(60, 30))
+        self.label2 = Label(text="cleaned# :%4d"%self.cleanedNum1,        size=(10, 10), pos=(160, 30))
+        self.label3 = Label(text="performance:%5f"%self.performancedNum1, size=(10, 10), pos=(300, 30))
+        self.label4 = Label(text="action# :%5d"%self.actionNum1,          size=(10, 10), pos=(460, 30))
+        self.label5 = Label(text="cleaned# :%4d"%self.cleanedNum1,        size=(10, 10), pos=(560, 30))
+        self.label6 = Label(text="performance:%5f"%self.performancedNum1, size=(10, 10), pos=(700, 30))
+        self._addLabels()
 
-        self.controlLimit = 50   # used to setup steps to break animation.
+        self.controlLimit = 500   # used to setup steps to break animation.
 
     pass
+    def _addLabels(self):
+        # add labels to report the values
+        self.actionNum1 = agent1_actionNum
+        self.cleanedNum1 = agent1_cleanedNum
+        self.performancedNum1 = 0.0 if agent1_actionNum == 0 else agent1_cleanedNum/agent1_actionNum
+        self.actionNum2 = agent2_actionNum
+        self.cleanedNum2 = agent2_cleanedNum
+        self.performancedNum2 = 0.0 if agent2_actionNum == 0 else agent2_cleanedNum/agent2_actionNum
+        self.label1.text = "action# :%5d"%self.actionNum1
+        self.label2.text = "cleaned# :%4d"%self.cleanedNum1
+        self.label3.text = "performance:%5f"%self.performancedNum1
+        self.label4.text = "action# :%5d" % self.actionNum2
+        self.label5.text = "cleaned# :%4d" % self.cleanedNum2
+        self.label6.text = "performance:%5f" % self.performancedNum2
+
+        self.canvas.add(Rectangle(texture=self.label1.texture, size=(80, 30),  pos=( 60, 30)))
+        self.canvas.add(Rectangle(texture=self.label2.texture, size=(80, 30),  pos=(160, 30)))
+        self.canvas.add(Rectangle(texture=self.label3.texture, size=(120, 30), pos=(260, 30)))
+        self.canvas.add(Rectangle(texture=self.label4.texture, size=(80, 30),  pos=(460, 30)))
+        self.canvas.add(Rectangle(texture=self.label5.texture, size=(80, 30),  pos=(560, 30)))
+        self.canvas.add(Rectangle(texture=self.label6.texture, size=(120, 30), pos=(660, 30)))
 
 
     def _initEnv1(self, **kwargs):
@@ -204,7 +253,7 @@ class Grid(Widget):
         for i in range(GRID_SIZE):
             for j in range(GRID_SIZE):
 
-                if (i, j) in dirtyCellSet:                          ## draw clean cells
+                if (i, j) in dirtyCellSet1:                          ## draw clean cells
                     self.canvas.add(DrawDirty(x=i, y=j, z=ENV1))
                 else:                                               ## draw clean cells
                     self.canvas.add(DrawClean(x=i, y=j, z = ENV1))
@@ -219,7 +268,7 @@ class Grid(Widget):
             for j in range(GRID_SIZE):
                 if (i, j) in wallCellSet:                           ## draw inside wall cells
                     self.canvas.add(DrawWall(x=i, y=j, z=ENV2))
-                elif (i,j) in dirtyCellSet:                         ## draw dirty cells
+                elif (i,j) in dirtyCellSet2:                         ## draw dirty cells
                     self.canvas.add(DrawDirty(x=i, y=j, z=ENV2))
                 else:                                               ## draw clean cells
                     self.canvas.add(DrawClean(x=i, y=j, z = ENV2))
@@ -258,73 +307,60 @@ class Grid(Widget):
         else:
             percept1 = SimpleDeterminAgent()
             percept2 = SimpleDeterminAgent()
-        #
-        agent1_percept = [self.sensor1.isWall_ENV1(), self.sensor1.isDirty(), self.sensor1.isHome()]
+
+        global agent1_status
+        global agent1_actionNum
+        global agent1_cleanedNum
+        global agent2_status
+        global agent2_actionNum
+        global agent2_cleanedNum
+
+        # self._updateOneAgent(percept1)
+        agent1_percept = [self.sensor1.isWall_ENV1(), self.sensor1.isDirty1(), self.sensor1.isHome()]
         agent1_location = [self.agent1.i, self.agent1.j]
         agent1_direction = self.agent1.direction
         agent1_new_location, agent1_new_direction, agent1_action = percept1.update(agent1_percept,
                                                                     agent1_location,
                                                                     agent1_direction)
-        self.agent1.i = agent1_new_location[0]
-        self.agent1.j = agent1_new_location[1]
-        self.agent1.direction = agent1_new_direction
-        if agent1_action == 'Clean':
-            dirtyCellSet.remove((self.agent1.i, self.agent1.j))
-        if agent1_action == 'Clean' or agent1_action == 'GoHead' or agent1_action == 'TurnRight':
-            self.visitedSet1.add((self.agent1.i, self.agent1.j))
         if agent1_action == 'Off':
-            Clock.unschedule(self.drawGrid)
+            agent1_status = 1
+        else:
+            self.agent1.i = agent1_new_location[0]
+            self.agent1.j = agent1_new_location[1]
+            self.agent1.direction = agent1_new_direction
+            agent1_actionNum += 1
+            if agent1_action == 'Clean':
+                agent1_cleanedNum += 1
+                dirtyCellSet1.remove((self.agent1.i, self.agent1.j))
+            if agent1_action == 'Clean' or agent1_action == 'GoHead' or agent1_action == 'TurnRight':
+                self.visitedSet1.add((self.agent1.i, self.agent1.j))
 
-
-        agent2_percept = [self.sensor2.isWall_ENV2(), self.sensor2.isDirty(), self.sensor2.isHome()]
+        agent2_percept = [self.sensor2.isWall_ENV2(), self.sensor2.isDirty2(), self.sensor2.isHome()]
         agent2_location = [self.agent2.i, self.agent2.j]
         agent2_direction = self.agent2.direction
         agent2_new_location, agent2_new_direction, agent2_action = percept2.update(agent2_percept,
                                                                                    agent2_location,
                                                                                    agent2_direction)
-        self.agent2.i = agent2_new_location[0]
-        self.agent2.j = agent2_new_location[1]
-        print("==============agent2 at %d %d" % (self.agent2.getPosIJ()))
-        self.agent2.direction = agent2_new_direction
-        if agent2_action == 'Clean':
-            dirtyCellSet.remove(self.agent2.getPosIJ())
-        if agent2_action == 'Clean' or agent2_action == 'GoHead' or agent2_action == 'TurnRight':
-            self.visitedSet2.add(self.agent2.getPosIJ())
         if agent2_action == 'Off':
-            Clock.unschedule(self.drawGrid)
+            agent2_status = 1
+        else:
+            self.agent2.i = agent2_new_location[0]
+            self.agent2.j = agent2_new_location[1]
+            print("==============agent2 at %d %d" % (self.agent2.getPosIJ()))
+            self.agent2.direction = agent2_new_direction
+            agent2_actionNum += 1
+            if agent2_action == 'Clean':
+                agent2_cleanedNum += 1
+                dirtyCellSet2.remove(self.agent2.getPosIJ())
+            if agent2_action == 'Clean' or agent2_action == 'GoHead' or agent2_action == 'TurnRight':
+                self.visitedSet2.add(self.agent2.getPosIJ())
 
-        #
-        #
-        # global agant1_status
-        # global agant2_status
-        #
-        # if self.sensor1.isWall_ENV1() and self.sensor1.isHome():    # back to home, terminate
-        #     agant1_status = 1
-        #     pass
-        # else:
-        #     if self.sensor1.isDirty():
-        #         dirtyCellSet.remove(self.agent1.getPosIJ())
-        #     elif self.agent1.nextPos() in outWallCellSet:             # agent 1 only have out wall cells
-        #         self.agent1.turnRight()
-        #     else:
-        #         self.agent1.goAhead()
-        #
-        # ## Agent 2
-        # if self.sensor2.isWall_ENV2() and self.sensor2.isHome():    # back to home, terminate
-        #     agant2_status = 1
-        #     pass
-        # else:
-        #     if self.agent2.nextPos() in wallCellSet or self.agent2.nextPos() in outWallCellSet:
-        #         self.agent2.turnRight()
-        #     else:
-        #         self.agent2.goAhead()
-        # self.visitedSet1.add((self.agent1.i, self.agent1.j))
-        # self.visitedSet2.add((self.agent2.i, self.agent2.j))
-        #
-        # if (agant1_status, agant2_status) == (1, 1):                # terminate the animation
-        #     Clock.unschedule(self.drawGrid)
-        # print("current direction is : %d" % self.agent2.direction)
+        if agent1_status == 1 and agent2_status == 1:
+                Clock.unschedule(self.drawGrid)
 
+    def _updateOneAgent(self, percept):
+
+        pass
 
 
     def update(self, *args):
@@ -337,6 +373,7 @@ class Grid(Widget):
         self.canvas.add(Color(1,1,1,1))
         self.agent1.update()
         self.agent2.update()
+        self._addLabels()
         self.canvas.add(self.agent1)
         # print("=========**********=====agent1 at %d %d" % (self.agent1.i, self.agent1.j))
         self.canvas.add(self.agent2)
@@ -358,15 +395,15 @@ class VacuumApp(App):
         startButton = Start(on_press=self.beginRun)
         buttonLayout = BoxLayout(size_hint=(1, None), height=50)
         buttonLayout.add_widget(startButton)
-
         root = BoxLayout(orientation='vertical')
         root.add_widget(buttonLayout)
         root.add_widget(self.canvasGrid)
+
         return root
 
     def beginRun(self,  *kwargs):
 
-        Clock.schedule_interval(self.canvasGrid.drawGrid, 0.2)
+        Clock.schedule_interval(self.canvasGrid.drawGrid, 0.12)
 
         # Clock.schedule_interval(self.canvasGrid.drawGrid, 7)
 
