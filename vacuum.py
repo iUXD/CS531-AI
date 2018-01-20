@@ -5,7 +5,7 @@ from kivy.graphics import Rectangle,  Color
 from kivy.graphics.instructions import InstructionGroup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
-
+from  simple_reflex import SimpleDeterminAgent
 # global set
 GRID_SIZE = 10
 CELL_SIZE = 30
@@ -242,9 +242,24 @@ class Grid(Widget):
         # most of our code should be here!
         ######################################################################################################
         ## A. question 1: Simple agent
+        percept1 = SimpleDeterminAgent()
+        agent1_percept = (self.sensor1.isWall_ENV1(), self.sensor1.isDirty(), self.sensor1.isHome())
+        agent1_location = self.agent1.pos
+        agent1_direction = self.agent1.direction
+        agent1_new_location, agent1_new_direction, agent1_action = percept1.update(agent1_percept,
+                                                                    agent1_location,
+                                                                    agent1_direction)
+        if agent1_action == 'clean' or agent1_action == 'gohead':
+            self.visitedSet1.add(self.agent1.pos)
+
+
+
+
+
+
         global agant1_status
         global agant2_status
-
+        '''
         if self.sensor1.isWall_ENV1() and self.sensor1.isHome():    # back to home, terminate
             agant1_status = 1
             pass
@@ -255,6 +270,7 @@ class Grid(Widget):
                 self.agent1.turnRight()
             else:
                 self.agent1.goAhead()
+        '''
         ## Agent 2
         if self.sensor2.isWall_ENV2() and self.sensor2.isHome():    # back to home, terminate
             agant2_status = 1

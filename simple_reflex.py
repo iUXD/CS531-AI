@@ -1,6 +1,6 @@
 class SimpleDeterminAgent:
 	def __init__(self):
-		return 0
+		pass
         
 	# build a general-purpose interpreter (What the world is like now?)
 	# current internal state (abstract description of the current state from the percept)
@@ -34,11 +34,11 @@ class SimpleDeterminAgent:
 		return action
     
 	def agent_program(self, percept):
-		#print("percept:", percept)
+		print("percept:", percept)
 		state = self.interpret_input(percept)
-		#print("state:", state)
+		print("state:", state)
 		action = self.rule_match(state)
-		#print("action:", action)
+		print("action:", action)
 		return action
 
 	def update_position(self, action, location, direction):
@@ -68,9 +68,9 @@ class SimpleDeterminAgent:
     
 	def update(self, percept, location, direction):  
 		# Decision Making
-		action = agent_program(percept) 
+		action = self.agent_program(percept)
 		# For visualization
 		location, direction = self.update_position(action, location, direction)
 		print("new position:", location, direction)  
-		return location, direction
+		return location, direction,action
 
