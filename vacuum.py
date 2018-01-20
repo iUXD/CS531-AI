@@ -118,7 +118,7 @@ class Sensor():
 
     def isWall_ENV1(self):
         # for env1
-        return self.agent.nextPos() in wallCellSet
+        return self.agent.nextPos() in outWallCellSet
 
     def isWall_ENV2(self):
         return self.agent.nextPos() in wallCellSet or self.agent.nextPos() in outWallCellSet
@@ -188,7 +188,7 @@ class Grid(Widget):
         self.sensor1 = Sensor(self.agent1)
         self.sensor2 = Sensor(self.agent2)
 
-        self.controlLimit = 20   # used to setup steps to break animation.
+        self.controlLimit = 50   # used to setup steps to break animation.
 
     pass
 
@@ -240,35 +240,34 @@ class Grid(Widget):
         self.visitedSet2.add((self.i2, self.j2))
         # 2. uppdate agent states, just try move ahead now
         # most of our code should be here!
+        ######################################################################################################
         ## A. question 1: Simple agent
         global agant1_status
         global agant2_status
 
-        if self.agent1.nextPos() == (0, 0):     # back to home, terminate
+        if self.sensor1.isWall_ENV1() and self.sensor1.isHome():    # back to home, terminate
             agant1_status = 1
-        if agant1_status == 1 and (self.agent1.i, self.agent1.j) == (0,0):
-        # if (self.agent1.i, self.agent1.j) == (0, 0):
             pass
         else:
-
-            if  self.agent1.nextPos() in outWallCellSet:            # agent 1 only have out wall cells
+            if self.sensor1.isDirty():
+                dirtyCellSet.remove(self.agent1.pos)
+            elif self.agent1.nextPos() in outWallCellSet:             # agent 1 only have out wall cells
                 self.agent1.turnRight()
             else:
                 self.agent1.goAhead()
         ## Agent 2
-        if self.agent2.nextPos() == (0, 0):     # back to home, terminate
+        if self.sensor2.isWall_ENV2() and self.sensor2.isHome():    # back to home, terminate
             agant2_status = 1
-        if agant2_status == 1 and (self.agent2.i, self.agent2.j) == (0,0):
             pass
         else:
-
             if self.agent2.nextPos() in wallCellSet or self.agent2.nextPos() in outWallCellSet:
                 self.agent2.turnRight()
             else:
                 self.agent2.goAhead()
         self.visitedSet1.add((self.agent1.i, self.agent1.j))
         self.visitedSet2.add((self.agent2.i, self.agent2.j))
-        if (agant1_status, agant2_status) == (1, 1):            # terminate the animation
+
+        if (agant1_status, agant2_status) == (1, 1):                # terminate the animation
             Clock.unschedule(self.drawGrid)
         print("current direction is : %d" % self.agent2.direction)
 

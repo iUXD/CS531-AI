@@ -12,17 +12,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/AI_Vacuum$vacuum.coverage" NAME="vacuum Coverage Results" MODIFIED="1516417475687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AI_Vacuum$vacuum.coverage" NAME="vacuum Coverage Results" MODIFIED="1516418768852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="vacuum.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vacuum.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4274">
-              <caret line="245" column="0" lean-forward="true" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
+            <state relative-caret-position="61">
+              <caret line="239" column="48" lean-forward="true" selection-start-line="239" selection-start-column="48" selection-end-line="239" selection-end-column="48" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
+                <element signature="e#6853#7571#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -185,6 +186,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#6853#7571#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -195,6 +197,7 @@
           <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#6853#7571#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -217,10 +220,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vacuum.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4274">
-          <caret line="245" column="0" lean-forward="true" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
+        <state relative-caret-position="61">
+          <caret line="239" column="48" lean-forward="true" selection-start-line="239" selection-start-column="48" selection-end-line="239" selection-end-column="48" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#6853#7571#0" expanded="false" />
           </folding>
         </state>
       </provider>
