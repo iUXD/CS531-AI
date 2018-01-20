@@ -6,8 +6,9 @@ from kivy.graphics import Rectangle,  Color
 from kivy.graphics.instructions import InstructionGroup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
-from  simple_reflex import SimpleAgent
-from  model_reflex import ModelAgent
+from simple_determin_reflex import SimpleDeterministicAgent
+from simple_random_reflex import SimpleStochasticAgent
+from model_determin_reflex import ModelDeterministicAgent
 # global set
 AGENT_ID = 3
 GRID_SIZE = 10
@@ -303,14 +304,14 @@ class Grid(Widget):
         global agent31_memory
         global agent32_memory
         if AGENT_ID == 1:
-            percept1 = SimpleAgent(True)
-            percept2 = SimpleAgent(True)
+            percept1 = SimpleDeterministicAgent()
+            percept2 = SimpleDeterministicAgent()
         elif AGENT_ID == 2:
-            percept1 = SimpleAgent(False)
-            percept2 = SimpleAgent(False)
+            percept1 = SimpleStochasticAgent()
+            percept2 = SimpleStochasticAgent()
         else:
-            percept1 = ModelAgent(agent31_memory)
-            percept2 = ModelAgent(agent32_memory)
+            percept1 = ModelDeterministicAgent(agent31_memory)
+            percept2 = ModelDeterministicAgent(agent32_memory)
 
         global agent1_status
         global agent1_actionNum
