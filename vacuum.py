@@ -6,7 +6,8 @@ from kivy.graphics import Rectangle,  Color
 from kivy.graphics.instructions import InstructionGroup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
-from  simple_reflex import SimpleDeterminAgent
+from  simple_reflex import SimpleAgent
+from  model_reflex import ModelAgent
 # global set
 AGENT_ID = 1
 GRID_SIZE = 10
@@ -299,14 +300,14 @@ class Grid(Widget):
         ## A. question 1: Simple agent
 
         if AGENT_ID == 1:
-            percept1 = SimpleDeterminAgent(True)
-            percept2 = SimpleDeterminAgent(True)
+            percept1 = SimpleAgent(True)
+            percept2 = SimpleAgent(True)
         elif AGENT_ID == 2:
-            percept1 = SimpleDeterminAgent(False)
-            percept2 = SimpleDeterminAgent(False)
+            percept1 = SimpleAgent(False)
+            percept2 = SimpleAgent(False)
         else:
-            percept1 = SimpleDeterminAgent(True)
-            percept2 = SimpleDeterminAgent(True)
+            percept1 = ModelAgent(True)
+            percept2 = ModelAgent(True)
 
         global agent1_status
         global agent1_actionNum
