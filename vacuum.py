@@ -299,14 +299,14 @@ class Grid(Widget):
         ## A. question 1: Simple agent
 
         if AGENT_ID == 1:
-            percept1 = SimpleDeterminAgent()
-            percept2 = SimpleDeterminAgent()
+            percept1 = SimpleDeterminAgent(True)
+            percept2 = SimpleDeterminAgent(True)
         elif AGENT_ID == 2:
-            percept1 = SimpleDeterminAgent()
-            percept2 = SimpleDeterminAgent()
+            percept1 = SimpleDeterminAgent(False)
+            percept2 = SimpleDeterminAgent(False)
         else:
-            percept1 = SimpleDeterminAgent()
-            percept2 = SimpleDeterminAgent()
+            percept1 = SimpleDeterminAgent(True)
+            percept2 = SimpleDeterminAgent(True)
 
         global agent1_status
         global agent1_actionNum
