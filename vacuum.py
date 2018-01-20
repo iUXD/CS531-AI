@@ -14,7 +14,8 @@ START_Y = 150
 CELL_GRAP = 1
 ENV1 = 0    # environment 1
 ENV2 = 1    # environment 2
-ENV_GAP =  400
+ENV_GAP = 400
+homeSet = {(0, 0)}
 dirtyCellSet = {(0, 0), (1, 1), (2, 2),
                 (3, 3), (4, 4), (5, 5),
                 (6, 6), (7, 7), (8, 8),
@@ -111,6 +112,23 @@ class Agent(Rectangle):
         else: # self.direction == 3
             return self.i - 1, self.j
 
+class Sensor():
+    def __init__(self, agent):
+        self.agent = agent
+
+    def isWall_ENV1(self):
+        # for env1
+        return self.agent.nextPos() in wallCellSet
+
+    def isWall_ENV2(self):
+        return self.agent.nextPos() in wallCellSet or self.agent.nextPos() in outWallCellSet
+
+    def isHome(self):
+        return (self.agent.i, self.agent.j) in homeSet
+
+    def isDirty(self):
+        return (self.agent.i, self.agent.j) in dirtyCellSet
+
 class Cell(Rectangle):
     # draw one cell
     def __init__(self, **kwargs):
@@ -167,6 +185,8 @@ class Grid(Widget):
         self.visitedSet2 = set()  # record visited set
         self.agent1 = Agent(x=self.i1, y=self.j1, env=self.env1, dirt=self.direct1)
         self.agent2 = Agent(x=self.i2, y=self.j2, env=self.env2, dirt=self.direct2)
+        self.sensor1 = Sensor(self.agent1)
+        self.sensor2 = Sensor(self.agent2)
 
         self.controlLimit = 20   # used to setup steps to break animation.
 
@@ -221,10 +241,8 @@ class Grid(Widget):
         # 2. uppdate agent states, just try move ahead now
         # most of our code should be here!
         ## A. question 1: Simple agent
-
         global agant1_status
         global agant2_status
-
 
         if self.agent1.nextPos() == (0, 0):     # back to home, terminate
             agant1_status = 1
@@ -237,7 +255,7 @@ class Grid(Widget):
                 self.agent1.turnRight()
             else:
                 self.agent1.goAhead()
-
+        ## Agent 2
         if self.agent2.nextPos() == (0, 0):     # back to home, terminate
             agant2_status = 1
         if agant2_status == 1 and (self.agent2.i, self.agent2.j) == (0,0):
