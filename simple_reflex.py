@@ -87,6 +87,6 @@ class SimpleAgent:
 		action = self.agent_program(percept)
 		# For visualization
 		location, direction = self.update_position(action, location, direction)
-		print("new position:", location, direction)  
+		print("new position:", location, direction) 		
 		return location, direction,action
 

@@ -19,7 +19,7 @@ class ModelAgent:
 		    state = "Blocked"
 		return state
     
-	def update_state(state):
+	def update_state(self, state):
 		# new_state: Dirty/BackHome/Straight/OneStep/NewR/FinalR/NewL/FinalL/RevertR/RevertL
 		if self.memory == [0,0,0] and state == "Free":
 			new_state = "Straight"
@@ -27,7 +27,7 @@ class ModelAgent:
 			new_state = "NewR"
 		elif self.memory == [1,0,0] and state == "Free":
 			new_state = "OneStep"
-		if self.memory == [1,0,0] and state == "Blocked":
+		elif self.memory == [1,0,0] and state == "Blocked":
 			new_state = "RevertL"
 		elif self.memory == [1,1,0] and state == "Free":
 			new_state = "FinalR"
@@ -39,7 +39,7 @@ class ModelAgent:
 			new_state = "NewL"
 		elif self.memory == [0,1,1] and state == "Free":
 			new_state = "OneStep"
-		if self.memory == [0,1,1] and state == "Blocked":
+		elif self.memory == [0,1,1] and state == "Blocked":
 			new_state = "RevertR"
 		elif self.memory == [0,0,1] and state == "Free":
 			new_state = "FinalL"
@@ -47,6 +47,7 @@ class ModelAgent:
 			new_state = "FinalL"
 		else:
 			new_state = state
+		return new_state
 		
 	# create condition-action rule sets (What action I should do now?)
 	# background information (first rule that matches the given state description)
@@ -64,7 +65,7 @@ class ModelAgent:
 			action = "Off"
 		return action
     
-	def update_memory(action):
+	def update_memory(self, action):
 		# new_state: Dirty/BackHome/Straight/OneStep/NewR/FinalR/NewL/FinalL/RevertR
 		if self.memory == [0,0,0] and action == "TurnRight":
 			self.memory = [1,0,0]
@@ -84,13 +85,13 @@ class ModelAgent:
 	def agent_program(self, percept):
 		print("percept [W,D,H]:", percept)
 		state = self.interpret_input(percept)
-		print("state:", state)
-		print("memory:", self.memory)
-		new_state = update_state(state)
+		print("** state:", state)
+		print("** memory:", self.memory)
+		new_state = self.update_state(state)
 		print("updated state:", new_state)
 		action = self.rule_match(new_state)		
 		print("action:", action)
-		update_memory(action)
+		self.update_memory(action)
 		print("updated memory:", self.memory)
 		return action
 
@@ -126,5 +127,6 @@ class ModelAgent:
 		# For visualization
 		location, direction = self.update_position(action, location, direction)
 		print("new position:", location, direction)  
+		print("===================================") 
 		return location, direction,action
 
