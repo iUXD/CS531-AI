@@ -21,29 +21,29 @@ class ModelAgent:
     
 	def update_state(state):
 		# new_state: Dirty/BackHome/Straight/OneStep/NewR/FinalR/NewL/FinalL/RevertR
-		if memory == [0,0,0] and state == "Free":
+		if self.memory == [0,0,0] and state == "Free":
 			new_state = "Straight"
-		elif memory == [0,0,0] and state == "Blocked":
+		elif self.memory == [0,0,0] and state == "Blocked":
 			new_state = "NewR"
-		elif memory == [1,0,0] and state == "Free":
+		elif self.memory == [1,0,0] and state == "Free":
 			new_state = "OneStep"
-		if memory == [1,0,0] and state == "Blocked":
+		if self.memory == [1,0,0] and state == "Blocked":
 			new_state = "FinalR"
-		elif memory == [1,1,0] and state == "Free":
+		elif self.memory == [1,1,0] and state == "Free":
 			new_state = "FinalR"
-		elif memory == [1,1,0] and state == "Blocked":
+		elif self.memory == [1,1,0] and state == "Blocked":
 			new_state = "FinalR"
-		elif memory == [1,1,1] and state == "Free":
+		elif self.memory == [1,1,1] and state == "Free":
 			new_state = "Straight"
-		elif memory == [1,1,1] and state == "Blocked":
+		elif self.memory == [1,1,1] and state == "Blocked":
 			new_state = "NewL"
-		elif memory == [0,1,1] and state == "Free":
+		elif self.memory == [0,1,1] and state == "Free":
 			new_state = "OneStep"
-		if memory == [0,1,1] and state == "Blocked":
+		if self.memory == [0,1,1] and state == "Blocked":
 			new_state = "RevertR"
-		elif memory == [0,0,1] and state == "Free":
+		elif self.memory == [0,0,1] and state == "Free":
 			new_state = "FinalL"
-		elif memory == [0,0,1] and state == "Blocked":
+		elif self.memory == [0,0,1] and state == "Blocked":
 			new_state = "FinalL"
 		else:
 			new_state = state
@@ -64,12 +64,34 @@ class ModelAgent:
 			action = "Off"
 		return action
     
+	def update_memory(action):
+		# new_state: Dirty/BackHome/Straight/OneStep/NewR/FinalR/NewL/FinalL/RevertR
+		if self.memory == [0,0,0] and action == "TurnRight":
+			self.memory = [1,0,0]
+		elif self.memory == [1,0,0] and action == "GoHead":
+			self.memory = [1,1,0]
+		elif self.memory == [1,1,0] and action == "TurnRight":
+			self.memory == [1,1,1]
+		elif self.memory == [1,1,1] and action == "TurnLeft":
+			self.memory == [0,1,1]
+		elif self.memory == [0,1,1] and action == "GoHead":
+			self.memory == [0,0,1]
+		elif self.memory == [0,0,1] and action == "TurnLeft":
+			self.memory == [0,0,0]		
+		else:
+			pass
+
 	def agent_program(self, percept):
 		print("percept [W,D,H]:", percept)
 		state = self.interpret_input(percept)
 		print("state:", state)
-		action = self.rule_match(state)		
+		print("memory:", self.memory)
+		new_state = update_state(state)
+		print("updated state:", new_state)
+		action = self.rule_match(new_state)		
 		print("action:", action)
+		update_memory(action)
+		print("updated memory:", self.memory)
 		return action
 
 	def update_position(self, action, location, direction):
