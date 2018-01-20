@@ -44,24 +44,24 @@ class SimpleDeterminAgent:
 	def update_position(self, action, location, direction):
 	# action = GoHead, TurnRight, TurnLeft, Clean, Off
 		if action == "GoHead":
-			if direction == 1:
-				location[1] = location[1] - 1
+			if direction == 0:
+				location[0] += 1
+			elif direction == 1:
+				location[1] += 1
 			elif direction == 2:
-				location[0] = location[0] + 1
-			elif direction == 3:
-				location[1] = location[1] + 1
+				location[0] -= 1
 			else: # direction == 4
-				location[0] = location[0] - 1            
+				location[1] -= 1            
 		elif action == "TurnRight":            
-			if direction == 4:
-				direction = 1
+			if direction == 3:
+				direction = 0
 			else:
-				direction = direction + 1        
+				direction += 1        
 		elif action == "TurnLeft":
-			if direction == 1:
-				direction = 4
+			if direction == 0:
+				direction = 3
 			else:
-				direction = direction - 1 
+				direction -= 1 
 		else: # action = Clean, Off
 			location = location 
 		return location, direction
