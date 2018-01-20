@@ -66,7 +66,8 @@ class SimpleDeterminAgent:
 			location = location 
 		return location, direction
     
-	def update(self, percept, location, direction):  
+	def update(self, percept, location, direction):
+		print("current position:", location, direction)
 		# Decision Making
 		action = self.agent_program(percept)
 		# For visualization

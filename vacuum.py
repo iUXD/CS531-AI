@@ -51,8 +51,8 @@ class Agent(Rectangle):
         value = []
         for key, val in kwargs.items():
             value.append(val)
-        self.i = value[0]
-        self.j = value[1]
+        self.i = value[1]
+        self.j = value[0]
         self.env = value[2]
 
         self.direction = value[3]       # up= 0, left = 1, down = 2, right = 3
@@ -84,33 +84,35 @@ class Agent(Rectangle):
 
     def goAhead(self):
         if self.direction == 0:
-            self.j += 1
-        elif self.direction == 1:
             self.i += 1
+        elif self.direction == 1:
+            self.j += 1
         elif self.direction == 2:
-            self.j -= 1
-        elif self.direction == 3:
             self.i -= 1
+        elif self.direction == 3:
+            self.j -= 1
         self.rotateFace()
         self.pos = self.getPos()
         # print(self)
-        print(self.j)
+        # print(self.j)
 
     def getPos(self):
         # used to return current pix position ,for drawing
-        return (self.i * CELL_SIZE + START_X + self.env * ENV_GAP,
-                self.j * CELL_SIZE + START_Y)
+        return (self.j * CELL_SIZE + START_X + self.env * ENV_GAP,
+                self.i * CELL_SIZE + START_Y)
+    def getPosIJ(self):
+        return (self.j, self.i)
 
     def nextPos(self):
         # return next position, based on current direction
         if self.direction == 0:
-            return self.i, self.j+1
+            return self.j, self.i+1
         elif self.direction == 1:
-            return self.i + 1, self.j
+            return self.j + 1, self.i
         elif self.direction == 2:
-            return self.i, self.j - 1
+            return self.j, self.i - 1
         else: # self.direction == 3
-            return self.i - 1, self.j
+            return self.j - 1, self.i
 
 class Sensor():
     def __init__(self, agent):
@@ -124,10 +126,10 @@ class Sensor():
         return self.agent.nextPos() in wallCellSet or self.agent.nextPos() in outWallCellSet
 
     def isHome(self):
-        return (self.agent.i, self.agent.j) in homeSet
+        return self.agent.getPosIJ() in homeSet
 
     def isDirty(self):
-        return (self.agent.i, self.agent.j) in dirtyCellSet
+        return self.agent.getPosIJ() in dirtyCellSet
 
 class Cell(Rectangle):
     # draw one cell
@@ -243,22 +245,36 @@ class Grid(Widget):
         ######################################################################################################
         ## A. question 1: Simple agent
         percept1 = SimpleDeterminAgent()
-        agent1_percept = (self.sensor1.isWall_ENV1(), self.sensor1.isDirty(), self.sensor1.isHome())
-        agent1_location = self.agent1.pos
+        agent1_percept = [self.sensor1.isWall_ENV1(), self.sensor1.isDirty(), self.sensor1.isHome()]
+        agent1_location = [self.agent1.j, self.agent1.i]
         agent1_direction = self.agent1.direction
         agent1_new_location, agent1_new_direction, agent1_action = percept1.update(agent1_percept,
                                                                     agent1_location,
                                                                     agent1_direction)
-        if agent1_action == 'clean' or agent1_action == 'gohead':
-            self.visitedSet1.add(self.agent1.pos)
-
-
-
-
-
-
-        global agant1_status
-        global agant2_status
+        self.agent1.j = agent1_new_location[0]
+        self.agent1.i = agent1_new_location[1]
+        print("===============new Location %d %d " %(self.agent1.getPosIJ()))
+        self.agent1.direction = agent1_new_direction
+        if agent1_action == 'Clean':
+            dirtyCellSet.remove(self.agent1.getPosIJ())
+        if agent1_action == 'Clean' or agent1_action == 'GoHead' or agent1_action == 'TurnRight':
+            self.visitedSet1.add(self.agent1.getPosIJ())
+        #
+        # percept2 = SimpleDeterminAgent()
+        # agent2_percept = [self.sensor2.isWall_ENV1(), self.sensor2.isDirty(), self.sensor2.isHome()]
+        # agent2_location = [self.agent2.i, self.agent2.j]
+        # agent2_direction = self.agent2.direction
+        # agent2_new_location, agent2_new_direction, agent2_action = percept2.update(agent2_percept,
+        #                                                                            agent2_location,
+        #                                                                            agent2_direction)
+        # if agent2_action == 'clean' or agent2_action == 'gohead':
+        #     self.visitedSet1.add(self.agent1.pos)
+        #
+        #
+        #
+        #
+        # global agant1_status
+        # global agant2_status
         '''
         if self.sensor1.isWall_ENV1() and self.sensor1.isHome():    # back to home, terminate
             agant1_status = 1
@@ -270,7 +286,7 @@ class Grid(Widget):
                 self.agent1.turnRight()
             else:
                 self.agent1.goAhead()
-        '''
+        
         ## Agent 2
         if self.sensor2.isWall_ENV2() and self.sensor2.isHome():    # back to home, terminate
             agant2_status = 1
@@ -286,7 +302,7 @@ class Grid(Widget):
         if (agant1_status, agant2_status) == (1, 1):                # terminate the animation
             Clock.unschedule(self.drawGrid)
         print("current direction is : %d" % self.agent2.direction)
-
+        '''
 
 
     def update(self, *args):
@@ -324,7 +340,7 @@ class VacuumApp(App):
         return root
 
     def beginRun(self,  *kwargs):
-        Clock.schedule_interval(self.canvasGrid.drawGrid, 0.21)
+        Clock.schedule_interval(self.canvasGrid.drawGrid, 2)
         pass
 
 
