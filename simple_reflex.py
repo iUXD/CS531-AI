@@ -45,13 +45,13 @@ class SimpleDeterminAgent:
 	# action = GoHead, TurnRight, TurnLeft, Clean, Off
 		if action == "GoHead":
 			if direction == 0:
-				location[0] += 1
-			elif direction == 1:
 				location[1] += 1
+			elif direction == 1:
+				location[0] += 1
 			elif direction == 2:
-				location[0] -= 1
+				location[1] -= 1
 			else: # direction == 4
-				location[1] -= 1            
+				location[0] -= 1
 		elif action == "TurnRight":            
 			if direction == 3:
 				direction = 0
