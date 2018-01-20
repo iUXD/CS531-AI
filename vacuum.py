@@ -340,7 +340,7 @@ class VacuumApp(App):
         return root
 
     def beginRun(self,  *kwargs):
-        Clock.schedule_interval(self.canvasGrid.drawGrid, 2)
+        Clock.schedule_interval(self.canvasGrid.drawGrid, 7)
         pass
 
 
