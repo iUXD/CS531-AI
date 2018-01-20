@@ -88,5 +88,5 @@ class SimpleAgent:
 		# For visualization
 		location, direction = self.update_position(action, location, direction)
 		print("new position:", location, direction) 		
-		return location, direction,action
+		return location, direction,action, [0, 0, 0]
 

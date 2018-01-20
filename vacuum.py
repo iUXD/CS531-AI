@@ -9,7 +9,7 @@ from kivy.clock import Clock
 from  simple_reflex import SimpleAgent
 from  model_reflex import ModelAgent
 # global set
-AGENT_ID = 1
+AGENT_ID = 3
 GRID_SIZE = 10
 CELL_SIZE = 30
 START_X = 50
@@ -45,6 +45,8 @@ agent1_cleanedNum = 0
 agent2_status = 0
 agent2_actionNum = 0
 agent2_cleanedNum = 0
+agent31_memory = [0, 0, 0]
+agent32_memory = [0, 0, 0]
 class Label1(Label):
     pass
 class Root(Widget):
@@ -298,7 +300,8 @@ class Grid(Widget):
         # most of our code should be here!
         ######################################################################################################
         ## A. question 1: Simple agent
-
+        global agent31_memory
+        global agent32_memory
         if AGENT_ID == 1:
             percept1 = SimpleAgent(True)
             percept2 = SimpleAgent(True)
@@ -306,8 +309,8 @@ class Grid(Widget):
             percept1 = SimpleAgent(False)
             percept2 = SimpleAgent(False)
         else:
-            percept1 = ModelAgent(True)
-            percept2 = ModelAgent(True)
+            percept1 = ModelAgent(agent31_memory)
+            percept2 = ModelAgent(agent32_memory)
 
         global agent1_status
         global agent1_actionNum
@@ -320,9 +323,10 @@ class Grid(Widget):
         agent1_percept = [self.sensor1.isWall_ENV1(), self.sensor1.isDirty1(), self.sensor1.isHome()]
         agent1_location = [self.agent1.i, self.agent1.j]
         agent1_direction = self.agent1.direction
-        agent1_new_location, agent1_new_direction, agent1_action = percept1.update(agent1_percept,
+        agent1_new_location, agent1_new_direction, agent1_action, agent31_memory = percept1.update(agent1_percept,
                                                                     agent1_location,
                                                                     agent1_direction)
+
         if agent1_action == 'Off':
             agent1_status = 1
         else:
@@ -339,7 +343,7 @@ class Grid(Widget):
         agent2_percept = [self.sensor2.isWall_ENV2(), self.sensor2.isDirty2(), self.sensor2.isHome()]
         agent2_location = [self.agent2.i, self.agent2.j]
         agent2_direction = self.agent2.direction
-        agent2_new_location, agent2_new_direction, agent2_action = percept2.update(agent2_percept,
+        agent2_new_location, agent2_new_direction, agent2_action, agent32_memory = percept2.update(agent2_percept,
                                                                                    agent2_location,
                                                                                    agent2_direction)
         if agent2_action == 'Off':

@@ -1,8 +1,8 @@
 import numpy as np
 
 class ModelAgent:
-	def __init__(self):
-		self.memory = [0,0,0]
+	def __init__(self, memory):
+		self.memory = memory
 		pass
         
 	# build a general-purpose interpreter (What the world is like now?)
@@ -128,5 +128,5 @@ class ModelAgent:
 		location, direction = self.update_position(action, location, direction)
 		print("new position:", location, direction)  
 		print("===================================") 
-		return location, direction,action
+		return location, direction,action, self.memory
 
