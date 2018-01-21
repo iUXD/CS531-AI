@@ -204,6 +204,7 @@ class Grid(Widget):
         self._initEnv2(**kwargs)
         # initialize agent state: i, j, env, direction,
         #            visitedSet
+        self.fileName = "agent1.txt"
         self.i1, self.j1, self.env1, self.direct1 = 0, 0, 0, 0
         self.visitedSet1 = set()  # record visited set
         self.i2, self.j2, self.env2, self.direct2 = 0, 0, 1, 0
@@ -250,6 +251,17 @@ class Grid(Widget):
         self.canvas.add(Rectangle(texture=self.label4.texture, size=(80, 30),  pos=(460, 30)))
         self.canvas.add(Rectangle(texture=self.label5.texture, size=(80, 30),  pos=(560, 30)))
         self.canvas.add(Rectangle(texture=self.label6.texture, size=(120, 30), pos=(660, 30)))
+        self._write2File()
+    def _write2File(self):
+
+        with open(self.fileName, 'a') as text_file:
+            text_file.write("%5d+%4d+%5f+%5d+%4d+%5f \n" %(self.actionNum1,
+                                                                     self.cleanedNum1,
+                                                                     self.performancedNum1,
+                                                                     self.actionNum2,
+                                                                     self.cleanedNum2,
+                                                                     self.performancedNum2
+                                                                     ))
 
 
     def _initEnv1(self, **kwargs):
@@ -306,12 +318,15 @@ class Grid(Widget):
         if AGENT_ID == 1:
             percept1 = SimpleDeterministicAgent()
             percept2 = SimpleDeterministicAgent()
+            self.fileName = "agent1.txt"
         elif AGENT_ID == 2:
             percept1 = SimpleStochasticAgent()
             percept2 = SimpleStochasticAgent()
+            self.fileName = "agent2.txt"
         else:
             percept1 = ModelDeterministicAgent(agent31_memory)
             percept2 = ModelDeterministicAgent(agent32_memory)
+            self.fileName = "agent3.txt"
 
         global agent1_status
         global agent1_actionNum
@@ -409,7 +424,7 @@ class VacuumApp(App):
 
     def beginRun(self,  *kwargs):
 
-        Clock.schedule_interval(self.canvasGrid.drawGrid, 0.12)
+        Clock.schedule_interval(self.canvasGrid.drawGrid, 0.05)
 
         # Clock.schedule_interval(self.canvasGrid.drawGrid, 7)
 
@@ -418,4 +433,6 @@ class VacuumApp(App):
 
 if __name__ == '__main__':
     # MyApp().run()
+    with open('agent3.txt', 'w') as text_file:
+        text_file.write("")
     VacuumApp().run()
