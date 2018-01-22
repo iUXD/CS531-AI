@@ -21,16 +21,24 @@ ENV1 = 0    # environment 1
 ENV2 = 1    # environment 2
 ENV_GAP = 400
 homeSet = {(0, 0)}
+
 dirtyCellSet1 = {(0, 0), (1, 1), (2, 2),
                 (3, 3), (4, 4), (5, 5),
                 (6, 6), (7, 7), (8, 8),
                 (9, 9)}
+#dirtyCellSet1 = set(tuple(x,y) for x in range(0,10) for y in range(0,10))
+
 dirtyCellSet2 = {(0, 0), (1, 1), (2, 2),
                 (3, 3), (4, 4), (5, 5),
                 (6, 6), (7, 7), (8, 8),
                 (9, 9)}
+#dirtyCellSet2 = set(tuple(x,y) for x in range(0,10) for y in range(0,10))
+
 wallCellSet = {(0, 5), (1, 5), (2, 5), (3, 5), (5, 5), (7, 5), (8, 5),(9, 5),
                (5, 0), (5, 1), (5, 2), (5, 3), (5, 5), (5, 7), (5, 8),(5, 9)}
+wallCellSet = {(0, 5), (1, 5), (3, 5), (4, 5), (5, 5), (6, 5), (8, 5),(9, 5),
+               (5, 0), (5, 1), (5, 3), (5, 4), (5, 5), (5, 6), (5, 8),(5, 9)}
+
 outWallCellSet = {(-1, -1), (-1, 0), (-1, 1), (-1, 2), (-1, 3), (-1, 4), (-1, 5),
                   (-1, 6), (-1, 7), (-1, 8), (-1, 9), (-1, 10),
                   (10, -1), (10, 0), (10, 1), (10, 2), (10, 3), (10, 4), (10, 5),
@@ -434,7 +442,7 @@ class VacuumApp(App):
 
 if __name__ == '__main__':
     # MyApp().run()
-    AGENT_ID = int(sys.argv[1])
+    #AGENT_ID = int(sys.argv[1])
     with open('agent3.txt', 'w') as text_file:
         text_file.write("")
     VacuumApp().run()
