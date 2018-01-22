@@ -1,3 +1,4 @@
+import sys
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
@@ -433,6 +434,7 @@ class VacuumApp(App):
 
 if __name__ == '__main__':
     # MyApp().run()
+    AGENT_ID = int(sys.argv[1])
     with open('agent3.txt', 'w') as text_file:
         text_file.write("")
     VacuumApp().run()
