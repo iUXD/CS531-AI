@@ -10,8 +10,25 @@ from kivy.clock import Clock
 from simple_determin_reflex import SimpleDeterministicAgent
 from simple_random_reflex import SimpleStochasticAgent
 from model_determin_reflex import ModelDeterministicAgent
+from copy import deepcopy
 # global set
+threadControl = 0
+Epoch = 0
 AGENT_ID = 3
+controlLimit = 500
+dirtyCellSet0 = {(0, 0), (1, 1), (2, 2),
+                (3, 3), (4, 4), (5, 5),
+                (6, 6), (7, 7), (8, 8),
+                (9, 9)}
+agent1_status = 0
+agent1_actionNum = 0
+agent1_cleanedNum = 0
+agent2_status = 0
+agent2_actionNum = 0
+agent2_cleanedNum = 0
+agent31_memory = [0, 0, 0]
+agent32_memory = [0, 0, 0]
+
 GRID_SIZE = 10
 CELL_SIZE = 30
 START_X = 50
@@ -21,6 +38,7 @@ ENV1 = 0    # environment 1
 ENV2 = 1    # environment 2
 ENV_GAP = 400
 homeSet = {(0, 0)}
+
 
 dirtyCellSet1 = {(0, 0), (1, 1), (2, 2),
                 (3, 3), (4, 4), (5, 5),
@@ -33,11 +51,12 @@ dirtyCellSet2 = {(0, 0), (1, 1), (2, 2),
                 (6, 6), (7, 7), (8, 8),
                 (9, 9)}
 #dirtyCellSet2 = set(tuple(x,y) for x in range(0,10) for y in range(0,10))
-
+wallCellSet0 = {(0, 5), (1, 5), (2, 5), (3, 5), (5, 5), (7, 5), (8, 5),(9, 5),
+               (5, 0), (5, 1), (5, 2), (5, 3), (5, 5), (5, 7), (5, 8),(5, 9)}
 wallCellSet = {(0, 5), (1, 5), (2, 5), (3, 5), (5, 5), (7, 5), (8, 5),(9, 5),
                (5, 0), (5, 1), (5, 2), (5, 3), (5, 5), (5, 7), (5, 8),(5, 9)}
-wallCellSet = {(0, 5), (1, 5), (3, 5), (4, 5), (5, 5), (6, 5), (8, 5),(9, 5),
-               (5, 0), (5, 1), (5, 3), (5, 4), (5, 5), (5, 6), (5, 8),(5, 9)}
+# wallCellSet = {(0, 5), (1, 5), (3, 5), (4, 5), (5, 5), (6, 5), (8, 5),(9, 5),
+#                (5, 0), (5, 1), (5, 3), (5, 4), (5, 5), (5, 6), (5, 8),(5, 9)}
 
 outWallCellSet = {(-1, -1), (-1, 0), (-1, 1), (-1, 2), (-1, 3), (-1, 4), (-1, 5),
                   (-1, 6), (-1, 7), (-1, 8), (-1, 9), (-1, 10),
@@ -65,7 +84,7 @@ class Root(Widget):
 class Start(Button):
     def __init__(self, **kwargs):
         super(Start, self).__init__(**kwargs)
-        self.text = "Start"
+        # self.text = "Start"
 
 
 class Agent(Rectangle):
@@ -213,7 +232,7 @@ class Grid(Widget):
         self._initEnv2(**kwargs)
         # initialize agent state: i, j, env, direction,
         #            visitedSet
-        self.fileName = "agent1.txt"
+        self.fileName = "agent.txt"
         self.i1, self.j1, self.env1, self.direct1 = 0, 0, 0, 0
         self.visitedSet1 = set()  # record visited set
         self.i2, self.j2, self.env2, self.direct2 = 0, 0, 1, 0
@@ -235,8 +254,8 @@ class Grid(Widget):
         self.label5 = Label(text="cleaned# :%4d"%self.cleanedNum1,        size=(10, 10), pos=(560, 30))
         self.label6 = Label(text="performance:%5f"%self.performancedNum1, size=(10, 10), pos=(700, 30))
         self._addLabels()
-
-        self.controlLimit = 500   # used to setup steps to break animation.
+        global controlLimit
+        self.controlLimit = controlLimit   # used to setup steps to break animation.
 
     pass
     def _addLabels(self):
@@ -307,7 +326,7 @@ class Grid(Widget):
             Clock.unschedule(self.drawGrid)
 
         # print(self.controlLimit, self.agent1.j, self.agent2.i)
-
+        print(self.controlLimit)
         self.update()
 
 
@@ -327,15 +346,12 @@ class Grid(Widget):
         if AGENT_ID == 1:
             percept1 = SimpleDeterministicAgent()
             percept2 = SimpleDeterministicAgent()
-            self.fileName = "agent1.txt"
         elif AGENT_ID == 2:
             percept1 = SimpleStochasticAgent()
             percept2 = SimpleStochasticAgent()
-            self.fileName = "agent2.txt"
         else:
             percept1 = ModelDeterministicAgent(agent31_memory)
             percept2 = ModelDeterministicAgent(agent32_memory)
-            self.fileName = "agent3.txt"
 
         global agent1_status
         global agent1_actionNum
@@ -384,9 +400,10 @@ class Grid(Widget):
                 dirtyCellSet2.remove(self.agent2.getPosIJ())
             if agent2_action == 'Clean' or agent2_action == 'GoHead' or agent2_action == 'TurnRight':
                 self.visitedSet2.add(self.agent2.getPosIJ())
-
+        global  threadControl
         if agent1_status == 1 and agent2_status == 1:
-                Clock.unschedule(self.drawGrid)
+            Clock.unschedule(self.drawGrid)
+            threadControl = 0
 
     def _updateOneAgent(self, percept):
 
@@ -420,29 +437,142 @@ class Grid(Widget):
 
 class VacuumApp(App):
     def build(self):
+
         self.canvasGrid = Grid()
 
-        startButton = Start(on_press=self.beginRun)
+        startButton1 = Start(on_press=self.beginRun1, text="Agent1")
+        startButton2 = Start(on_press=self.beginRun2, text="Agent2")
+        startButton3 = Start(on_press=self.beginRun3, text="Agent3")
+        startButton4 = Start(on_press=self.beginRun4, text="Reset Epoch")
+        startButton5 = Start(on_press=self.beginRun5, text="SaveData")
+        # startButton6 = Start(on_press=self.beginRun6, text="Agent2 50runs")
         buttonLayout = BoxLayout(size_hint=(1, None), height=50)
-        buttonLayout.add_widget(startButton)
+        buttonLayout.add_widget(startButton1)
+        buttonLayout.add_widget(startButton2)
+        buttonLayout.add_widget(startButton3)
+        buttonLayout.add_widget(startButton4)
+        buttonLayout.add_widget(startButton5)
+        # buttonLayout.add_widget(startButton6)
         root = BoxLayout(orientation='vertical')
         root.add_widget(buttonLayout)
         root.add_widget(self.canvasGrid)
 
+
         return root
 
-    def beginRun(self,  *kwargs):
-
+    def beginRun1(self,  *kwargs):
+        global AGENT_ID
+        self.set2Origin()
+        AGENT_ID = 1
+        self.canvasGrid.__init__()
         Clock.schedule_interval(self.canvasGrid.drawGrid, 0.05)
 
-        # Clock.schedule_interval(self.canvasGrid.drawGrid, 7)
+    def beginRun2(self, *kwargs):
+        global AGENT_ID
+        self.set2Origin()
+        AGENT_ID = 2
+        self.canvasGrid.__init__()
+        Clock.schedule_interval(self.canvasGrid.drawGrid, 0.01)
+
+    def beginRun3(self, *kwargs):
+        global AGENT_ID
+        self.set2Origin()
+        AGENT_ID = 3
+        self.canvasGrid.__init__()
+        Clock.schedule_interval(self.canvasGrid.drawGrid, 0.05)
 
         pass
+    def beginRun4(self, *kwargs):
+        #set to origin value
+        # reset Epock = 0
+        #       clean agent.txt file
+        self.cleanFile()
+        self.set2Origin()
+        self.canvasGrid.__init__()
+        global Epoch
+        Epoch = 0
 
+    def beginRun5(self, *kwargs):
+        # save file based on current setting
+        # need: agent number
+        # current running
+        global AGENT_ID
+        global Epoch
+        AGENT_ID = 2
+        self.canvasGrid.__init__()
+        self.set2Origin()
+
+        self.saveFile(AGENT_ID,Epoch)
+        Epoch += 1
+
+    def beginRun6(self, *kwargs):
+        # auto save 50 runs, only for agent 2
+        global AGENT_ID
+        global Epoch
+        AGENT_ID = 2
+        Epoch = 0
+        global threadControl
+        while Epoch < 50 and threadControl == 0:
+            threadControl = 1
+            self.set2Origin()
+
+            self.canvasGrid.__init__()
+            Clock.schedule_interval(self.canvasGrid.drawGrid, 0.05)
+            self.saveFile(Epoch, AGENT_ID)
+            Epoch += 1
+
+    def saveFile(self, AGENT_ID, Epoch):
+        baseDataFile = "agent.txt"
+        newDataFile = "data/agent%d_%d.txt" % (AGENT_ID, Epoch)
+        with open(baseDataFile) as f:
+            lines = f.readlines()
+            lines = [l for l in lines]
+            # lines = [l for l in lines if "ROW" in l]
+
+            with open(newDataFile, 'w') as f1:
+                f1.writelines(lines)
+
+        print("======>saved data to %s <===== done"%newDataFile)
+        print("======>agent %d of Epoch %d <====="%(AGENT_ID, Epoch))
+        self.cleanFile()
+
+    def cleanFile(self):
+        baseDataFile = "agent.txt"
+        with open(baseDataFile, 'w') as f:
+            f.write("")
+
+    def set2Origin(self):
+        global dirtyCellSet0
+        global dirtyCellSet1
+        global dirtyCellSet2
+        global AGENT_ID
+        global agent1_status
+        global agent2_status
+        global agent1_actionNum
+        global agent1_cleanedNum
+        global agent2_status
+        global agent2_actionNum
+        global agent2_cleanedNum
+        global agent31_memory
+        global agent32_memory
+        agent1_actionNum = 0
+        agent1_cleanedNum = 0
+        agent2_status = 0
+        agent2_actionNum = 0
+        agent2_cleanedNum = 0
+        agent31_memory = [0, 0, 0]
+        agent32_memory = [0, 0, 0]
+        agent1_status = 0
+        agent1_status = 0
+        dirtyCellSet1 = deepcopy(dirtyCellSet0)
+        dirtyCellSet2 = deepcopy(dirtyCellSet0)
+
+        pass
 
 if __name__ == '__main__':
     # MyApp().run()
     #AGENT_ID = int(sys.argv[1])
     with open('agent3.txt', 'w') as text_file:
         text_file.write("")
+
     VacuumApp().run()
