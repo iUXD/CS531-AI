@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88088e99-32d0-47b3-9813-a616b99bc132" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/vacuum2.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/agent.txt" afterPath="$PROJECT_DIR$/agent.txt" />
-      <change beforePath="$PROJECT_DIR$/resultPlot.py" afterPath="$PROJECT_DIR$/resultPlot.py" />
+      <change beforePath="$PROJECT_DIR$/data/45agent2_0.txt" afterPath="$PROJECT_DIR$/data/45agent2_0.txt" />
+      <change beforePath="$PROJECT_DIR$/data/45agent2_1000.txt" afterPath="$PROJECT_DIR$/data/45agent2_1000.txt" />
+      <change beforePath="$PROJECT_DIR$/vacuum2.py" afterPath="$PROJECT_DIR$/vacuum2.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,7 +17,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/AI_Vacuum$resultPlot.coverage" NAME="resultPlot Coverage Results" MODIFIED="1516667361996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AI_Vacuum$vacuum2.coverage" NAME="vacuum2 Coverage Results" MODIFIED="1516682976614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AI_Vacuum$vacuum2.coverage" NAME="vacuum2 Coverage Results" MODIFIED="1516683863268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AI_Vacuum$vacuum.coverage" NAME="vacuum Coverage Results" MODIFIED="1516666311150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
@@ -36,7 +37,7 @@
       <file leaf-file-name="vacuum.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vacuum.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
+            <state relative-caret-position="9450">
               <caret line="525" column="63" lean-forward="false" selection-start-line="525" selection-start-column="23" selection-end-line="525" selection-end-column="63" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -48,8 +49,8 @@
       <file leaf-file-name="vacuum2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vacuum2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4359">
-              <caret line="510" column="38" lean-forward="true" selection-start-line="510" selection-start-column="38" selection-end-line="510" selection-end-column="38" />
+            <state relative-caret-position="90">
+              <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -58,8 +59,18 @@
       <file leaf-file-name="45agent2_1000.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/45agent2_1000.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="162">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="45agent2_0.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/45agent2_0.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -129,6 +140,7 @@
         <option value="$PROJECT_DIR$/vacuum.py" />
         <option value="$PROJECT_DIR$/resultPlot.py" />
         <option value="$PROJECT_DIR$/vacuum2.py" />
+        <option value="$PROJECT_DIR$/data/45agent2_0.txt" />
       </list>
     </option>
   </component>
@@ -168,6 +180,11 @@
             <path>
               <item name="AI_Vacuum" type="b2602c69:ProjectViewProjectNode" />
               <item name="AI_Vacuum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AI_Vacuum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AI_Vacuum" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AI_Vacuum" type="b2602c69:ProjectViewProjectNode" />
@@ -306,6 +323,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="71" y="156" width="2041" height="1191" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33178005" sideWeight="0.50966936" order="7" side_tool="true" content_ui="tabs" />
@@ -313,7 +331,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17058529" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17058529" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938242" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -615,16 +633,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vacuum.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="525" column="63" lean-forward="false" selection-start-line="525" selection-start-column="23" selection-end-line="525" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simple_random_reflex.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
@@ -633,26 +641,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/45agent2_0.txt">
+    <entry file="file://$PROJECT_DIR$/vacuum.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="9450">
+          <caret line="525" column="63" lean-forward="false" selection-start-line="525" selection-start-column="23" selection-end-line="525" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vacuum2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4359">
-          <caret line="510" column="38" lean-forward="true" selection-start-line="510" selection-start-column="38" selection-end-line="510" selection-end-column="38" />
+        <state relative-caret-position="90">
+          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/45agent2_0.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/45agent2_1000.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="162">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>

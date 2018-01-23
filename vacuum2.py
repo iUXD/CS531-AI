@@ -15,7 +15,7 @@ from copy import deepcopy
 threadControl = 0
 Epoch = 0
 AGENT_ID = 3
-controlLimit = 2000
+controlLimit = 4000
 dirtyCellSet0 = {(0, 0), (1, 1), (2, 2),
                 (3, 3), (4, 4), (5, 5),
                 (6, 6), (7, 7), (8, 8),
