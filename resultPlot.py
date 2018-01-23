@@ -23,12 +23,14 @@ def plotResult():
 
 
     for i in range(50):
-        fileName = "data/agent%d_%d.txt" % (2, i)
+        if i == 32:
+            continue
+        fileName = "data/random2_agent%d_%d.txt" % (2, i)
         aa1, bb1 = _readFile(fileName)
 
         addTogether(aa1, bb1)
-    a1 = [i/50 for i in a1]
-    b1 = [i/50 for i in b1]
+    a1 = [i/49 for i in a1]
+    b1 = [i/49 for i in b1]
     plt.plot(range(500), a1, label="Env1")
     plt.plot(range(500), b1, label="Env2")
     plt.xlabel("Actions taken")
