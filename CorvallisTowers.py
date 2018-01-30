@@ -4,7 +4,6 @@
 from heapq import heapify, heappop, heappush
 # NMAX = 10
 
-
 def readData(file):
     res = []
     with open(file, "r") as f:
@@ -17,9 +16,9 @@ def readData(file):
 def finalState(data):
     # return the final state of give state representation
     # 2310 -- > 3210
-    return "3210,_,_"
+    #return "3210,_,_"
+    return encodeState(data[::-1], "_", "_")
     pass
-
 
 def heuristic_admissiable(curr, final):
     # curr: current state   --> 0+1+2
@@ -43,7 +42,6 @@ def heuristic_non_admissiable(curr, final):
     # print (cur1, cur2, cur3 , final1, final2, final3, final1 - final2 - final2 - cur1 + cur2 + cur3 )
     return  final1 - final2 - final2 - cur1 + cur2 + cur3
     # return  final1  - cur1
-
 
 def encodeState(peg1, peg2, peg3):
     return peg1+","+peg2+","+peg3
@@ -75,16 +73,16 @@ def moveOneStep(state, start, end):
     # print(pegs)
     return encodeState(pegs[0], pegs[1],pegs[2])
 
-
-
 def solution1(data):
     # f(n) = g(n) + h(n)
     # h(n) = heuristic1()
     curState = encodeState(data, "_", "_")
+    print("curState: ", curState)
     goalState = finalState(data)
+    print("goalState:", goalState)
     # moveOneStep(initState, 1,2)
     # global NMAX
-    NMAX =  400
+    NMAX =  100
     frontier = []
     heapify(frontier)
     fvalue = 0
@@ -107,19 +105,18 @@ def solution1(data):
             gvalue += 1
             fvalue = gvalue + heuristic_non_admissiable(newState, goalState)
             heappush(frontier, (fvalue, gvalue, newState))
-
-
             # print("state==", curState,";newState = ",newState, "   fvalue=", fvalue, "  num=", NMAX, "i = ", i, " j=",j)
 
     if NMAX == 0:
-        print(" Failed ")
+        print(" Failed.. ")
     else:
-        print("path: ")
+        print(" Finished! \n Path: ... ")
+
 if __name__ == '__main__':
     ## configuration: disk number
     ##
     filePath = "data/4.txt"
     data = readData(filePath)
-
-    solution1("0123")
+    solution1("012")
+    #solution1(data[0])
     pass
