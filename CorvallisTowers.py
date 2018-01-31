@@ -21,7 +21,7 @@ def finalState(data):
     return encodeState(goal, "_", "_")
 
 def find_index_mismatch_peg1(curr, final):
-    print("disks in the peg:", curr)
+    # print("disks in the peg:", curr)
     # compare from the bottom
     s1 = curr[::-1]
     s2 = final[::-1]
@@ -31,7 +31,7 @@ def find_index_mismatch_peg1(curr, final):
     return len(curr)
 
 def compute_gap_between_any_pair_disks(curr):
-    print("disks in the peg:", curr)
+    # print("disks in the peg:", curr)
     total_gap = 0
     for i in range(len(curr)):
         for j in range(i+1, len(curr)):
@@ -48,15 +48,15 @@ def heuristic_admissiable(curr, final):
 
     i = find_index_mismatch_peg1(cur1, final1)
     gap1 = (len(cur1) - i) * 2
-    print("gap1:", gap1)
+    # print("gap1:", gap1)
 
     gap2 = compute_gap_between_any_pair_disks(cur2)
     gap2 += len(cur2)
-    print("gap2:", gap2)
+    # print("gap2:", gap2)
 
     gap3 = compute_gap_between_any_pair_disks(cur3)
     gap3 += len(cur3)
-    print("gap3:", gap3)
+    # print("gap3:", gap3)
 
     return gap1 + gap2 + gap3
 
@@ -107,14 +107,15 @@ def moveOneStep(state, start, end):
     return encodeState(pegs[0], pegs[1],pegs[2])
 
 def findPath(pathes, curState):
-    res = [curState]
+    res = list()
     res.append(curState)
     while curState in pathes:
         parentState = pathes[curState]
         res.append(parentState)
+        curState = parentState
     return res
 
-def solution1(data, funtionID=0, beanWidth=5):
+def solution1(data, funtionID=1, beanWidth=5):
     # f(n) = g(n) + h(n)
     # h(n) = heuristic1()
     curState = encodeState(data, "_", "_")
@@ -125,6 +126,7 @@ def solution1(data, funtionID=0, beanWidth=5):
     # global NMAX
 
     NMAX =  10000
+    steps = 0
     frontier = []
     heapify(frontier)
     fvalue = 0
@@ -132,10 +134,11 @@ def solution1(data, funtionID=0, beanWidth=5):
     heappush(frontier, (fvalue, gvalue, curState))
     visited = set()
     visited.add(curState)
-    pathes = {} # used to store the path relationship between nodes
+    pathes = dict() # used to store the path relationship between nodes
     t1 = float(time.clock())
     while curState != goalState and NMAX != 0 and frontier != []:
         NMAX -= 1
+        steps += 1
         fvalue, gvalue, curState= heappop(frontier)
         # if curState == goalState:
         #     print("find it!")
@@ -162,8 +165,8 @@ def solution1(data, funtionID=0, beanWidth=5):
     if NMAX == 0:
         print(" Failed.. ")
     else:
-        print(" Finished! \n Path: ... ")
         path = findPath(pathes, curState)
+        print(" Finished! \n Path length %d with steps = %d: ... "%(len(path), steps))
         print(path)
         print("Done")
 
@@ -174,7 +177,7 @@ if __name__ == '__main__':
     ##
     filePath = "data/4.txt"
     data = readData(filePath)
-    solution1("012")
+    solution1("0123")
 
     sizeNums = [3, 4, 5, 6, 7, 8, 9]            # test for different number of disks
     beamSizes = [5, 10, 15, 20, 25, 50, 100]    # test for different beam widths
