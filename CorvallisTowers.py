@@ -20,12 +20,45 @@ def finalState(data):
     return encodeState(data[::-1], "_", "_")
     pass
 
+def find_index_mismatch_peg1(curr, final):
+    print("disks in the peg:", curr)
+    # compare from the bottom
+    s1 = curr[::-1]
+    s2 = final[::-1]
+    for i in xrange(len(s1)):
+        if s1[i] != s2[i]:
+            return i
+    return len(curr)
+
+def compute_gap_between_any_pair_disks(curr):
+    print("disks in the peg:", curr)
+    total_gap = 0
+    for i in xrange(len(curr)):
+        for j in range(i+1, len(curr)):
+            if int(curr[i]) > int(curr[j]):
+                total_gap += int(curr[i])-int(curr[j])
+    return total_gap
+
 def heuristic_admissiable(curr, final):
-    # curr: current state   --> 0+1+2
-    # final: final state    --> 210+_+_
-    # return 210 - 0 + 1 - 0 + 2 - 0 = 213
-    return 0
-    pass
+    cur1, cur2, cur3 = decodeState(curr)
+    cur1 = cur1.replace("_", "")
+    cur2 = cur2.replace("_", "")
+    cur3 = cur3.replace("_", "")
+    final1, final2, final3 = decodeState(final)
+
+    i = find_index_mismatch_peg1(cur1, final1)
+    gap1 = (len(cur1) - i) * 2
+    print("gap1:", gap1)
+
+    gap2 = compute_gap_between_any_pair_disks(cur2)
+    gap2 += len(cur2)
+    print("gap2:", gap2)
+
+    gap3 = compute_gap_between_any_pair_disks(cur3)
+    gap3 += len(cur3)
+    print("gap3:", gap3)
+
+    return gap1 + gap2 + gap3
 
 def heuristic_non_admissiable(curr, final):
     # curr: current state   --> 0+1+2
@@ -82,7 +115,8 @@ def solution1(data):
     print("goalState:", goalState)
     # moveOneStep(initState, 1,2)
     # global NMAX
-    NMAX =  100
+
+    NMAX =  0
     frontier = []
     heapify(frontier)
     fvalue = 0
@@ -96,7 +130,7 @@ def solution1(data):
         # if curState == goalState:
         #     print("find it!")
         #     break
-        print("state==", curState, "   fvalue=", fvalue, "  num=", NMAX, " goal =", goalState)
+        print("state=", curState, "   fvalue=", fvalue, "  num=", NMAX, " goal=", goalState)
         for (i,j) in [(0,1), (0,2), (1,2), (1,0), (2,0), (2,1)]:
             newState = moveOneStep(curState, i, j)
             if newState in visited:
