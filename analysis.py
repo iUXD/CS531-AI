@@ -32,8 +32,8 @@ def plotResult(cpuTimes, steps, pathes):
     t0 = getArray(steps, 0, beamSize)       #   For A* that beam width = inf, averaged number
     t1 = getArray(steps, 1, beamSize)       #
 
-    t2 = getArray(steps, 0, 0)  # For A* that beam width = inf
-    t3 = getArray(steps, 1, 0)  #
+    t2 = getArray(steps, 0, 6)  # For A* that beam width = inf
+    t3 = getArray(steps, 1, 6)  #
     print(t0, t1, t2, t3)
 
     fig1 = plt.gcf()
@@ -55,10 +55,11 @@ def plotResult(cpuTimes, steps, pathes):
     t0 = getArray(cpuTimes, 0, beamSize)  # For A* that beam width = inf
     t1 = getArray(cpuTimes, 1, beamSize)  #
 
-    t2 = getArray(cpuTimes, 0, 4)  # For A* that beam width = inf
-    t3 = getArray(cpuTimes, 1, 4)  #
+    t2 = getArray(cpuTimes, 0, 6)  # For A* that beam width = inf
+    t3 = getArray(cpuTimes, 1, 6)  #
     # print(t1)
     print(t0, t1, t2, t3)
+    fig1 = plt.gcf()
     plt.plot(sizeNums, t0, label="A* non-admissible Heuristics")
     plt.plot(sizeNums, t1, label="A* admissible Heuristics")
 
