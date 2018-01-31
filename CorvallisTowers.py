@@ -25,7 +25,7 @@ def find_index_mismatch_peg1(curr, final):
     # compare from the bottom
     s1 = curr[::-1]
     s2 = final[::-1]
-    for i in xrange(len(s1)):
+    for i in range(len(s1)):
         if s1[i] != s2[i]:
             return i
     return len(curr)
@@ -33,7 +33,7 @@ def find_index_mismatch_peg1(curr, final):
 def compute_gap_between_any_pair_disks(curr):
     print("disks in the peg:", curr)
     total_gap = 0
-    for i in xrange(len(curr)):
+    for i in range(len(curr)):
         for j in range(i+1, len(curr)):
             if int(curr[i]) > int(curr[j]):
                 total_gap += int(curr[i])-int(curr[j])
@@ -73,7 +73,7 @@ def heuristic_non_admissiable(curr, final):
     final2 = 0 if final2 == "_" else int(final2)
     final3 = 0 if final3 == "_" else int(final3)
     # print (cur1, cur2, cur3 , final1, final2, final3, final1 - final2 - final2 - cur1 + cur2 + cur3 )
-    return  final1 - final2 - final2 - cur1 + cur2 + cur3
+    return  final1 - final2 - final3 - cur1 + cur2 + cur3
     # return  final1  - cur1
 
 def encodeState(peg1, peg2, peg3):
@@ -106,7 +106,7 @@ def moveOneStep(state, start, end):
     # print(pegs)
     return encodeState(pegs[0], pegs[1],pegs[2])
 
-def solution1(data):
+def solution1(data, funtionID=0, beanWidth=5):
     # f(n) = g(n) + h(n)
     # h(n) = heuristic1()
     curState = encodeState(data, "_", "_")
@@ -130,16 +130,22 @@ def solution1(data):
         # if curState == goalState:
         #     print("find it!")
         #     break
-        print("state=", curState, "   fvalue=", fvalue, "  num=", NMAX, " goal=", goalState)
+        # print("state=", curState, "   fvalue=", fvalue, "  num=", NMAX, " goal=", goalState)
+
         for (i,j) in [(0,1), (0,2), (1,2), (1,0), (2,0), (2,1)]:
+            if len(frontier) >= beanWidth:              ### control the beam width
+                break
             newState = moveOneStep(curState, i, j)
             if newState in visited:
                 continue
             visited.add(newState)
             gvalue += 1
-            fvalue = gvalue + heuristic_non_admissiable(newState, goalState)
+            if funtionID == 1:                          ### control of different heuristic function h
+                fvalue = gvalue + heuristic_admissiable(newState, goalState)
+            else:
+                fvalue = gvalue + heuristic_non_admissiable(newState, goalState)
+
             heappush(frontier, (fvalue, gvalue, newState))
-            # print("state==", curState,";newState = ",newState, "   fvalue=", fvalue, "  num=", NMAX, "i = ", i, " j=",j)
 
     if NMAX == 0:
         print(" Failed.. ")
@@ -152,5 +158,16 @@ if __name__ == '__main__':
     filePath = "data/4.txt"
     data = readData(filePath)
     solution1("012")
-    #solution1(data[0])
-    pass
+
+    sizeNums = [3, 4, 5, 6, 7, 8, 9]            # test for different number of disks
+    beamSizes = [5, 10, 15, 20, 25, 50, 100]    # test for different beam widths
+    functionIDS = [0, 1]                        # test for different function id
+
+    for functionID in functionIDS:
+        for beamSize in beamSizes:
+            for sizeNum in sizeNums:
+                for p in range(20):
+                    filePath = 'data/'+sizeNum +'.txt'
+                    data = readData(filePath)
+                    solution1(data[p])
+
