@@ -1,5 +1,6 @@
 ## This code is used for CSf531 2018 Winter Coding Assignment #2
 ## Author: Liqiang He, Eugene Seo
+import time
 
 from heapq import heapify, heappop, heappush
 # NMAX = 10
@@ -16,9 +17,8 @@ def readData(file):
 def finalState(data):
     # return the final state of give state representation
     # 2310 -- > 3210
-    #return "3210,_,_"
-    return encodeState(data[::-1], "_", "_")
-    pass
+    goal = ''.join(sorted(data, reverse=True))
+    return encodeState(goal, "_", "_")
 
 def find_index_mismatch_peg1(curr, final):
     print("disks in the peg:", curr)
@@ -133,6 +133,7 @@ def solution1(data, funtionID=0, beanWidth=5):
     visited = set()
     visited.add(curState)
     pathes = {} # used to store the path relationship between nodes
+    t1 = float(time.clock())
     while curState != goalState and NMAX != 0 and frontier != []:
         NMAX -= 1
         fvalue, gvalue, curState= heappop(frontier)
@@ -157,6 +158,7 @@ def solution1(data, funtionID=0, beanWidth=5):
             heappush(frontier, (fvalue, gvalue, newState))
             pathes[newState] = curState
 
+    t2 = float(time.clock())
     if NMAX == 0:
         print(" Failed.. ")
     else:
@@ -164,6 +166,8 @@ def solution1(data, funtionID=0, beanWidth=5):
         path = findPath(pathes, curState)
         print(path)
         print("Done")
+
+    print(" CPU time:", t2-t1)
 
 if __name__ == '__main__':
     ## configuration: disk number
