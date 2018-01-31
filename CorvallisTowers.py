@@ -106,6 +106,14 @@ def moveOneStep(state, start, end):
     # print(pegs)
     return encodeState(pegs[0], pegs[1],pegs[2])
 
+def findPath(pathes, curState):
+    res = [curState]
+    res.append(curState)
+    while curState in pathes:
+        parentState = pathes[curState]
+        res.append(parentState)
+    return res
+
 def solution1(data, funtionID=0, beanWidth=5):
     # f(n) = g(n) + h(n)
     # h(n) = heuristic1()
@@ -116,7 +124,7 @@ def solution1(data, funtionID=0, beanWidth=5):
     # moveOneStep(initState, 1,2)
     # global NMAX
 
-    NMAX =  0
+    NMAX =  10000
     frontier = []
     heapify(frontier)
     fvalue = 0
@@ -124,6 +132,7 @@ def solution1(data, funtionID=0, beanWidth=5):
     heappush(frontier, (fvalue, gvalue, curState))
     visited = set()
     visited.add(curState)
+    pathes = {} # used to store the path relationship between nodes
     while curState != goalState and NMAX != 0 and frontier != []:
         NMAX -= 1
         fvalue, gvalue, curState= heappop(frontier)
@@ -146,11 +155,15 @@ def solution1(data, funtionID=0, beanWidth=5):
                 fvalue = gvalue + heuristic_non_admissiable(newState, goalState)
 
             heappush(frontier, (fvalue, gvalue, newState))
+            pathes[newState] = curState
 
     if NMAX == 0:
         print(" Failed.. ")
     else:
         print(" Finished! \n Path: ... ")
+        path = findPath(pathes, curState)
+        print(path)
+        print("Done")
 
 if __name__ == '__main__':
     ## configuration: disk number
@@ -163,11 +176,13 @@ if __name__ == '__main__':
     beamSizes = [5, 10, 15, 20, 25, 50, 100]    # test for different beam widths
     functionIDS = [0, 1]                        # test for different function id
 
-    for functionID in functionIDS:
-        for beamSize in beamSizes:
-            for sizeNum in sizeNums:
-                for p in range(20):
-                    filePath = 'data/'+sizeNum +'.txt'
-                    data = readData(filePath)
-                    solution1(data[p])
+    # for functionID in functionIDS:
+    #     for beamSize in beamSizes:
+    #         for sizeNum in sizeNums:
+    #             for p in range(20):
+    #                 filePath = 'data/'+sizeNum +'.txt'
+    #                 data = readData(filePath)
+    #                 solution1(data[p])
 
+
+    pass
