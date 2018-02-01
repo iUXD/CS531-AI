@@ -4,6 +4,7 @@ import time
 from pathlib import Path
 from heapq import heapify, heappop, heappush
 import numpy as np
+import math
 # NMAX = 10
 
 def readData(file):
@@ -127,6 +128,7 @@ def solution1(data, funtionID=0, beanWidth=1000):
     # global NMAX
 
     NMAX =  100000
+    # NMAX = 1000
     steps = 0
     frontier = []
     heapify(frontier)
@@ -140,7 +142,8 @@ def solution1(data, funtionID=0, beanWidth=1000):
     while curState != goalState and NMAX != 0 and frontier != []:
         NMAX -= 1
         steps += 1
-        gvalue += 1
+        # gvalue += 1
+        queueLen = len(frontier)
         fvalue, gvalue, curState= heappop(frontier)
         # if curState == goalState:
         #     print("find it!")
@@ -159,7 +162,7 @@ def solution1(data, funtionID=0, beanWidth=1000):
             else:
                 fvalue = gvalue + heuristic_non_admissiable(newState, goalState)
 
-            heappush(frontier, (fvalue, gvalue, newState))
+            heappush(frontier, (fvalue, gvalue + 1, newState))
             pathes[newState] = curState
 
     t2 = float(time.clock())
@@ -179,6 +182,76 @@ def solution1(data, funtionID=0, beanWidth=1000):
         # print(path)
         # print("Done")
     print("Finished funtionID = %d and beanWidth = %f for data = %s"%(funtionID, float(beanWidth), data))
+    # print(path)
+    return t2-t1, steps, path
+    # print(" CPU time:", t2-t1)
+
+def solution2(data, funtionID=0, beanWidth=1000):
+    # f(n) = g(n) + h(n)
+    # h(n) = heuristic1()
+    curState = encodeState(data, "_", "_")
+    # print("curState: ", curState)
+    goalState = finalState(data)
+    # print("goalState:", goalState)
+    # moveOneStep(initState, 1,2)
+    # global NMAX
+
+    NMAX =  100000
+    # NMAX = 1000
+    steps = 0
+    frontier = []
+    heapify(frontier)
+    fvalue = 0
+    gvalue = 0
+    heappush(frontier, (fvalue, gvalue, curState))
+    visited = set()
+    visited.add(curState)
+    pathes = dict() # used to store the path relationship between nodes
+    t1 = float(time.clock())
+    while curState != goalState and NMAX != 0 and frontier != []:
+        NMAX -= 1
+        steps += 1
+        # gvalue += 1
+        queueLen = len(frontier)
+        fvalue, gvalue, curState= heappop(frontier)
+        # if curState == goalState:
+        #     print("find it!")
+        #     break
+        # print("state=", curState, "   fvalue=", fvalue, "  num=", NMAX, " goal=", goalState)
+
+        for (i,j) in [(0,1), (0,2), (1,2), (1,0), (2,0), (2,1)]:
+            if len(frontier) >= beanWidth:              ### control the beam width
+                break
+            newState = moveOneStep(curState, i, j)
+            if newState in visited:
+                continue
+            visited.add(newState)
+            if funtionID == 1:                          ### control of different heuristic function h
+                fvalue = gvalue + heuristic_admissiable(newState, goalState)
+            else:
+                fvalue = gvalue + heuristic_non_admissiable(newState, goalState)
+
+            heappush(frontier, (fvalue, gvalue + 1, newState))
+            pathes[newState] = curState
+
+    t2 = float(time.clock())
+    path = []
+    if NMAX == 0:
+        # print(NMAX == 0)
+        # print(" Failed of exhausted all tries for %s, more steps needed.. "%data)
+        pass
+    elif curState != goalState:
+        # print("Failed, cannot reach the goal from %s"%data)
+        pass
+    else:
+        # print("Passed, goal of %s is found "%data)
+        # print(curState, goalState)
+        path = findPath(pathes, curState)
+        # print(" Finished! \n Path length %d with steps = %d: ... "%(len(path), steps))
+        # print(path)
+        # print("Done")
+    print("Finished funtionID = %d and beanWidth = %f for data = %s"%(funtionID, float(beanWidth), data))
+    # print(path)
     return t2-t1, steps, path
     # print(" CPU time:", t2-t1)
 
@@ -193,17 +266,18 @@ if __name__ == '__main__':
     ##
     filePath = "data/4.txt"
     data = readData(filePath)
-    print(solution1("012345",0,float("inf")))
-    '''
+    # print(solution1("0123",0, 50))
+
     sizeNums = [4, 5, 6, 7, 8, 9, 10]            # test for different number of disks
     beamSizes = [5, 10, 15, 20, 25, 50, 100, float("inf")]    # test for different beam widths
+    # beamSizes = [100]
     functionIDS = [0, 1]                        # test for different function id
     ele0 = [[] for _ in range(20)]
     ele1 = [ele0 for _ in sizeNums]
     ele2 = [ele1 for _ in beamSizes]
     # steps = [ele2 for _ in functionIDS]
     # cupTimes = [ele2 for _ in functionIDS]
-    pathes = [ele2 for _ in functionIDS]
+    # pathes = [ele2 for _ in functionIDS]
     steps = np.ndarray(shape=(len(functionIDS),
                              len(beamSizes),
                              len(sizeNums),
@@ -212,10 +286,11 @@ if __name__ == '__main__':
                               len(beamSizes),
                               len(sizeNums),
                               20))
-    # pathes = np.ndarray(shape=(len(functionIDS),
-    #                           len(beamSizes),
-    #                           len(sizeNums),
-    #                           20))
+
+    pathes = np.ndarray(shape=(len(functionIDS),
+                              len(beamSizes),
+                              len(sizeNums),
+                              20))
     for kdx, functionID in enumerate(functionIDS):
         for idx, beamSize in enumerate(beamSizes):
             for jdx, sizeNum in enumerate(sizeNums):
@@ -227,10 +302,11 @@ if __name__ == '__main__':
                     res = solution1(data[p], funtionID=functionID, beanWidth=beamSize)
                     cupTimes[kdx][idx][jdx][p] = res[0]
                     steps[kdx][idx][jdx][p] = res[1]
-                    pathes[kdx][idx][jdx][p] = res[2]
-
+                    # print(len(res[2]))
+                    pathes[kdx][idx][jdx][p] = len(res[2])
+    # print(pathes[0][0][0][0])
     saveFiles(cupTimes, steps, np.asarray(pathes))
 
-    '''
+
 
     pass

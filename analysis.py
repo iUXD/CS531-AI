@@ -16,6 +16,14 @@ def getArray(array, functionID, beamSize):
         # print(ele)
         res.append(np.mean(ele))
     return res
+def getArrayPathLength(array, functionID, beamSize):
+    temp = array[functionID][beamSize]
+    res = []
+    for ele in temp:
+        print(ele)
+
+    return res
+
 
 def plotResult(cpuTimes, steps, pathes):
     sizeNums = [4, 5, 6, 7, 8, 9, 10]  # test for different number of disks
@@ -75,9 +83,47 @@ def plotResult(cpuTimes, steps, pathes):
     # plt.close()
 
     #Table about average solution length
+
+    #  Plot the average solution length
+    t0 = getArray(pathes, 0, beamSize)  # For A* that beam width = inf, averaged number
+    t1 = getArray(pathes, 1, beamSize)  #
+
+    t2 = getArray(pathes, 0, 6)  # For A* that beam width = inf
+    t3 = getArray(pathes, 1, 6)  #
+    print(t0, t1, t2, t3)
+
+    fig1 = plt.gcf()
+    plt.plot(sizeNums, t0, label="A* non-admissible Heuristics")
+    plt.plot(sizeNums, t1, label="A* admissible Heuristics")
+
+    plt.plot(sizeNums, t2, label="Bean Search (bw=100) non-admissible Heuristics")
+    plt.plot(sizeNums, t3, label="Bean Search (bw=100) admissible Heuristics")
+
+    plt.xlabel("Problem Size")
+    plt.ylabel("Average Solution Length")
+    plt.legend()
+    plt.title("Average solution length against the problem size")
+    plt.show()
+    fig1.savefig("aveSoluLen_problemSize.png")
+    plt.close()
+
     pass
 
-
+# def plotResult1(cpuTimes, steps, pathes):
+#     sizeNums = [4, 5, 6, 7, 8, 9, 10]  # test for different number of disks
+#     beamSizes = [5, 10, 15, 20, 25, 50, 100, float("inf")]  # test for different beam widths
+#     functionIDS = [0, 1]
+#     beamSize = 7 # select inf
+#     # plot the number of nodes (steps)
+#     # steps = np.ndarray(shape=(len(functionIDS),
+#     #                           len(beamSizes),
+#     #                           len(sizeNums),
+#     #                           20))
+#
+#     # plot the nodesNum_problemSize
+#     # t0 = getArrayPathLength(pathes, 0, beamSize)
+#     print(pathes[0][7][1][2])
+#     pass
 
 if __name__ == '__main__':
     # read numpy data
