@@ -40,8 +40,8 @@ def plotResult(cpuTimes, steps, pathes):
     plt.plot(sizeNums, t0, label="A* non-admissible Heuristics")
     plt.plot(sizeNums, t1, label="A* admissible Heuristics")
 
-    plt.plot(sizeNums, t2, label="Bean Search (bw=25) non-admissible Heuristics")
-    plt.plot(sizeNums, t3, label="Bean Search (bw=25) admissible Heuristics")
+    plt.plot(sizeNums, t2, label="Bean Search (bw=100) non-admissible Heuristics")
+    plt.plot(sizeNums, t3, label="Bean Search (bw=100) admissible Heuristics")
 
     plt.xlabel("Problem Size")
     plt.ylabel("# of Nodes")
@@ -63,8 +63,8 @@ def plotResult(cpuTimes, steps, pathes):
     plt.plot(sizeNums, t0, label="A* non-admissible Heuristics")
     plt.plot(sizeNums, t1, label="A* admissible Heuristics")
 
-    plt.plot(sizeNums, t2, label="Bean Search (bw=25) non-admissible Heuristics")
-    plt.plot(sizeNums, t3, label="Bean Search (bw=25) admissible Heuristics")
+    plt.plot(sizeNums, t2, label="Bean Search (bw=100) non-admissible Heuristics")
+    plt.plot(sizeNums, t3, label="Bean Search (bw=100) admissible Heuristics")
 
     plt.xlabel("Problem Size")
     plt.ylabel("CPU time")
