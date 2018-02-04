@@ -62,6 +62,16 @@ def heuristic_admissiable(curr, final):
 
     return gap1 + gap2 + gap3
 
+def calVal(str):
+    # transfer string to int value, for the score calculation
+    score = 0
+    level = 0.1
+    for idx, ele in enumerate(str[::-1]):
+        level *= 10
+        score += level * (ord(ele) - 48)
+    return score
+    pass
+
 def heuristic_non_admissiable(curr, final):
     # curr: current state   --> 0+1+2
     # final: final state    --> 210+_+_
@@ -117,18 +127,27 @@ def findPath(pathes, curState):
         curState = parentState
     return res[::-1]
 
-def solution1(data, funtionID=0, beanWidth=1000):
+def cutNodes(frontier, beanWidth, hard):
+    if hard:
+        tempHeap = [(-1 * i, j, k) for (i, j, k) in frontier]
+        heapify(tempHeap)
+        while len(tempHeap) > beanWidth:
+            heappop(tempHeap)
+        tempHeap2 = [(-1 * i, j, k) for (i, j, k) in tempHeap]
+        heapify(tempHeap2)
+        return tempHeap2
+    else:
+        return frontier[:beanWidth]
+
+def solution_always_mantain_heap(data, funtionID=0, beanWidth=1000):
+    # this method will expand only one node in the frontier by using a heap
+    # then maintain the frontier size to beanWidth by only consider one child
     # f(n) = g(n) + h(n)
     # h(n) = heuristic1()
     curState = encodeState(data, "_", "_")
-    # print("curState: ", curState)
     goalState = finalState(data)
-    # print("goalState:", goalState)
-    # moveOneStep(initState, 1,2)
-    # global NMAX
 
     NMAX =  100000
-    # NMAX = 1000
     steps = 0
     frontier = []
     heapify(frontier)
@@ -142,13 +161,7 @@ def solution1(data, funtionID=0, beanWidth=1000):
     while curState != goalState and NMAX != 0 and frontier != []:
         NMAX -= 1
         steps += 1
-        # gvalue += 1
-        queueLen = len(frontier)
         fvalue, gvalue, curState= heappop(frontier)
-        # if curState == goalState:
-        #     print("find it!")
-        #     break
-        # print("state=", curState, "   fvalue=", fvalue, "  num=", NMAX, " goal=", goalState)
 
         for (i,j) in [(0,1), (0,2), (1,2), (1,0), (2,0), (2,1)]:
             if len(frontier) >= beanWidth:              ### control the beam width
@@ -179,25 +192,22 @@ def solution1(data, funtionID=0, beanWidth=1000):
         # print(curState, goalState)
         path = findPath(pathes, curState)
         # print(" Finished! \n Path length %d with steps = %d: ... "%(len(path), steps))
-        # print(path)
-        # print("Done")
-    print("Finished funtionID = %d and beanWidth = %f for data = %s"%(funtionID, float(beanWidth), data))
-    # print(path)
+    print("Finished funtionID = %d and beanWidth = %f for data = %10s using time of %f" % (funtionID,
+                                                                                           float(beanWidth),
+                                                                                           data,
+                                                                                           t2 - t1))
     return t2-t1, steps, path
-    # print(" CPU time:", t2-t1)
 
-def solution2(data, funtionID=0, beanWidth=1000):
+def solution(data, funtionID=0, beanWidth=1000):
+    # this method will expand only one node in the frontier by using a heap
+    # then maintain the frontier size to beanWidth by cut off method
+    # since the frontier size will not bigger than beanWidth too much, it is efficient (but loss some accuracy)
     # f(n) = g(n) + h(n)
     # h(n) = heuristic1()
     curState = encodeState(data, "_", "_")
-    # print("curState: ", curState)
     goalState = finalState(data)
-    # print("goalState:", goalState)
-    # moveOneStep(initState, 1,2)
-    # global NMAX
 
     NMAX =  100000
-    # NMAX = 1000
     steps = 0
     frontier = []
     heapify(frontier)
@@ -211,17 +221,16 @@ def solution2(data, funtionID=0, beanWidth=1000):
     while curState != goalState and NMAX != 0 and frontier != []:
         NMAX -= 1
         steps += 1
-        # gvalue += 1
         queueLen = len(frontier)
+        # if the frontier size is bigger than the beamWidth, cut it to fit
+        if queueLen > beanWidth:
+            frontier = cutNodes(frontier, beanWidth, True)
+        # pop one node in the frontier
         fvalue, gvalue, curState= heappop(frontier)
-        # if curState == goalState:
-        #     print("find it!")
-        #     break
-        # print("state=", curState, "   fvalue=", fvalue, "  num=", NMAX, " goal=", goalState)
 
+        # add all of its children
         for (i,j) in [(0,1), (0,2), (1,2), (1,0), (2,0), (2,1)]:
-            if len(frontier) >= beanWidth:              ### control the beam width
-                break
+            # generate new state
             newState = moveOneStep(curState, i, j)
             if newState in visited:
                 continue
@@ -237,7 +246,6 @@ def solution2(data, funtionID=0, beanWidth=1000):
     t2 = float(time.clock())
     path = []
     if NMAX == 0:
-        # print(NMAX == 0)
         # print(" Failed of exhausted all tries for %s, more steps needed.. "%data)
         pass
     elif curState != goalState:
@@ -248,36 +256,109 @@ def solution2(data, funtionID=0, beanWidth=1000):
         # print(curState, goalState)
         path = findPath(pathes, curState)
         # print(" Finished! \n Path length %d with steps = %d: ... "%(len(path), steps))
-        # print(path)
-        # print("Done")
-    print("Finished funtionID = %d and beanWidth = %f for data = %s"%(funtionID, float(beanWidth), data))
-    # print(path)
+    print("Finished funtionID = %d and beanWidth = %f for data = %10s using time of %f" % (funtionID,
+                                                                                            float(beanWidth),
+                                                                                            data,
+                                                                                            t2 - t1))
     return t2-t1, steps, path
-    # print(" CPU time:", t2-t1)
+
+
+
+
+def solution_bigFrontier(data, funtionID=0, beanWidth=1000):
+    # this function will maintian a frontier with size of beanWidth
+    # every time expand each node in the frontier
+    # then do the cut-off to keep the frontier size
+    # when beanWidth is big, this algorithm works very slow due to the big size of heap
+    # f(n) = g(n) + h(n)
+    # h(n) = heuristic1()
+    curState = encodeState(data, "_", "_")
+    goalState = finalState(data)
+
+    NMAX =  100000
+    steps = 0
+    frontier = []
+    heapify(frontier)
+    fvalue = 0
+    gvalue = 0
+    heappush(frontier, (fvalue, gvalue, curState))
+    visited = set()
+    visited.add(curState)
+    pathes = dict()             # used to store the path relationship between nodes
+    t1 = float(time.clock())
+    while curState != goalState and NMAX != 0 and frontier != []:
+        # We have to generate all the offspring of the nodes in the frontier
+        # Then use a Priority Queue (heap in python) to cut off the nodes
+        frontierLen = len(frontier)
+        while frontierLen > 0:
+            # update some records
+            NMAX -= 1
+            steps += 1
+            frontierLen -= 1
+            # pop one node in the frontier
+            fvalue, gvalue, curState = heappop(frontier)
+            # add all of its children
+            for (i,j) in [(0,1), (0,2), (1,2), (1,0), (2,0), (2,1)]:
+                # generate new state
+                newState = moveOneStep(curState, i, j)
+                # if this new state is visited, then ignore it
+                if newState in visited:
+                    continue
+                # otherwise, add it to visited set, and update the f value based on heuristic function
+                visited.add(newState)
+                if funtionID == 1:                          ### control of different heuristic function h
+                    fvalue = gvalue + heuristic_admissiable(newState, goalState)
+                else:
+                    fvalue = gvalue + heuristic_non_admissiable(newState, goalState)
+                # push this new state into the heap, and record the relationship for path tracking
+                heappush(frontier, (fvalue, gvalue + 1, newState))
+                pathes[newState] = curState
+        # now if the heap size is larger than the beam width, then cut it using another heap
+        # print(len(frontier))
+        if len(frontier) > beanWidth:
+            frontier = cutNodes(frontier, beanWidth, True)
+
+    t2 = float(time.clock())
+    path = []
+    if NMAX == 0:
+        # print(NMAX == 0)
+        print(" Failed of exhausted all tries for %s, more steps needed.. "%data)
+        pass
+    elif curState != goalState:
+        print("Failed, cannot reach the goal from %s"%data)
+        pass
+    else:
+        path = findPath(pathes, curState)
+        print(" Finished! \n Path length %d with steps = %d: ... "%(len(path), steps))
+    print("Finished funtionID = %d and beanWidth = %f for data = %10s using time of %f" % (funtionID,
+                                                                                           float(beanWidth),
+                                                                                           data,
+                                                                                           t2 - t1))
+    return t2-t1, steps, path
 
 def saveFiles(cpuTimes, steps, pathes):
-    np.save("cpuTimes", cpuTimes)
-    np.save("steps", steps)
-    np.save("pathes", pathes)
+    np.save("result/cpuTimes3", cpuTimes)
+    np.save("result/steps3", steps)
+    np.save("result/pathes3", pathes)
     pass
-
+def printPath(path, sizeNum):
+    strWord = ""
+    for idx, ele in enumerate(path):
+        if sizeNum == 8:
+            strWord += "[%12s], " % ele
+        if sizeNum == 10:
+            strWord += "[%14s], " % ele
+        if (idx + 1) % 4 == 0:
+            strWord += "\n"
+    print(strWord)
+    pass
 if __name__ == '__main__':
     ## configuration: disk number
-    ##
-    filePath = "data/4.txt"
-    data = readData(filePath)
-    # print(solution1("0123",0, 50))
+    filePath = ""
+    functionIDS = [0, 1]                                        # test for different function id
+    sizeNums = [4, 5, 6, 7, 8, 9, 10]                           # test for different number of disks
+    beamSizes = [5, 10, 15, 20, 25, 50, 100, float("inf")]      # test for different beam widths
 
-    sizeNums = [4, 5, 6, 7, 8, 9, 10]            # test for different number of disks
-    beamSizes = [5, 10, 15, 20, 25, 50, 100, float("inf")]    # test for different beam widths
-    # beamSizes = [100]
-    functionIDS = [0, 1]                        # test for different function id
-    ele0 = [[] for _ in range(20)]
-    ele1 = [ele0 for _ in sizeNums]
-    ele2 = [ele1 for _ in beamSizes]
-    # steps = [ele2 for _ in functionIDS]
-    # cupTimes = [ele2 for _ in functionIDS]
-    # pathes = [ele2 for _ in functionIDS]
     steps = np.ndarray(shape=(len(functionIDS),
                              len(beamSizes),
                              len(sizeNums),
@@ -291,6 +372,7 @@ if __name__ == '__main__':
                               len(beamSizes),
                               len(sizeNums),
                               20))
+    '''
     for kdx, functionID in enumerate(functionIDS):
         for idx, beamSize in enumerate(beamSizes):
             for jdx, sizeNum in enumerate(sizeNums):
@@ -299,14 +381,63 @@ if __name__ == '__main__':
                     if not Path(filePath).exists():
                         continue
                     data = readData(filePath)
-                    res = solution1(data[p], funtionID=functionID, beanWidth=beamSize)
+                    res = solution(data[p], funtionID=functionID, beanWidth=beamSize)
                     cupTimes[kdx][idx][jdx][p] = res[0]
                     steps[kdx][idx][jdx][p] = res[1]
-                    # print(len(res[2]))
                     pathes[kdx][idx][jdx][p] = len(res[2])
-    # print(pathes[0][0][0][0])
     saveFiles(cupTimes, steps, np.asarray(pathes))
+    '''
+    '''
+    ## print 4 pathes
+    # A* no admissible, function id = 0, beamsize = inf, problem size = 2
+    functionID = functionIDS[0]
+    beamSize = beamSizes[7]
+    sizeNum = sizeNums[4]
+    p = 5
+    filePath = 'data/' + str(sizeNum) + '.txt'
+    data = readData(filePath)
+    res = solution(data[p], funtionID=functionID, beanWidth=beamSize)
+    printPath(res[2], sizeNum)
 
+    #A* admissible, function id = 1, beamsize = inf, problem size = 9
+    functionID = functionIDS[1]
+    beamSize = beamSizes[7]
+    sizeNum = sizeNums[6]
+    p = 5
+    filePath = 'data/' + str(sizeNum) + '.txt'
+    data = readData(filePath)
+    res = solution(data[p], funtionID=functionID, beanWidth=beamSize)
+    printPath(res[2], sizeNum)
 
+    # BeamWidth no admissible, function id = 0, beamsize = 4, problem size = 9
+    functionID = functionIDS[0]
+    beamSize = beamSizes[6]
+    sizeNum = sizeNums[4]
+    p = 5
+    filePath = 'data/' + str(sizeNum) + '.txt'
+    data = readData(filePath)
+    res = solution(data[p], funtionID=functionID, beanWidth=beamSize)
+    strWord = ""
+    for idx, ele in enumerate(res[2]):
+        strWord += "[%14s], " % ele
+        if (idx + 1) % 10 == 0:
+            strWord += "\n"
+    print(strWord)
+    print(len(res[2]))
+
+    # BeamWidth admissible, function id = 1, beamsize = 4, problem size = 9
+    functionID = functionIDS[1]
+    beamSize = beamSizes[6]
+    sizeNum = sizeNums[6]
+    p = 5
+    filePath = 'data/' + str(sizeNum) + '.txt'
+    data = readData(filePath)
+    res = solution(data[p], funtionID=functionID, beanWidth=beamSize)
+    printPath(res[2], sizeNum)
+    '''
+    # Test large problem size
+    # data =
+    data = "abcdefghijklmn"
+    res = solution(data, funtionID=0, beanWidth=10)
 
     pass

@@ -19,10 +19,49 @@ def getArray(array, functionID, beamSize):
 def getArrayPathLength(array, functionID, beamSize):
     temp = array[functionID][beamSize]
     res = []
-    for ele in temp:
-        print(ele)
+    ratio = []
+    for twenty in temp:
+        # print(ele)
+        val = 0
+        count = 0
+        for one in twenty:
+            val += one
+            if one != 0:
+                count += 1
+        if count == 0:
+            res.append(2000)
+        else:
+            res.append(val/count)
+        ratio.append(count/20)
+    return res, ratio
 
+def getBeamWidth(array, functionID, probSize):
+    temp = array[functionID]
+    res = []
+    for oneBeam in temp:
+        # print(oneBeam[probSize])
+        res.append(np.mean(oneBeam[probSize]))
     return res
+
+def getBeamWidthLen(array, functionID, probSize):
+    temp = array[functionID]
+    res = []
+    ratio = []
+    for oneBeam in temp:
+        count = 0
+        val = 0
+        for one in oneBeam[probSize]:
+            val += one
+            if val != 0:
+                count += 1
+        if count == 0:
+            res.append(2000)
+        else:
+            res.append(val/count)
+        ratio.append(count/20)
+    return res, ratio
+
+    pass
 
 
 def plotResult(cpuTimes, steps, pathes):
@@ -53,10 +92,10 @@ def plotResult(cpuTimes, steps, pathes):
 
     plt.xlabel("Problem Size")
     plt.ylabel("# of Nodes")
-    plt.legend()
+    plt.legend(loc=2, fontsize=8.5)
     plt.title("Number of nodes searched against the problem size")
     plt.show()
-    fig1.savefig("nodesNum_problemSize.png")
+    fig1.savefig("resultPlots/nodesNum_problemSize.png")
     plt.close()
 
     # plot the CpuTime_problemSize
@@ -76,22 +115,31 @@ def plotResult(cpuTimes, steps, pathes):
 
     plt.xlabel("Problem Size")
     plt.ylabel("CPU time")
-    plt.legend()
+    plt.legend(loc=2, fontsize=8.5)
     plt.title("CPU time against the problem size")
     plt.show()
-    fig1.savefig("CPUtime_problemSize.png", bbox_inches='tight')
+    fig1.savefig("resultPlots/CPUtime_problemSize.png", bbox_inches='tight')
     # plt.close()
 
-    #Table about average solution length
+    #Figure about average solution length
 
     #  Plot the average solution length
-    t0 = getArray(pathes, 0, beamSize)  # For A* that beam width = inf, averaged number
-    t1 = getArray(pathes, 1, beamSize)  #
+    t0, ratio0 = getArrayPathLength(pathes, 0, beamSize)  # For A* that beam width = inf, averaged number
+    t1, ratio1 = getArrayPathLength(pathes, 1, beamSize)  #
 
-    t2 = getArray(pathes, 0, 6)  # For A* that beam width = inf
-    t3 = getArray(pathes, 1, 6)  #
+    t2, ratio2 = getArrayPathLength(pathes, 0, 6)  # For A* that beam width = inf
+    t3, ratio3 = getArrayPathLength(pathes, 1, 6)  #
     print(t0, t1, t2, t3)
 
+    print(t0)
+    print(t1)
+    print(t2)
+    print(t3)
+
+    print(ratio0)
+    print(ratio1)
+    print(ratio2)
+    print(ratio3)
     fig1 = plt.gcf()
     plt.plot(sizeNums, t0, label="A* non-admissible Heuristics")
     plt.plot(sizeNums, t1, label="A* admissible Heuristics")
@@ -101,12 +149,26 @@ def plotResult(cpuTimes, steps, pathes):
 
     plt.xlabel("Problem Size")
     plt.ylabel("Average Solution Length")
-    plt.legend()
+    plt.legend(loc=2, fontsize=8.5)
     plt.title("Average solution length against the problem size")
     plt.show()
-    fig1.savefig("aveSoluLen_problemSize.png")
+    fig1.savefig("resultPlots/aveSoluLen_problemSize.png")
     plt.close()
 
+    ## plot the beam width impact, fix problem size = 7
+    ## so function select 1, 2, beam size vary, problem size fixed as 9 == (idx=5)
+    # t0 = getBeamWidth(steps, 0, 5)              # function 0, 3 NonAdmissible
+    # t1 = getBeamWidth(steps, 1, 5)              # function 1, 3
+    #
+    # print(t0, t1)
+    t0, ratio0 = getBeamWidthLen(pathes, 0, 5)    # function 0, 3 NonAdmissible
+    t1, ratio1 = getBeamWidthLen(pathes, 1, 5)    # function 1, 3
+    print(t0, t1)
+    print(ratio0, ratio1)
+    ## beam width vs CPU time
+    t0 = getBeamWidth(cpuTimes, 0, 5)
+    t1 = getBeamWidth(cpuTimes, 1, 5)
+    print(t0, t1)
     pass
 
 # def plotResult1(cpuTimes, steps, pathes):
@@ -127,9 +189,9 @@ def plotResult(cpuTimes, steps, pathes):
 
 if __name__ == '__main__':
     # read numpy data
-    cpuTimes = np.load('cpuTimes.npy')
-    steps = np.load('steps.npy')
-    pathes = np.load('pathes.npy')
+    cpuTimes = np.load('result/cpuTimes2.npy')
+    steps = np.load('result/steps2.npy')
+    pathes = np.load('result/pathes2.npy')
 
 
 
