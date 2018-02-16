@@ -1,8 +1,6 @@
 ## This code is for SuDoKu Agent.
+# Authors: Liqiang He, Eugene Seo
 import math
-
-
-
 
 def getData(filePath):
     with open(filePath, 'r') as f:
@@ -45,13 +43,11 @@ def initialMatrix(str):
 
 def DFS(arr1):
     # input is a 2d array, 81 * 10
-    vistied = [False] * 81
     findResult = False
     arr = initialMatrix(arr1)
     print("Initial SuDoKu")
     cleanPrint81(arr)
     for i in range(81):
-
         if arr[i][0] != 0:      # this number is fixed
             findResult = True
             continue
@@ -62,6 +58,7 @@ def DFS(arr1):
         findResult = True
     print("\n\nResult SuDoKu is find == %s"%findResult)
     cleanPrint81(arr)
+    checkResult(arr)
     return findResult
 
 def helper(i, arr):
@@ -98,6 +95,11 @@ def matchRules(i, j, arr):
     # if put j in cell will match with all constraints, then return True, otherwise, return false
     return rule1(i, j, arr) and rule2(i, j, arr) and rule3(i, j, arr) and rule4(i, j, arr)
 
+def matchRules2(i, j, arr):
+    # if put j in cell will match with all constraints, then return True, otherwise, return false
+    # used for double check
+    return rule1(i, j, arr) and rule2(i, j, arr) and rule33(i, j, arr) and rule4(i, j, arr)
+
 def rule4(i, j, arr):
     return True
 
@@ -128,41 +130,51 @@ def rule3(i, j, arr):
     for idx in domain:
         if idx == i:
             continue
-        if j == arr[idx][0]:
+        if j == arr[idx][0] and j != 0:
             return False
     return True
 
-def getCellSquare(i):
+def rule33(i, j, arr):
+    # check the same cubic 3X3
+    # used for double check
+    domain = getCellSquare(i)
+    for idx in domain:
+        if idx == i:
+            continue
+        if j == arr[idx][0] and (j != 0 and arr[idx] != 0):
+            return False
+    return True
+
+def getCellSquare(k):
     # square 1
-    if i in [i for j in (range(0,3), range(9,12), range(18, 21)) for i in j]:
-        return [i for j in (range(0,3), range(9,12), range(18, 21)) for i in j]
-    # square 2
-    if i in [i for j in (range(3,6), range(12,15), range(21, 24)) for i in j]:
-        return [i for j in (range(0,3), range(12,15), range(21, 24)) for i in j]
+    res = []
+    if k in [i for j in (range(0,3), range(9,12), range(18, 21)) for i in j]:
+        res = [i for j in (range(0,3), range(9,12), range(18, 21)) for i in j]
+    elif k in [i for j in (range(3,6), range(12,15), range(21, 24)) for i in j]:
+        res = [i for j in (range(3,6), range(12,15), range(21, 24)) for i in j]
     # square 3
-    if i in [i for j in (range(6,9), range(15,18), range(24, 27)) for i in j]:
-        return [i for j in (range(6,9), range(15,18), range(24, 27)) for i in j]
-
+    elif k in [i for j in (range(6,9), range(15,18), range(24, 27)) for i in j]:
+        res = [i for j in (range(6,9), range(15,18), range(24, 27)) for i in j]
     # square 4
-    if i in [i for j in (range(27,30), range(36,39), range(45, 48)) for i in j]:
-        return [i for j in (range(27,30), range(36,39), range(45, 48)) for i in j]
+    elif k in [i for j in (range(27,30), range(36,39), range(45, 48)) for i in j]:
+        res = [i for j in (range(27,30), range(36,39), range(45, 48)) for i in j]
     # square 5
-    if i in [i for j in (range(30,33), range(39,42), range(48, 51)) for i in j]:
-        return [i for j in (range(30,33), range(39,42), range(48, 51)) for i in j]
+    elif k in [i for j in (range(30,33), range(39,42), range(48, 51)) for i in j]:
+        res = [i for j in (range(30,33), range(39,42), range(48, 51)) for i in j]
     # square 6
-    if i in [i for j in (range(33,36), range(42,45), range(51, 54)) for i in j]:
-        return [i for j in (range(33,36), range(42,45), range(51, 54)) for i in j]
-
+    elif k in [i for j in (range(33,36), range(42,45), range(51, 54)) for i in j]:
+        res = [i for j in (range(33,36), range(42,45), range(51, 54)) for i in j]
     # square 7
-    if i in [i for j in (range(54,57), range(63,66), range(72, 75)) for i in j]:
-        return [i for j in (range(54,57), range(63,66), range(72, 75)) for i in j]
+    elif k in [i for j in (range(54,57), range(63,66), range(72, 75)) for i in j]:
+        res = [i for j in (range(54,57), range(63,66), range(72, 75)) for i in j]
     # square 8
-    if i in [i for j in (range(57,60), range(66,69), range(75, 78)) for i in j]:
-        return [i for j in (range(57,60), range(66,69), range(75, 78)) for i in j]
+    elif k in [i for j in (range(57,60), range(66,69), range(75, 78)) for i in j]:
+        res = [i for j in (range(57,60), range(66,69), range(75, 78)) for i in j]
     # square 9
-    if i in [i for j in (range(60,63), range(69,72), range(78, 81)) for i in j]:
-        return [i for j in (range(60,63), range(69,72), range(78, 81)) for i in j]
-    return []
+    elif k in [i for j in (range(60,63), range(69,72), range(78, 81)) for i in j]:
+        res = [i for j in (range(60,63), range(69,72), range(78, 81)) for i in j]
+    # print(res)
+    return res
 
 def update(i, j, arr):
     # update the cell i.
@@ -191,6 +203,12 @@ def cleanPrint81(arr):
         res += str(arr[i][0])
     print res
 
+def checkResult(arr):
+    for i in range(81):
+        if not matchRules2(i, arr[i][0], arr):
+            print("\nFailure at %d"%i)
+    print("\nPassed check, the result is correct")
+
 if __name__ == '__main__':
     # load data
     filePath = 'data/sudoku-problems.txt'
@@ -204,6 +222,10 @@ if __name__ == '__main__':
     #     # print(i)
     #     test = samples[i][0]
     #     print(DFS(test))
-    test = samples[13][0]
+    # for i in range(75, 78):
+    #     print("============================="+str(i))
+    #     test = samples[i][0]
+    #     DFS(test)
+    test = samples[15][0]
     DFS(test)
 
