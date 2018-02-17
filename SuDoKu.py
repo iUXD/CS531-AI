@@ -2,7 +2,7 @@
 # Authors: Liqiang He, Eugene Seo
 from fixed_baseline import *
 from MCV import *
-MAXNUM = 10
+MAXNUM = 1000
 
 def forward_checking(cells_status):
     for i in range(81):
@@ -21,7 +21,7 @@ def sudoku(initialState):
     forward_checking(cells_status)
 
     # apply fixed baseline approach
-    fixed_baseline(cells_status)
+    fixed_baseline(cells_status, MAXNUM)
 
     # print result
     result_print(cells_status)

@@ -136,3 +136,24 @@ def goalState(cells_status):
         if cells_status[i][0] == 0 or len(cells_status[i][1]) == 0:
             return False
     return True
+
+
+def constraints(cells_status):
+    # check if satisfy with all the constraints
+
+    pass
+
+
+def assignValue2Cell(i, cells_status, value):
+    # assign value to cell i, return the old list
+    res = cells_status[i][1]
+    cells_status[i][0] = value
+    cells_status[i][1] = []
+    return res
+
+
+def backAssignment(i, cells_status, oldList):
+    # assign a list to cell i's candidate pool
+    cells_status[i][0] = 0
+    cells_status[i][1] = oldList
+    pass
