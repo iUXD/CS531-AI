@@ -26,6 +26,7 @@ def sudoku(initialState):
     print_sudoku(cells_status)
     hidden_single(cells_status)
     print_sudoku(cells_status)
+    naked_pairs(cells_status)
 
 
     # apply fixed baseline approach
@@ -39,5 +40,5 @@ if __name__ == '__main__':
     filePath = 'data/sudoku-problems.txt'
     samples = getData(filePath)
 
-    test = samples[1][0]
+    test = samples[4][0]
     sudoku(test)

@@ -57,3 +57,29 @@ def remove_hidden_single(cells_status, slot_idx):
 				break
 			i = i + 1
 
+def naked_pairs(cells_status):
+	print(" [Naked_Pairs] ==============================================")
+	for i in range(0,10):
+		slot_idx = [i] + col_cells(i)
+		remove_naked_pairs(cells_status, slot_idx)
+		slot_idx = [i] + row_cells(i)
+		remove_naked_pairs(cells_status,slot_idx)
+		slot_idx = [i] + box_cells(i)
+		remove_naked_pairs(cells_status, slot_idx)
+
+def remove_naked_pairs(cells_status, slot_idx):
+	domain_col = [cells_status[x][1] for x in slot_idx]
+	dupes = [x for n, x in enumerate(domain_col) if x in domain_col[:n]]
+	pair = [value for index, value in enumerate(dupes) if len(value) == 2]
+	if (len(pair) > 0):
+		print("pair", pair)
+		for cel_idx in slot_idx:
+			if(len(cells_status[cel_idx][1]) > 0 and cells_status[cel_idx][1] != pair[0]):
+				if (pair[0][0] in cells_status[cel_idx][1]):
+					print("previous", cells_status[cel_idx])
+					cells_status[cel_idx][1].remove(pair[0][0])
+					print("after", cells_status[cel_idx])
+				if (pair[0][1] in cells_status[cel_idx][1]):
+					print("previous", cells_status[cel_idx])
+					cells_status[cel_idx][1].remove(pair[0][1])
+					print("after", cells_status[cel_idx])
