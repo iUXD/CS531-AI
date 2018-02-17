@@ -1,6 +1,9 @@
 ## This code is for SuDoKu Agent.
 # Authors: Liqiang He, Eugene Seo
 import math
+from heapq import heapify, heappop, heappush
+MAXNUM = 10
+
 
 def getData(filePath):
     with open(filePath, 'r') as f:
@@ -27,205 +30,148 @@ def getData(filePath):
             # print(line)
     return res
 
-def initialMatrix(str):
-    # return a 81 * 10 array
+def get_initialDict(inputStr):
+    # return a dictionary, contains 81 keys, value is list
     # if the cell i has value:
-    #       res[i][0] = value, res[i][1:10] = [1] * 9
+    #       res[i] = [value]
     # else:
-    #       res[i][0] = 0, res[i][1:10] = 0
-    res = [[ 0 for x in range(10)] for y in range(81)]
+    #       res[i] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    res = {}
     for i in range(81):
-        if str[i] == '0':
-            res[i][1:10] = [1] * 9
+        if inputStr[i] == '0':
+            res[i] = [0, [j for j in range(1, 10)]]
         else:
-            res[i][0] = int(str[i])
+            res[i] = [int(inputStr[i]), []]
     return res
 
-def DFS(arr1):
-    # input is a 2d array, 81 * 10
-    findResult = False
-    arr = initialMatrix(arr1)
-    print("Initial SuDoKu")
-    cleanPrint81(arr)
+def inference(cells_status):
+    # apply inference to remove candidates for each 81 cell
+    # input:  cells_status -- the current dictionary state
+    for i in range(MAXNUM):
+        forward_checking(cells_status)
+
+    pass
+
+
+def forward_checking(cells_status):
     for i in range(81):
-        if arr[i][0] != 0:      # this number is fixed
-            findResult = True
-            continue
-        # Then DFS
-        if not helper(i, arr):
-            findResult = False
-            break
-        findResult = True
-    print("\n\nResult SuDoKu is find == %s"%findResult)
-    cleanPrint81(arr)
-    checkResult(arr)
-    return findResult
+        if cells_status[i][0] != 0:         # if the cell number is fixed(given), then forward check it
+            clean_row(i, cells_status)
+            clean_col(i, cells_status)
+            clean_box(i, cells_status)
+            naked_single(i, cells_status)
 
-def helper(i, arr):
-    # this is the helper for DFS recursion
-    if i > 80:
-        return True
-
-    if arr[i][0] != 0:
-        return True
-
-    for j in range(1, 10, 1):  # 1 to 9
-        if arr[i][j] == 0:  # this number is not in the candidate pool
-            pass
-        # now j is the candidate value for this i cell, check j
-        if matchRules(i, j, arr):  # if i, j match all the rules, then the cell get this j
-            oldStatus = update(i, j, arr)       # then update this cell, and check if it match will all others
-            idx = 0
-            while idx < 81:                     # check all 81 cells, if they all agree or not with this assignment
-                if helper(idx, arr):            # if one cell agree, then continue to check next one
-                    idx += 1
-                    continue
-                deUpdate(i, oldStatus, arr)     # otherwise, break this assignment, and retrieve arr
-                break
-            if idx == 81:                       # all 81 cells agree with this assignment
-                return True
-    return False
+def naked_single(i, cells_status):
+    if len(cells_status[i][1]) == 1:
+        cells_status[i][0] = cells_status[i][1][0]
 
 
-def test(arr):
-    arr[0] = 10
+def clean_row(i, cells_status):
+    val = cells_status[i][0]
+    for idx in row_cells(i):
+        remove_candidate(idx, val, cells_status)
+    pass
+
+def clean_col(i, cells_status):
+    val = cells_status[i][0]
+    for idx in col_cells(i):
+        remove_candidate(idx, val, cells_status)
+    pass
+
+def clean_box(i, cells_status):
+    val = cells_status[i][0]
+    for idx in box_cells(i):
+        remove_candidate(idx, val, cells_status)
+    pass
 
 
-def matchRules(i, j, arr):
-    # if put j in cell will match with all constraints, then return True, otherwise, return false
-    return rule1(i, j, arr) and rule2(i, j, arr) and rule3(i, j, arr) and rule4(i, j, arr)
+def remove_candidate(i, j, cells_status):
+    # remove j from ith key
+    if j in cells_status[i][1] and len(cells_status[i][1]) != 0:
+        cells_status[i][1].remove(j)
 
-def matchRules2(i, j, arr):
-    # if put j in cell will match with all constraints, then return True, otherwise, return false
-    # used for double check
-    return rule1(i, j, arr) and rule2(i, j, arr) and rule33(i, j, arr) and rule4(i, j, arr)
+def row_cells(i):
+    # return all other row elements
+    rowNum = i // 9
+    return [j for j in range(rowNum*9, rowNum*9 + 9, 1) if j is not i]
 
-def rule4(i, j, arr):
-    return True
+def col_cells(i):
+    # return all other col elements
+    colNum = i % 9
+    return [j * 9 + colNum for j in range(9) if j * 9 + colNum is not i]
 
-def rule1(i, j, arr):
-    # check the same row
-    for colIdx in range(9):
-        idx = (i//9) * 9 + colIdx
-        if idx == i:
-            continue
-        if j == arr[idx][0]:
-            return False
-    return True
-
-def rule2(i, j, arr):
-    # check the same colum
-    for colIdx in range(9):
-        jdx = i % 9 + colIdx * 9
-        if jdx == i:
-            continue
-        if j == arr[jdx][0]:
-            return False
-    return True
-
-def rule3(i, j, arr):
-    # check the same cubic 3X3
-    # go back to first cell in squire
-    domain = getCellSquare(i)
-    for idx in domain:
-        if idx == i:
-            continue
-        if j == arr[idx][0] and j != 0:
-            return False
-    return True
-
-def rule33(i, j, arr):
-    # check the same cubic 3X3
-    # used for double check
-    domain = getCellSquare(i)
-    for idx in domain:
-        if idx == i:
-            continue
-        if j == arr[idx][0] and (j != 0 and arr[idx] != 0):
-            return False
-    return True
-
-def getCellSquare(k):
-    # square 1
+def box_cells(k):
+    # return all other square elements
     res = []
-    if k in [i for j in (range(0,3), range(9,12), range(18, 21)) for i in j]:
-        res = [i for j in (range(0,3), range(9,12), range(18, 21)) for i in j]
-    elif k in [i for j in (range(3,6), range(12,15), range(21, 24)) for i in j]:
-        res = [i for j in (range(3,6), range(12,15), range(21, 24)) for i in j]
+    if k in [i for j in (range(0, 3), range(9, 12), range(18, 21)) for i in j]:
+        res = [i for j in (range(0, 3), range(9, 12), range(18, 21)) for i in j if i is not k]
+    elif k in [i for j in (range(3, 6), range(12, 15), range(21, 24)) for i in j]:
+        res = [i for j in (range(3, 6), range(12, 15), range(21, 24)) for i in j if i is not k]
     # square 3
-    elif k in [i for j in (range(6,9), range(15,18), range(24, 27)) for i in j]:
-        res = [i for j in (range(6,9), range(15,18), range(24, 27)) for i in j]
+    elif k in [i for j in (range(6, 9), range(15, 18), range(24, 27)) for i in j]:
+        res = [i for j in (range(6, 9), range(15, 18), range(24, 27)) for i in j if i is not k]
     # square 4
-    elif k in [i for j in (range(27,30), range(36,39), range(45, 48)) for i in j]:
-        res = [i for j in (range(27,30), range(36,39), range(45, 48)) for i in j]
+    elif k in [i for j in (range(27, 30), range(36, 39), range(45, 48)) for i in j]:
+        res = [i for j in (range(27, 30), range(36, 39), range(45, 48)) for i in j if i is not k]
     # square 5
-    elif k in [i for j in (range(30,33), range(39,42), range(48, 51)) for i in j]:
-        res = [i for j in (range(30,33), range(39,42), range(48, 51)) for i in j]
+    elif k in [i for j in (range(30, 33), range(39, 42), range(48, 51)) for i in j]:
+        res = [i for j in (range(30, 33), range(39, 42), range(48, 51)) for i in j if i is not k]
     # square 6
-    elif k in [i for j in (range(33,36), range(42,45), range(51, 54)) for i in j]:
-        res = [i for j in (range(33,36), range(42,45), range(51, 54)) for i in j]
+    elif k in [i for j in (range(33, 36), range(42, 45), range(51, 54)) for i in j]:
+        res = [i for j in (range(33, 36), range(42, 45), range(51, 54)) for i in j if i is not k]
     # square 7
-    elif k in [i for j in (range(54,57), range(63,66), range(72, 75)) for i in j]:
-        res = [i for j in (range(54,57), range(63,66), range(72, 75)) for i in j]
+    elif k in [i for j in (range(54, 57), range(63, 66), range(72, 75)) for i in j]:
+        res = [i for j in (range(54, 57), range(63, 66), range(72, 75)) for i in j if i is not k]
     # square 8
-    elif k in [i for j in (range(57,60), range(66,69), range(75, 78)) for i in j]:
-        res = [i for j in (range(57,60), range(66,69), range(75, 78)) for i in j]
+    elif k in [i for j in (range(57, 60), range(66, 69), range(75, 78)) for i in j]:
+        res = [i for j in (range(57, 60), range(66, 69), range(75, 78)) for i in j if i is not k]
     # square 9
-    elif k in [i for j in (range(60,63), range(69,72), range(78, 81)) for i in j]:
-        res = [i for j in (range(60,63), range(69,72), range(78, 81)) for i in j]
+    elif k in [i for j in (range(60, 63), range(69, 72), range(78, 81)) for i in j]:
+        res = [i for j in (range(60, 63), range(69, 72), range(78, 81)) for i in j if i is not k]
     # print(res)
     return res
 
-def update(i, j, arr):
-    # update the cell i.
-    # return the candidates, for future retrieve
-    arr[i][0] = j
-    res = arr[i][1:10]
-    arr[i][1:10] = [0] * 9
-    return res
+def sudoku(initialState):
+    print(initialState)
+    # input initialState: a str of 81 initial values
+    cells_status = get_initialDict(initialState)
+    inference(cells_status)
+    # pretty_print(cells_status)
+    result_print(cells_status)
+    pq = []     # heap
+    heapify(pq)
+    for i in range(81):
+        if len(cells_status[i][1]) != 1:
+            heappush(pq, (len(cells_status[i][1]), i))
 
-def deUpdate(i, oldStatus, arr):
-    # return to previous status for that cell
-    arr[i][0] = 0
-    arr[i][1:10] = oldStatus
 
-def getIJ(idx):
-    # idx: 0 ~ 80
-    # return index in the grid (i, j), i is the row, j is the column
-    idx -= 1
-    return math.floor(idx / 9), idx % 9
 
-def cleanPrint81(arr):
+    return ""
+
+
+# def fixed
+
+
+def pretty_print(cells_status):
+    for key in cells_status:
+        print(key, cells_status[key][0])
+
+
+def result_print(cells_status):
     res = ""
     for i in range(81):
-        if i % 9 == 0:
+        if i != 0 and i %9 == 0:
             res += '\n'
-        res += str(arr[i][0])
-    print res
-
-def checkResult(arr):
-    for i in range(81):
-        if not matchRules2(i, arr[i][0], arr):
-            print("\nFailure at %d"%i)
-    print("\nPassed check, the result is correct")
-
+        if len(cells_status[i][1]) == 0:
+            res += str(cells_status[i][0])
+        else:
+            res += '0'
+    print(res)
 if __name__ == '__main__':
     # load data
     filePath = 'data/sudoku-problems.txt'
     samples = getData(filePath)
-    # for key in samples:
-    #     print(key, samples[key])
 
-    # print(samples[1][0])
-
-    # for i in range(1, 50):
-    #     # print(i)
-    #     test = samples[i][0]
-    #     print(DFS(test))
-    # for i in range(75, 78):
-    #     print("============================="+str(i))
-    #     test = samples[i][0]
-    #     DFS(test)
-    test = samples[15][0]
-    DFS(test)
+    test = samples[1][0]
+    sudoku(test)
 
