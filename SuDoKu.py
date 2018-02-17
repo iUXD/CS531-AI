@@ -48,7 +48,7 @@ def inference(cells_status):
     # apply inference to remove candidates for each 81 cell
     # input:  cells_status -- the current dictionary state
     for i in range(MAXNUM):
-        forward_checking(cells_status)
+        naked_single(i, cells_status)
 
     pass
 
@@ -59,7 +59,6 @@ def forward_checking(cells_status):
             clean_row(i, cells_status)
             clean_col(i, cells_status)
             clean_box(i, cells_status)
-            naked_single(i, cells_status)
 
 def naked_single(i, cells_status):
     if len(cells_status[i][1]) == 1:
@@ -135,7 +134,7 @@ def sudoku(initialState):
     print(initialState)
     # input initialState: a str of 81 initial values
     cells_status = get_initialDict(initialState)
-    inference(cells_status)
+    forward_checking(cells_status)
     # pretty_print(cells_status)
     result_print(cells_status)
     pq = []     # heap
@@ -144,8 +143,7 @@ def sudoku(initialState):
         if len(cells_status[i][1]) != 1:
             heappush(pq, (len(cells_status[i][1]), i))
 
-
-
+    pretty_print(cells_status)
     return ""
 
 
@@ -154,7 +152,7 @@ def sudoku(initialState):
 
 def pretty_print(cells_status):
     for key in cells_status:
-        print(key, cells_status[key][0])
+        print(key, cells_status[key][0], cells_status[key][1])
 
 
 def result_print(cells_status):
