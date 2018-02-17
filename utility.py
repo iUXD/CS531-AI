@@ -78,6 +78,8 @@ def row_cells(i):
 
 def col_cells(i):
     # return all other col elements
+    # input 0 - 80
+    # output, the column of this cell, a list, except itself
     colNum = i % 9
     return [j * 9 + colNum for j in range(9) if j * 9 + colNum is not i]
 
@@ -140,7 +142,10 @@ def goalState(cells_status):
 
 def constraints(cells_status):
     # check if satisfy with all the constraints
-
+    for i in range(81):
+        if cells_status[i][0] ==0 and len(cells_status[i][1]) == 0:
+            return False
+    return True
     pass
 
 
@@ -157,3 +162,13 @@ def backAssignment(i, cells_status, oldList):
     cells_status[i][0] = 0
     cells_status[i][1] = oldList
     pass
+
+
+def testNakedSingle(i, cells_status):
+    if len(cells_status[i][1]) == 1:
+        cells_status[i][0] = cells_status[i][1][0]
+        cells_status[i][1] = []
+
+def inference(cells_status):
+    for i in range(81):
+        testNakedSingle(i, cells_status)

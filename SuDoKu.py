@@ -2,14 +2,9 @@
 # Authors: Liqiang He, Eugene Seo
 from fixed_baseline import *
 from MCV import *
-MAXNUM = 1000
+MAXNUM = 5
 
-def forward_checking(cells_status):
-    for i in range(81):
-        if cells_status[i][0] != 0:         # if the cell number is fixed(given), then forward check it
-            clean_row(i, cells_status)
-            clean_col(i, cells_status)
-            clean_box(i, cells_status)
+
 
 
 def sudoku(initialState):
