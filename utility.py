@@ -37,15 +37,12 @@ def get_initialDict(inputStr):
             res[i] = [int(inputStr[i]), []]
     return res
 
-
-
 def forward_checking(cells_status):
     for i in range(81):
         if cells_status[i][0] != 0:         # if the cell number is fixed(given), then forward check it
             clean_row(i, cells_status)
             clean_col(i, cells_status)
             clean_box(i, cells_status)
-
 
 def clean_row(i, cells_status):
     val = cells_status[i][0]
@@ -64,7 +61,6 @@ def clean_box(i, cells_status):
     for idx in box_cells(i):
         remove_candidate(idx, val, cells_status)
     pass
-
 
 def remove_candidate(i, j, cells_status):
     # remove j from ith key
@@ -112,12 +108,9 @@ def box_cells(k):
     # print(res)
     return res
 
-
-
 def pretty_print(cells_status):
     for key in cells_status:
         print(key, cells_status[key][0], cells_status[key][1])
-
 
 def result_print(cells_status):
     res = ""
@@ -143,7 +136,6 @@ def constraints(cells_status):
 
     pass
 
-
 def assignValue2Cell(i, cells_status, value):
     # assign value to cell i, return the old list
     res = cells_status[i][1]
@@ -151,9 +143,13 @@ def assignValue2Cell(i, cells_status, value):
     cells_status[i][1] = []
     return res
 
-
 def backAssignment(i, cells_status, oldList):
     # assign a list to cell i's candidate pool
     cells_status[i][0] = 0
     cells_status[i][1] = oldList
     pass
+
+# print result
+def print_sudoku(cells_status):
+    result_print(cells_status)
+    pretty_print(cells_status)
