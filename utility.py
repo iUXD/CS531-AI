@@ -133,7 +133,10 @@ def goalState(cells_status):
 
 def constraints(cells_status):
     # check if satisfy with all the constraints
-
+    for i in range(81):
+        if cells_status[i][0] ==0 and len(cells_status[i][1]) == 0:
+            return False
+    return True
     pass
 
 def assignValue2Cell(i, cells_status, value):

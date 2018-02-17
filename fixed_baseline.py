@@ -1,5 +1,6 @@
 from utility import *
 from copy import deepcopy
+from Inference import *
 
 def fixed_baseline(cells_status1, n):
 
@@ -13,7 +14,7 @@ def fixed_baseline(cells_status1, n):
     if n == 0:
         return False
     forward_checking(cells_status1)
-    inference(cells_status1)
+    naked_single(cells_status1)
     # cells_status = deepcopy(cells_status1)
     for i in range(81):
         cells_status = deepcopy(cells_status1)
