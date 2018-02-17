@@ -22,11 +22,22 @@ def sudoku(initialState):
     # forward checking
     forward_checking(cells_status)
     #print_sudoku(cells_status)
+
+    # sinlge rules
     naked_single(cells_status)
-    print_sudoku(cells_status)
+    #print_sudoku(cells_status)
     hidden_single(cells_status)
-    print_sudoku(cells_status)
+    #print_sudoku(cells_status)
+
+    # pairs rules
     naked_pairs(cells_status)
+    #print_sudoku(cells_status)
+    hidden_pairs(cells_status)
+    #print_sudoku(cells_status)
+
+    # triples rules
+    naked_triples(cells_status)
+    #print_sudoku(cells_status)
 
 
     # apply fixed baseline approach
@@ -40,5 +51,5 @@ if __name__ == '__main__':
     filePath = 'data/sudoku-problems.txt'
     samples = getData(filePath)
 
-    test = samples[4][0]
+    test = samples[77][0]
     sudoku(test)
