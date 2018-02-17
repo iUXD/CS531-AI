@@ -23,22 +23,13 @@ def sudoku(initialState):
     forward_checking(cells_status)
     #print_sudoku(cells_status)
 
-    # sinlge rules
-    naked_single(cells_status)
+    inference(cells_status, 11) # naked_single
+    inference(cells_status, 12) # hidden_single
+    inference(cells_status, 21) # naked_pairs
+    inference(cells_status, 22) # hidden_pairs
+    inference(cells_status, 31) # naked_triples
+    inference(cells_status, 32) # hidden_triples
     #print_sudoku(cells_status)
-    hidden_single(cells_status)
-    #print_sudoku(cells_status)
-
-    # pairs rules
-    naked_pairs(cells_status)
-    #print_sudoku(cells_status)
-    hidden_pairs(cells_status)
-    #print_sudoku(cells_status)
-
-    # triples rules
-    naked_triples(cells_status)
-    #print_sudoku(cells_status)
-
 
     # apply fixed baseline approach
     #fixed_baseline(cells_status, MAXNUM)
