@@ -5,7 +5,7 @@ from MCV import *
 from Inference import *
 from utility import *
 
-MAXNUM = 1000
+
 
 def forward_checking(cells_status):
     for i in range(81):
@@ -19,19 +19,11 @@ def sudoku(initialState):
     print(initialState)
     # get data structures
     cells_status = get_initialDict(initialState)
-    # forward checking
-    forward_checking(cells_status)
-    #print_sudoku(cells_status)
-    naked_single(cells_status)
-    print_sudoku(cells_status)
-    hidden_single(cells_status)
-    print_sudoku(cells_status)
-    naked_pairs(cells_status)
-
 
     # apply fixed baseline approach
-    #fixed_baseline(cells_status, MAXNUM)
-
+    success, result_cells, used_steps = fixed_baseline(cells_status, 0, 0)
+    print(check_goal_3rule(result_cells))
+    print(used_steps)
     return ""
 
 
@@ -40,5 +32,5 @@ if __name__ == '__main__':
     filePath = 'data/sudoku-problems.txt'
     samples = getData(filePath)
 
-    test = samples[4][0]
+    test = samples[13][0]
     sudoku(test)

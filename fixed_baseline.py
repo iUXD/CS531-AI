@@ -1,29 +1,46 @@
 from utility import *
 from copy import deepcopy
 from Inference import *
-
-def fixed_baseline(cells_status1, n):
-
+MAXNUM = 300
+def fixed_baseline(cells_status, n, idx):
     # use a fixed order, row-wise and top to bottom
-    if goalState(cells_status1):         # check if satisfy with goal
-        return True
+    # idx is the index in the 81 variables
+    if idx == 81:                                       # checked all variables
+        return check_goal_3rule(cells_status)
 
-    if not constraints(cells_status1):
-        return False
-    print(n)
-    if n == 0:
-        return False
-    forward_checking(cells_status1)
-    naked_single(cells_status1)
-    # cells_status = deepcopy(cells_status1)
-    for i in range(81):
-        cells_status = deepcopy(cells_status1)
-        if cells_status[i][0] != 0:         # pick an unassigned variable
-            continue
-        for value in cells_status[i][1]:
-            tempList = assignValue2Cell(i, cells_status, value)
-            if fixed_baseline(cells_status, n-1):
-                return True
-            backAssignment(i, cells_status, tempList)
-    return False
-    pass
+    if check_goal_3rule(cells_status):                  # check if satisfy with goal
+        return True, cells_status, n
+
+    if violate_constraints(cells_status):               # check if violate the constraints
+        return False, None, n
+
+    if n > MAXNUM:                                          # check if exhaust the steps
+        return False, None, n
+
+    forward_checking(cells_status)                      # do inference cut
+    test_naked_single(cells_status)
+
+    if violate_constraints(cells_status):               # check if satisfy the constraints
+        return False, None, n
+    if check_goal_3rule(cells_status):
+        return True, deepcopy(cells_status), n
+
+    while idx < 80 and cells_status[idx][0] != 0:       # pick one unassigned variable
+        idx += 1
+
+    if idx == 80:
+        if check_goal_3rule(cells_status):
+            return True, deepcopy(cells_status), n
+        return False, None, n
+
+    value_domain = cells_status[idx][1]                 # get this cell's value domain
+    for value in value_domain:
+        copy2 = deepcopy(cells_status)                  # use a deep copy, since each value assignment will change
+                                                        # the whole 81 variables and domains
+        assignValue2Cell(idx, copy2, value)             # assignment value to variable
+        success, result_Cells, steps = fixed_baseline(copy2, n + 1, idx + 1)       # BT to next nodes
+        if success:
+            cells_status = deepcopy(result_Cells)
+            return True, cells_status, steps
+    return False, None, n
+

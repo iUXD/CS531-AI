@@ -118,25 +118,49 @@ def result_print(cells_status):
         if i != 0 and i %9 == 0:
             res += '\n'
         if len(cells_status[i][1]) == 0:
-            res += str(cells_status[i][0])
+            res += str(cells_status[i][0]) + " "
         else:
-            res += '0'
+            res += '0' + " "
     print(res)
 
 def goalState(cells_status):
-    # check if current cells are in goal state
+    # check if current cells are in goal state, if one cell is 0, or its value poll is not empty, return false
     for i in range(81):
-        if cells_status[i][0] == 0 or len(cells_status[i][1]) == 0:
+        if cells_status[i][0] == 0 or len(cells_status[i][1]) != 0:
             return False
     return True
 
+
+def violate_constraints(cells_status):
+    # if violate constraints, return True
+    for i in range(81):
+        if cells_status[i][0] == 0 and len(cells_status[i][1]) == 0:        # 0[]
+            return True
+        if cells_status[i][0] != 0:
+            if not rule1(i, cells_status):
+                return True
+            if not rule2(i, cells_status):
+                return True
+            if not rule3(i, cells_status):
+                return True
+    return False
 
 def constraints(cells_status):
     # check if satisfy with all the constraints
+    # if there are cells that have not be assigned, but value domain is empty,  return false
+    # have to match with three rules, no repeat
     for i in range(81):
-        if cells_status[i][0] ==0 and len(cells_status[i][1]) == 0:
+        if cells_status[i][0] == 0 and cells_status[i][1] == []:
+            # print("=====>", i, cells_status[i])
             return False
-    return True
+        if cells_status[i][0] != 0:
+            if not rule1(i, cells_status):
+                return False
+            if not rule2(i, cells_status):
+                return False
+            if not rule3(i, cells_status):
+                return False
+    return True         # means all variable satisfy the constraints
     pass
 
 def assignValue2Cell(i, cells_status, value):
@@ -156,3 +180,56 @@ def backAssignment(i, cells_status, oldList):
 def print_sudoku(cells_status):
     result_print(cells_status)
     pretty_print(cells_status)
+
+def test_naked_single(cells_status):
+    for i in range(81):
+        if cells_status[i][0] == 0 and len(cells_status[i][1]) == 1:
+            cells_status[i][0] = cells_status[i][1][0]
+            cells_status[i][1] = []
+
+def check_goal_3rule(cells_status):
+    for i in range(81):
+        if cells_status[i][0] == 0:
+            # print(cells_status[i])
+            return False
+        if not match_3rule(i, cells_status):
+            # print(i, cells_status[i])
+            return False
+    return True
+
+def match_3rule(i, cells_status):
+    return rule1(i, cells_status) and rule2(i, cells_status) and rule3(i, cells_status)
+
+
+
+def rule1(i, cells_status):
+    # check the same row
+    for colIdx in row_cells(i):
+        if cells_status[colIdx][0] == cells_status[i][0]:
+            return False
+    return True
+
+def rule2(i, cells_status):
+    # check the same colum
+    for colIdx in col_cells(i):
+        if cells_status[colIdx][0] == cells_status[i][0]:
+            return False
+    return True
+
+def rule3(i, cells_status):
+    # check the same cubic 3X3
+    for colIdx in box_cells(i):
+        if cells_status[colIdx][0] == cells_status[i][0]:
+            return False
+    return True
+def get2lines(cells_status):
+    # print first line
+    res = ""
+    for i in range(81):
+        res += str(cells_status[i][0])
+    return  res
+
+def print_remain(cells_status):
+    for i in range(81):
+        if cells_status[i][1] != []:
+            print(i, cells_status[i])
