@@ -16,24 +16,34 @@ def forward_checking(cells_status):
 
 def sudoku(initialState):
     # input:     initialState,a str of 81 initial values
-    print(initialState)
+    # print(initialState)
     # get data structures
     cells_status = get_initialDict(initialState)
 
 
     # apply fixed baseline approach
-    success, result_cells, used_steps = fixed_baseline(cells_status, 0, 0)
-    print(check_goal_3rule(result_cells))
-    print(used_steps)
+    success, result_cells, used_steps_fb = fixed_baseline(cells_status, 0, 0)
+    # print(check_goal_3rule(result_cells))
+    # print(used_steps_fb)
+    #
+    # print("Begin MCV:")
+    success, result_cells, used_steps_mcv = MCV(cells_status, 0)
+    # if success:
+    #     print(check_goal_3rule(result_cells))
+    # print(used_steps_mcv)
 
-    print("Begin MCV:")
-    success, result_cells, used_steps = MCV(cells_status, 0)
-    if success:
-        print(check_goal_3rule(result_cells))
-    print(used_steps)
 
-    return ""
+    return used_steps_fb, used_steps_mcv
 
+def series_sudoku(samples):
+    res_fb = []
+    res_mcv = []
+    for i in range(1, 71):
+        test = samples[i][0]
+        fb, mcv = sudoku(test)
+        res_fb.append(fb)
+        res_mcv.append(mcv)
+        print(i, fb, mcv, mcv < fb)
 
 if __name__ == '__main__':
     # load data
@@ -42,4 +52,5 @@ if __name__ == '__main__':
 
     test = samples[13][0]
 
-    sudoku(test)
+    # sudoku(test)
+    series_sudoku(samples)
