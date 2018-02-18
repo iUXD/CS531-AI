@@ -25,6 +25,13 @@ def sudoku(initialState):
     success, result_cells, used_steps = fixed_baseline(cells_status, 0, 0)
     print(check_goal_3rule(result_cells))
     print(used_steps)
+
+    print("Begin MCV:")
+    success, result_cells, used_steps = MCV(cells_status, 0)
+    if success:
+        print(check_goal_3rule(result_cells))
+    print(used_steps)
+
     return ""
 
 

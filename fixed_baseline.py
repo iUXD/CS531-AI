@@ -19,6 +19,7 @@ def fixed_baseline(cells_status, n, idx):
 
     forward_checking(cells_status)                      # do inference cut
     test_naked_single(cells_status)
+    # inference(cells_status, 11)
 
     if violate_constraints(cells_status):               # check if satisfy the constraints
         return False, None, n
