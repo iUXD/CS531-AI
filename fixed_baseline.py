@@ -1,8 +1,8 @@
 from utility import *
 from copy import deepcopy
 from Inference import *
-MAXNUM = 300
-def fixed_baseline(cells_status, n, idx):
+MAXNUM = 500
+def fixed_baseline(cells_status, n, idx, rule_list):
     # use a fixed order, row-wise and top to bottom
     # idx is the index in the 81 variables
     if idx == 81:                                       # checked all variables
@@ -17,9 +17,9 @@ def fixed_baseline(cells_status, n, idx):
     if n > MAXNUM:                                          # check if exhaust the steps
         return False, None, n
 
-    forward_checking(cells_status)                      # do inference cut
-    test_naked_single(cells_status)
-    # inference(cells_status, 11)
+    # forward_checking(cells_status)                      # do inference cut
+    # test_naked_single(cells_status)
+    inference_recursive(cells_status, rule_list, MAXNUM)
 
     if violate_constraints(cells_status):               # check if satisfy the constraints
         return False, None, n
@@ -39,7 +39,7 @@ def fixed_baseline(cells_status, n, idx):
         copy2 = deepcopy(cells_status)                  # use a deep copy, since each value assignment will change
                                                         # the whole 81 variables and domains
         assignValue2Cell(idx, copy2, value)             # assignment value to variable
-        success, result_Cells, steps = fixed_baseline(copy2, n + 1, idx + 1)       # BT to next nodes
+        success, result_Cells, steps = fixed_baseline(copy2, n + 1, idx + 1, rule_list)       # BT to next nodes
         if success:
             cells_status = deepcopy(result_Cells)
             return True, cells_status, steps

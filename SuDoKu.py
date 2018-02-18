@@ -21,20 +21,21 @@ def sudoku(initialState):
     cells_status = get_initialDict(initialState)
     #inference_recursive(cells_status,50)
     #print(check_goal_3rule(cells_status))
-
+    rule_list = [11, 12, 21, 22, 31, 32]
+    rule_list = []
     # apply fixed baseline approach
-    success, result_cells, used_steps_fb = fixed_baseline(cells_status, 0, 0)
-    # print(check_goal_3rule(result_cells))
-    # print(used_steps_fb)
+    success, result_cells, used_steps_fb = fixed_baseline(cells_status, 0, 0, rule_list)
+    print(check_goal_3rule(result_cells))
+    print(used_steps_fb)
     #
     # print("Begin MCV:")
-    success, result_cells, used_steps_mcv = MCV(cells_status, 0)
+    # success, result_cells, used_steps_mcv = MCV(cells_status, 0)
     # if success:
     #     print(check_goal_3rule(result_cells))
     # print(used_steps_mcv)
 
 
-    return used_steps_fb, used_steps_mcv
+    # return used_steps_fb, used_steps_mcv
 
 def series_sudoku(samples):
     res_fb = []
@@ -53,5 +54,5 @@ if __name__ == '__main__':
 
     test = samples[13][0]
 
-    # sudoku(test)
-    series_sudoku(samples)
+    sudoku(test)
+    # series_sudoku(samples)
