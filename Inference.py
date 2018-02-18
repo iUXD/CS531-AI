@@ -32,7 +32,7 @@ def inference_all(cells_status, rule_list, n):
 		results.append(inference(cells_status,32))
 	#print(results)
 	result = sum(results)
-	print(n, "************** total result *******************", result)
+	# print(n, "************** total result *******************", result)
 	return result
 
 def inference(cells_status, rule_id):
