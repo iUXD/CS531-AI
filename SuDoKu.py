@@ -19,7 +19,8 @@ def sudoku(initialState):
     # print(initialState)
     # get data structures
     cells_status = get_initialDict(initialState)
-
+    #inference_recursive(cells_status,50)
+    #print(check_goal_3rule(cells_status))
 
     # apply fixed baseline approach
     success, result_cells, used_steps_fb = fixed_baseline(cells_status, 0, 0)
