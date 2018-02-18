@@ -10,27 +10,37 @@ def cleaning_numbers(cells_status, cell_idx):
 	#for i in set(row_cells(cell_idx) + col_cells(cell_idx) + box_cells(cell_idx)):
 	#		print(cells_status[i])
 
-def inference_recursive(cells_status, n):
-	if inference_all(cells_status, n-1) == False or n == 0:
+def inference_recursive(cells_status, rule_list, n):
+	if inference_all(cells_status, rule_list, n-1) == False or n == 0:
 		return False
-	inference_recursive(cells_status, n-1)
+	inference_recursive(cells_status, rule_list, n-1)
 
-def inference_all(cells_status, n):
+def inference_all(cells_status, rule_list, n):
 	forward_checking(cells_status)
-	result1 = inference(cells_status,11)
-	result2 = inference(cells_status,12)
-	result3 = inference(cells_status,21)
-	result4 = inference(cells_status,22)
-	result5 = inference(cells_status,31)
-	result6 = inference(cells_status,32)
-	result = result1 or result2 or result3 or result4 or result5 or result6
+	results = [False]
+	if 11 in rule_list:
+		results.append(inference(cells_status,11))
+	if 12 in rule_list:
+		results.append(inference(cells_status,12))
+	if 21 in rule_list:
+		results.append(inference(cells_status,21))
+	if 22 in rule_list:
+		results.append(inference(cells_status,22))
+	if 31 in rule_list:
+		results.append(inference(cells_status,31))
+	if 32 in rule_list:
+		results.append(inference(cells_status,32))
+	#print(results)
+	result = sum(results)
 	print(n, "************** total result *******************", result)
 	return result
 
 def inference(cells_status, rule_id):
 	if rule_id == 11:
+		#print("rule_id =============================================", rule_id)
 		return naked_single(cells_status)
 	else:
+		#print("rule_id =============================================", rule_id)
 		changed = False
 		for i in range(0,10):
 			slot_idx = [i] + col_cells(i)
@@ -71,7 +81,7 @@ def naked_single(cells_status):
 
 	changed = False
 	for cell_idx in idx_list:
-		print("* Change cell", idx_list)
+		#print("* [11] Change cell", idx_list)
 		#print("* Previous", cells_status[cell_idx])
 		#print("* Assigning value", cells_status[cell_idx][1][0])
 		cells_status[cell_idx][0] = cells_status[cell_idx][1][0]
@@ -110,7 +120,7 @@ def hidden_single(cells_status, slot_idx):
 			if value in sublist:
 				cell_idx = slot_idx[i]
 				#print("=================== [Hidden_Single] ===================")
-				print("* Change cell", cell_idx)
+				#print("* [12] Change cell", cell_idx)
 				#print("* Domain", domain)
 				#print("* Previous", cells_status[cell_idx])
 				#print("* Assigning value", value)
@@ -142,7 +152,7 @@ def naked_pairs(cells_status, slot_idx):
 				common_values = set(cells_status[cell_idx][1]) & set(pair[0])
 				if len(common_values) > 0:
 					#print("=================== [Naked_Pairs] ===================")
-					print("* Change cell", cell_idx)
+					#print("* [21] Change cell", cell_idx)
 					#print("* Domain", domain)
 					#print("* Previous", cells_status[cell_idx])
 					#print("* Pair", pair)
@@ -184,7 +194,7 @@ def hidden_pairs(cells_status, slot_idx):
 			cell_idx = [slot_idx[index] for index, value in enumerate(domain) if len(set(value) & set(pair)) == 2]
 			for idx in cell_idx:
 				#print("=================== [Hidden_Pairs] ===================")
-				print("* Change cell", idx)
+				#print("* [22] Change cell", idx)
 				#print("* Domain", domain)
 				#print("* Previous", cells_status[idx])
 				#print("* Pair", pair)
@@ -220,7 +230,7 @@ def naked_triples(cells_status, slot_idx):
 				common_values = set(cells_status[idx][1]) & set(triple)
 				if len(common_values) > 0:
 					#print("=================== [Naked_Triples] =================== ")
-					print("* Change cell", idx)
+					#print("* [31] Change cell", idx)
 					#print("* Domain", domain)
 					#print("* Triple", triple)
 					#print("* Previous", cells_status[idx])
@@ -251,7 +261,7 @@ def hidden_triples(cells_status, slot_idx):
 				remove_values = list(set(cells_status[idx][1]) - set(common_values))
 				if len(common_values) > 0 and len(remove_values) > 0:
 					#print("=================== [Naked_Triples] =================== ")
-					print("* Change cell", idx)
+					#print("* [32] Change cell", idx)
 					#print("* Domain", domain)
 					#print("* Triple", triple)
 					#print("* Previous", cells_status[idx])
