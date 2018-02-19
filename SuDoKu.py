@@ -4,7 +4,7 @@ from fixed_baseline import *
 from MCV import *
 from Inference import *
 from utility import *
-
+import time
 
 
 def forward_checking(cells_status):
@@ -23,19 +23,23 @@ def sudoku(initialState, rule_list):
     #print(check_goal_3rule(cells_status))
 
     # apply fixed baseline approach
+    t1 = float(time.clock())
     success1, result_cells1, used_steps_fb = fixed_baseline(cells_status, 0, 0, rule_list)
+    t2 = float(time.clock())
     # print(check_goal_3rule(result_cells))
     # print(used_steps_fb)
     #
     # print("Begin MCV:")
+    t3 = float(time.clock())
     success2, result_cells2, used_steps_mcv = MCV(cells_status, 0 , rule_list)
+    t4 = float(time.clock())
     # if success:
     #     print(check_goal_3rule(result_cells))
     # print(used_steps_mcv)
-    print(success1, used_steps_fb)
+    # print(success1, used_steps_fb)
     # result_print(result_cells1)
-    result_print(result_cells2)
-    return used_steps_fb, used_steps_mcv, success1, success2
+    # result_print(result_cells2)
+    return used_steps_fb, used_steps_mcv, t2-t1, t4-t3
 
 def series_sudoku(samples):
     res_fb = []
@@ -54,11 +58,11 @@ def series_sudoku(samples):
     for jdx, rule_list in enumerate(rule_lists):
         for i in range(1, 71):
             test = samples[i][0]
-            fb, mcv, s1, s2 = sudoku(test, rule_list)
+            fb, mcv, time1, time2 = sudoku(test, rule_list)
             res_fb.append(fb)
             res_mcv.append(mcv)
             res[jdx][i] = (i, fb, mcv)
-            print(i, fb, mcv, mcv < fb, s1, s2)
+            print(i, fb, mcv, mcv < fb, time1, time2)
     print(res)
 
 if __name__ == '__main__':
@@ -70,5 +74,5 @@ if __name__ == '__main__':
     # test_rule_list = [11, 12, 21, 22, 31, 32]
     # test_rule_list = []
     # print(sudoku(test, test_rule_list))
-    # series_sudoku(samples)
-    sudoku(samples[2][0], [])
+    series_sudoku(samples)
+    # sudoku(samples[2][0], [])
