@@ -233,3 +233,12 @@ def print_remain(cells_status):
     for i in range(81):
         if cells_status[i][1] != []:
             print(i, cells_status[i])
+
+
+def filled_in_num(cells_status):
+    res = 0
+    for i in range(81):
+        if cells_status[i][0] != '0':
+            res += 1
+            # print(cells_status[i][0])
+    return res

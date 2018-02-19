@@ -54,6 +54,7 @@ def fixed_baseline(cells_status, n, idx, rule_list):
         if success:
             cells_status = deepcopy(result_Cells)
             return True, deepcopy(result_Cells), steps
+        n = steps
     return False, None, n
 
 def checkZeros(cells):

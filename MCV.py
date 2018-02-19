@@ -29,6 +29,7 @@ def MCV(cells_status, n, rule_list):
 
     pq = get_heap(cells_status)                         # put candidates in a queue
 
+
     if len(pq) == 0:
         return False, None, n
     _, idx = heappop(pq)
@@ -43,7 +44,7 @@ def MCV(cells_status, n, rule_list):
         if success:
             cells_status = deepcopy(result_Cells)
             return True, cells_status, steps
-
+        n = steps
     return False, None, n
 
 
