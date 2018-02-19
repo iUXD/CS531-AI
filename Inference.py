@@ -16,7 +16,7 @@ def inference_recursive(cells_status, rule_list, n):
 	inference_recursive(cells_status, rule_list, n-1)
 
 def inference_all(cells_status, rule_list, n):
-	forward_checking(cells_status)
+	# forward_checking(cells_status)
 	results = [False]
 	if 11 in rule_list:
 		results.append(inference(cells_status,11))
@@ -36,7 +36,10 @@ def inference_all(cells_status, rule_list, n):
 	return result
 
 def inference(cells_status, rule_id):
-	if rule_id == 11:
+	if rule_id == []:
+		forward_checking(cells_status)
+		return False
+	elif rule_id == 11:
 		#print("rule_id =============================================", rule_id)
 		return naked_single(cells_status)
 	else:

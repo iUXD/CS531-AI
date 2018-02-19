@@ -80,11 +80,12 @@ if __name__ == '__main__':
     # test_rule_list = [11, 12, 21, 22, 31, 32]
     # test_rule_list = []
     # print(sudoku(test, test_rule_list))
-    # series_sudoku(samples)
+    series_sudoku(samples)
     # print(sudoku(samples[13][0], []))
 
     # for i in range(1, 78):
     #     print(samples[i])
+    '''
     diff = []
     for i in range(77):
         data = samples[i+1][1]
@@ -112,3 +113,4 @@ if __name__ == '__main__':
             evil += tt
     print(easy, med, hard, evil)
     print(easy/23, med/21, hard/18, evil/15)
+    '''
