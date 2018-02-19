@@ -3,7 +3,7 @@ from utility import *
 from copy import deepcopy
 from Inference import *
 
-MAXNUM =  1000
+MAXNUM = 500
 def MCV(cells_status, n, rule_list):
     # print("----------------------0", n)
 
