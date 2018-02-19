@@ -56,15 +56,20 @@ def series_sudoku(samples):
 
     res = [[0 for x in range(n)] for y in range(m)]
     for jdx, rule_list in enumerate(rule_lists):
-        for i in range(1, 71):
+        for i in range(1, 3):
             test = samples[i][0]
             fb, mcv, time1, time2 = sudoku(test, rule_list)
             res_fb.append(fb)
             res_mcv.append(mcv)
-            res[jdx][i] = (i, fb, mcv)
-            print(i, fb, mcv, mcv < fb, time1, time2)
+            res[jdx][i] = (i, fb, mcv, time1, time2)
+            print(i, fb, mcv, time1, time2,  mcv < fb)
     print(res)
-
+    with open("data/result.txt", "w") as f:
+        for i in range(len(res)):
+            for j in range(1, 3):
+                f.write("%s %s %s %s %s \n" %
+                        (str(res[i][j][0]), str(res[i][j][1]), str(res[i][j][2]), str(res[i][j][3]), str(res[i][j][4])))
+            f.write("********\n")
 if __name__ == '__main__':
     # load data
     filePath = 'data/sudoku-problems.txt'

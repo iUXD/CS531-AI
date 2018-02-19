@@ -18,9 +18,9 @@ def fixed_baseline(cells_status, n, idx, rule_list):
     if n > MAXNUM:                                          # check if exhaust the steps
         return False, None, n
 
-    forward_checking(cells_status)                      # do inference cut
+    # forward_checking(cells_status)                      # do inference cut
     # test_naked_single(cells_status)
-    # inference_recursive(cells_status, rule_list, MAXNUM)
+    inference_recursive(cells_status, rule_list, MAXNUM)
     if violate_constraints(cells_status):               # check if satisfy the constraints
         # if cells_status != None:
         #     result_print(cells_status)
