@@ -39,7 +39,7 @@ def sudoku(initialState, rule_list):
     # print(success1, used_steps_fb)
     # result_print(result_cells1)
     # result_print(result_cells2)
-    return used_steps_fb, used_steps_mcv, t2-t1, t4-t3
+    return used_steps_fb, used_steps_mcv, t2-t1, t4-t3,  success1, success2
 
 def series_sudoku(samples):
     res_fb = []
@@ -56,17 +56,17 @@ def series_sudoku(samples):
 
     res = [[0 for x in range(n)] for y in range(m)]
     for jdx, rule_list in enumerate(rule_lists):
-        for i in range(1, 3):
+        for i in range(1, 78):
             test = samples[i][0]
-            fb, mcv, time1, time2 = sudoku(test, rule_list)
+            fb, mcv, time1, time2, s1, s2 = sudoku(test, rule_list)
             res_fb.append(fb)
             res_mcv.append(mcv)
             res[jdx][i] = (i, fb, mcv, time1, time2)
-            print(i, fb, mcv, time1, time2,  mcv < fb)
+            print(i, fb, mcv, time1, time2,  mcv < fb, s1, s2)
     print(res)
     with open("data/result.txt", "w") as f:
         for i in range(len(res)):
-            for j in range(1, 3):
+            for j in range(1, 78):
                 f.write("%s %s %s %s %s \n" %
                         (str(res[i][j][0]), str(res[i][j][1]), str(res[i][j][2]), str(res[i][j][3]), str(res[i][j][4])))
             f.write("********\n")
@@ -81,3 +81,5 @@ if __name__ == '__main__':
     # print(sudoku(test, test_rule_list))
     series_sudoku(samples)
     # sudoku(samples[2][0], [])
+    # for i in range(1, 78):
+    #     print(samples[i])
