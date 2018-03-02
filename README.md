@@ -1,2 +1,3 @@
 # GoMoKu_CS531
-GoMoKu for final project of CS531
+This repo is for CS 541 Final Project.
+Parts of the code is from [GoMoKu](https://github.com/s8w1e2ep/GoMoKu)
