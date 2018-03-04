@@ -204,7 +204,7 @@ class MonteCarlo(object):
         moves_states = [(pos, self.updateState(state, pos, self.player).reshape(1, 225)[0]) for pos in moves]
         # 確認模擬次數，時間
         #print 'Turn: {0},
-	print 'Time: {0}(s)'.format(time.time() - begin)
+        print 'Time: {0}(s)'.format(time.time() - begin)
         # print 'Play: {}, Win: {}'.format(self.plays.values(), self.wins.values())
         # 選擇最大勝率的走法
         totalMoves = []
@@ -253,24 +253,34 @@ class MonteCarlo(object):
             moves = self.legalMoves(state,pos)
             if len(moves) == 0:
                 return
+
             # 取得每個走法的狀態
             moves_state = [(pos, self.updateState(state, pos, player).reshape(1, 225)[0]) for pos in moves]
+
             # 取得目前玩家在每個狀態的模擬次數
-            play = [plays.get((player, tuple(item[1]))) for item in moves_state]
+            #play = [plays.get((player, tuple(item[1]))) for item in moves_state]
+            play = [plays.get((player, tuple(item[1]))) if plays.get((player, tuple(item[1]))) else 0
+                                                        for item in moves_state]
             # 確保每個步驟都有初始值，而不是None
             # print 'play:{}'.format(play)
-            if all(play):
+            #if all(play):
+            if any(play):
                 # total log(模擬總次數)
-                total = log(np.sum(play))
+                #total = log(np.sum(play))
+                total = log(np.sum(play)+1)
+
                 # 取得最大UCB1值state的action
-                ucb = [((wins[(player, tuple(s))] / plays[(player, tuple(s))]) + self.C * np.sqrt(total / plays[(player, tuple(s))]), (pos, s)) for pos, s in moves_state]
-		print ucb
+                #ucb = [((wins[(player, tuple(s))] / plays[(player, tuple(s))]) + self.C * np.sqrt(total / plays[(player, tuple(s))]), (pos, s)) for pos, s in moves_state]
+                ucb = [(  (wins[(player, tuple(s))] / plays[(player, tuple(s))]) + self.C * np.sqrt( total / plays[(player, tuple(s))] ),(pos, s))
+                            if plays.get((player, tuple(s))) else (1,(pos, s)) for pos, s in moves_state]
+                print "ucb"
                 val, move_s = max(ucb)
                 pos, state = move_s[0], move_s[1]
+
             else:
                 pos, state = choice(moves_state) #self.valueNet(moves, state, player)#choice(moves)
                 # state = self.updateState(state, pos, player)
-	    print state
+                #print state
             # 設定初始值
             if (expand and (player, tuple(state)) not in plays):
                 expand = False
