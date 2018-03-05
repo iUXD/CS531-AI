@@ -20,7 +20,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
 		self.AI = MCTS.MonteCarlo(self.board, 2)
 		self.AI_1 = MCTS.MonteCarlo(self.board, 1)
 		self.clicked = 0
-		self.init = False # first place is given by user (later need to be replaced as a random selection)
+		self.init = True # first place is given by user (later need to be replaced as a random selection)
 
 	def init_chess_board_points(self):
 		'''
@@ -60,105 +60,102 @@ class Chess_Board_Canvas(Tkinter.Canvas):
 		監聽滑鼠事件,根據滑鼠位置判斷落點
 		'''
 		if(self.clicked != 1):
-			if self.init == False:
-				for i in range(15):
-					for j in range(15):
-						square_distance = math.pow((event.x - self.chess_board_points[i][j].pixel_x), 2) + math.pow((event.y - self.chess_board_points[i][j].pixel_y), 2)
-						#計算滑鼠的位置和點的距離
-						#距離小於14的點
+			# for i in range(15):
+			# 	for j in range(15):
+			# 		square_distance = math.pow((event.x - self.chess_board_points[i][j].pixel_x), 2) + math.pow((event.y - self.chess_board_points[i][j].pixel_y), 2)
+			# 		#計算滑鼠的位置和點的距離
+			# 		#距離小於14的點
 
-						if (square_distance <= 200) and (self.step_record_chess_board.checkState(i, j) == None): #合法落子位置
-							self.clicked = 1
-							if self.step_record_chess_board.who_to_play() == 1:
-								#奇數次，黑落子
-								self.create_oval(self.chess_board_points[i][j].pixel_x-10,
-									self.chess_board_points[i][j].pixel_y-10,
-									self.chess_board_points[i][j].pixel_x+10,
-									self.chess_board_points[i][j].pixel_y+10, fill='black')
-								Tkinter.Canvas.update(self)
-							#偶數次，白落子
-							elif self.step_record_chess_board.who_to_play() == 2:
-								self.create_oval(self.chess_board_points[i][j].pixel_x-10,
-									self.chess_board_points[i][j].pixel_y-10,
-									self.chess_board_points[i][j].pixel_x+10,
-									self.chess_board_points[i][j].pixel_y+10, fill='white')
-
-
-							result = 0
-							if(self.step_record_chess_board.value[1][i][j] >= 90000):
-								result = 1
-								self.clicked = 0
-							self.step_record_chess_board.insert_record(i, j)
-							#落子，最多225
-
-							#######result = self.step_record_chess_board.check()
-							#判斷是否有五子連珠
+			# 		if (square_distance <= 200) and (self.step_record_chess_board.checkState(i, j) == None): #合法落子位置
+			# 			self.clicked = 1
+			# 			if self.step_record_chess_board.who_to_play() == 1:
+			# 				#奇數次，黑落子
+			# 				self.create_oval(self.chess_board_points[i][j].pixel_x-10,
+			# 					self.chess_board_points[i][j].pixel_y-10,
+			# 					self.chess_board_points[i][j].pixel_x+10,
+			# 					self.chess_board_points[i][j].pixel_y+10, fill='black')
+			# 				Tkinter.Canvas.update(self)
+			# 			#偶數次，白落子
+			# 			elif self.step_record_chess_board.who_to_play() == 2:
+			# 				self.create_oval(self.chess_board_points[i][j].pixel_x-10,
+			# 					self.chess_board_points[i][j].pixel_y-10,
+			# 					self.chess_board_points[i][j].pixel_x+10,
+			# 					self.chess_board_points[i][j].pixel_y+10, fill='white')
 
 
-							if result == 1:
-								self.create_text(240, 475, text='the black wins')
-								#解除左键绑定
-								self.unbind('<Button-1>')
-								# """Unbind for this widget for event SEQUENCE  the
-								#     function identified with FUNCID."""
+			# 			result = 0
+			# 			if(self.step_record_chess_board.value[1][i][j] >= 90000):
+			# 				result = 1
+			# 				self.clicked = 0
+			# 			self.step_record_chess_board.insert_record(i, j)
+			# 			#落子，最多225
 
-							elif result == 2:
-								self.create_text(240, 475, text='the white wins')
-								#解除左键绑定
-								self.unbind('<Button-1>')
-				self.init = True
-			else:
-				x = 0
-				y = 0
-				max_value = 0
-				result = 0
-				for i in range(0,15):
-					for j in range(0,15):
-						if(self.step_record_chess_board.value[1][i][j] >= 90000):
-							x = i
-							y = j
-							max_value = 99999
-							break;
-						elif(self.step_record_chess_board.value[0][i][j] >= max_value):
-							x = i
-							y = j
-							max_value = self.step_record_chess_board.value[0][i][j]
-				if(self.step_record_chess_board.value[1][x][y] >= 90000):
-					result = 2
-
-				self.board.state = np.copy(self.step_record_chess_board.state)
-				self.AI_1.value = self.step_record_chess_board.value[0]
-				self.AI_1.update(self.board.state)
-				action = self.AI_1.bestAction()
-				x,y = action
-
-				self.step_record_chess_board.insert_record(x, y)
-				#self.create_oval(self.chess_board_points[x][y].pixel_x-10,
-				#self.chess_board_points[x][y].pixel_y-10,
-				#self.chess_board_points[x][y].pixel_x+10,
-				#self.chess_board_points[x][y].pixel_y+10, fill='white')
-
-				self.create_oval(self.chess_board_points[x][y].pixel_x-10,
-					self.chess_board_points[x][y].pixel_y-10,
-					self.chess_board_points[x][y].pixel_x+10,
-					self.chess_board_points[x][y].pixel_y+10, fill='black')
-
-				#######result = self.step_record_chess_board.check()
-				#判斷是否有五子連珠
+			# 			#######result = self.step_record_chess_board.check()
+			# 			#判斷是否有五子連珠
 
 
-				if result == 1:
-					self.create_text(240, 475, text='the black wins')
-					#解除左键绑定
-					self.unbind('<Button-1>')
-					# """Unbind for this widget for event SEQUENCE  the
-					#     function identified with FUNCID."""
+			# 			if result == 1:
+			# 				self.create_text(240, 475, text='the black wins')
+			# 				#解除左键绑定
+			# 				self.unbind('<Button-1>')
+			# 				# """Unbind for this widget for event SEQUENCE  the
+			# 				#     function identified with FUNCID."""
 
-				elif result == 2:
-					self.create_text(240, 475, text='the white wins')
-					#解除左键绑定
-					self.unbind('<Button-1>')
-				self.clicked = 1
+			# 			elif result == 2:
+			# 				self.create_text(240, 475, text='the white wins')
+			# 				#解除左键绑定
+			# 				self.unbind('<Button-1>')
+			x = 0
+			y = 0
+			max_value = 0
+			result = 0
+			for i in range(0,15):
+				for j in range(0,15):
+					if(self.step_record_chess_board.value[1][i][j] >= 90000):
+						x = i
+						y = j
+						max_value = 99999
+						break;
+					elif(self.step_record_chess_board.value[0][i][j] >= max_value):
+						x = i
+						y = j
+						max_value = self.step_record_chess_board.value[0][i][j]
+			if(self.step_record_chess_board.value[1][x][y] >= 90000):
+				result = 2
+
+			self.board.state = np.copy(self.step_record_chess_board.state)
+			self.AI_1.value = self.step_record_chess_board.value[0]
+			self.AI_1.update(self.board.state)
+			action = self.AI_1.bestAction()
+			x,y = action
+
+			self.step_record_chess_board.insert_record(x, y)
+			#self.create_oval(self.chess_board_points[x][y].pixel_x-10,
+			#self.chess_board_points[x][y].pixel_y-10,
+			#self.chess_board_points[x][y].pixel_x+10,
+			#self.chess_board_points[x][y].pixel_y+10, fill='white')
+
+			self.create_oval(self.chess_board_points[x][y].pixel_x-10,
+				self.chess_board_points[x][y].pixel_y-10,
+				self.chess_board_points[x][y].pixel_x+10,
+				self.chess_board_points[x][y].pixel_y+10, fill='black')
+
+			#######result = self.step_record_chess_board.check()
+			#判斷是否有五子連珠
+
+
+			if result == 1:
+				self.create_text(240, 475, text='the black wins')
+				#解除左键绑定
+				self.unbind('<Button-1>')
+				# """Unbind for this widget for event SEQUENCE  the
+				#     function identified with FUNCID."""
+
+			elif result == 2:
+				self.create_text(240, 475, text='the white wins')
+				#解除左键绑定
+				self.unbind('<Button-1>')
+			self.clicked = 1
 
 		#根據價值網路落子
 		if(self.clicked == 1): # White stone
