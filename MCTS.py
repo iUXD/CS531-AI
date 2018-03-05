@@ -247,7 +247,7 @@ class MonteCarlo(object):
         player = self.player
 
         expand = True
-	pos = (-1,-1)
+        pos = (-1,-1)
         for t in xrange(1, self.MAX_MOVE + 1):
             # player = 1 << ((t + 1) % 2)
             moves = self.legalMoves(state,pos)
@@ -273,7 +273,7 @@ class MonteCarlo(object):
                 #ucb = [((wins[(player, tuple(s))] / plays[(player, tuple(s))]) + self.C * np.sqrt(total / plays[(player, tuple(s))]), (pos, s)) for pos, s in moves_state]
                 ucb = [(  (wins[(player, tuple(s))] / plays[(player, tuple(s))]) + self.C * np.sqrt( total / plays[(player, tuple(s))] ),(pos, s))
                             if plays.get((player, tuple(s))) else (1,(pos, s)) for pos, s in moves_state]
-                print "ucb"
+                #print "ucb"
                 val, move_s = max(ucb)
                 pos, state = move_s[0], move_s[1]
 
