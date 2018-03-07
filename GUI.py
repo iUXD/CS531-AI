@@ -210,7 +210,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             Important 2:
             Only below 4 line are interact between the AI agent and the board
             self.board.state = np.copy(self.step_record_chess_board.state)  # make a deep copy of state
-            self.AI_1.value = self.step_record_chess_board.value[1]         # get board information, a 15*15 array
+            self.AI_1.value = self.step_record_chess_board.value[1]         # assign board information, a 15*15 array
             self.AI_1.update(self.board.state)                              # AI function, do some calculations
             action = self.AI_1.bestAction()                                 # Best actions the AI will make
             """
