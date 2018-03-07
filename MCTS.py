@@ -6,9 +6,11 @@ import os
 import ast
 import time
 
+
 class Board:
     def __init__(self):
         self.state = np.array([[0] * 15] * 15)
+
     # 判斷是否有贏家
     def isWin(self, state, action, player):
         i, j = action[0], action[1]
@@ -17,13 +19,13 @@ class Board:
         # 直線 |
         for shift in xrange(1, 5):
             if (i + shift) < 15:
-                if(state[i + shift][j] == player):
+                if (state[i + shift][j] == player):
                     count[0] += 1
                 else:
                     break
         for shift in xrange(1, 5):
             if (i - shift) > -1:
-                if(state[i - shift][j] == player):
+                if (state[i - shift][j] == player):
                     count[0] += 1
                 else:
                     break
@@ -71,26 +73,28 @@ class Board:
             return True
         else:
             return False
+
     # 顯示盤面
     def display(self):
         for i in xrange(17):
-            if(i == 0 or i == 1):
+            if (i == 0 or i == 1):
                 print ' ',
             for j in xrange(16):
-                if(i == 0 and j != 15):
+                if (i == 0 and j != 15):
                     print ' ' + format(j, 'x'),
-                elif(i == 1 and j != 15):
+                elif (i == 1 and j != 15):
                     print '{:>2}'.format('='),
-                elif(j == 0):
+                elif (j == 0):
                     print format((i - 2), 'x') + '|',
-                elif(i != 0 and i != 1):
-                    if(self.state[(i - 2)][(j -1)] == 0):
+                elif (i != 0 and i != 1):
+                    if (self.state[(i - 2)][(j - 1)] == 0):
                         print '{:2}'.format('-'),
-                    elif(self.state[(i - 2)][(j -1)] == 1):
+                    elif (self.state[(i - 2)][(j - 1)] == 1):
                         print '{:2}'.format('X'),
                     else:
                         print '{:2}'.format('O'),
             print ''
+
     # 回傳此回合玩家
     def currentPlayer(self, state):
         state = np.array(state)
@@ -99,8 +103,9 @@ class Board:
         p2 = len([v for v in state if (v == 2)])
         if (p1 == p2):
             return 2
-        elif(p1 > p2):
+        elif (p1 > p2):
             return 1
+
     # 回傳下回合玩家
     def nextPlayer(self, state):
         state = np.array(state)
@@ -109,8 +114,10 @@ class Board:
         p2 = len([v for v in state if (v == 2)])
         if (p1 == p2):
             return 1
-        elif(p1 > p2):
+        elif (p1 > p2):
             return 2
+
+
 class MonteCarlo(object):
     def __init__(self, board, player):
         # C: UCB1常數, MAX_TIME: 模擬時間, MAX_MOVE: 最大移動步數
@@ -129,27 +136,29 @@ class MonteCarlo(object):
         self.wins = {}
         self.plays = {}
         self.before = (-1, -1)
+
     # 更新狀態
     def update(self, state):
         # 添加新狀態
         self.states.append(state)
+
     # 回傳合法的走法
-    def legalMoves(self, state, pos, flag = 1):
-        if(flag == 0):
+    def legalMoves(self, state, pos, flag=1):
+        if (flag == 0):
             tem_value = list(self.value.reshape(1, 225)[0])
             temp_value = []
             for i in xrange(len(tem_value)):
                 temp_value.append((tem_value[i], i))
-            temp_value = sorted(temp_value, key=lambda s : s[0],reverse=True)
+            temp_value = sorted(temp_value, key=lambda s: s[0], reverse=True)
             move = []
-            if(temp_value[0][0] > 40000):
+            if (temp_value[0][0] > 40000):
                 index = temp_value[0][1]
-                move.append((index/15, index%15))
+                move.append((index / 15, index % 15))
             else:
-                temp = [(index/15, index%15) for (val, index) in temp_value]
-                if(temp_value[0][0] > 3000 and temp_value[0][0] / float(temp_value[1][0]) > 1.5):
+                temp = [(index / 15, index % 15) for (val, index) in temp_value]
+                if (temp_value[0][0] > 3000 and temp_value[0][0] / float(temp_value[1][0]) > 1.5):
                     move.append(temp[0])
-                elif(temp_value[0][0] > 3000 and temp_value[0][0] / float(temp_value[2][0]) > 1.5):
+                elif (temp_value[0][0] > 3000 and temp_value[0][0] / float(temp_value[2][0]) > 1.5):
                     move.append(temp[0])
                     move.append(temp[1])
                 else:
@@ -159,7 +168,7 @@ class MonteCarlo(object):
             return move
         else:
             i, j = pos
-            if(i != -1 and j != -1):
+            if (i != -1 and j != -1):
                 state = np.array(state).reshape(1, 225)[0]
                 temp = [(pos / 15, pos % 15) for pos in np.where(state == 0)[0]]
                 moves = []
@@ -175,19 +184,21 @@ class MonteCarlo(object):
                 else:
                     return moves
             else:
-    			state = np.array(state).reshape(1, 225)[0]
-    			moves = [(pos / 15, pos % 15) for pos in np.where(state == 0)[0]]
+                state = np.array(state).reshape(1, 225)[0]
+                moves = [(pos / 15, pos % 15) for pos in np.where(state == 0)[0]]
 
-    			if (len(moves) == 225):
-    				return ([(pos / 15, pos % 15) for pos in np.where(state == 0)[0] if (pos / 15 < 2 or pos / 15 > 12) or (pos % 15 < 2 or pos % 15 > 12)])
-    			else:
-    				return moves
+                if (len(moves) == 225):
+                    return ([(pos / 15, pos % 15) for pos in np.where(state == 0)[0] if
+                             (pos / 15 < 2 or pos / 15 > 12) or (pos % 15 < 2 or pos % 15 > 12)])
+                else:
+                    return moves
+
     # 找出最好的走法
     def bestAction(self):
         # 找出最佳下法
         self.MAX_DEPTH = 0
         state = self.states[-1]
-        moves = self.legalMoves(state,None,0)
+        moves = self.legalMoves(state, None, 0)
         # 判斷是否有很多種走法
         if not moves:
             return
@@ -203,7 +214,7 @@ class MonteCarlo(object):
 
         moves_states = [(pos, self.updateState(state, pos, self.player).reshape(1, 225)[0]) for pos in moves]
         # 確認模擬次數，時間
-        #print 'Turn: {0},
+        # print 'Turn: {0},
         print 'Time: {0}(s)'.format(time.time() - begin)
         # print 'Play: {}, Win: {}'.format(self.plays.values(), self.wins.values())
         # 選擇最大勝率的走法
@@ -231,10 +242,11 @@ class MonteCarlo(object):
         elif len(best_move) != 0:
             rate_wins, bmove = choice(best_move)
 
-        #print 'The probability of win: {}, the best action: {}'.format(rate_wins, bmove)
+        # print 'The probability of win: {}, the best action: {}'.format(rate_wins, bmove)
 
-        #print "Maximum depth searched:", self.MAX_DEPTH
+        # print "Maximum depth searched:", self.MAX_DEPTH
         return bmove
+
     # 模擬
     def simulation(self):
         # MonteCarloSearch
@@ -247,10 +259,10 @@ class MonteCarlo(object):
         player = self.player
 
         expand = True
-        pos = (-1,-1)
+        pos = (-1, -1)
         for t in xrange(1, self.MAX_MOVE + 1):
             # player = 1 << ((t + 1) % 2)
-            moves = self.legalMoves(state,pos)
+            moves = self.legalMoves(state, pos)
             if len(moves) == 0:
                 return
 
@@ -258,29 +270,30 @@ class MonteCarlo(object):
             moves_state = [(pos, self.updateState(state, pos, player).reshape(1, 225)[0]) for pos in moves]
 
             # 取得目前玩家在每個狀態的模擬次數
-            #play = [plays.get((player, tuple(item[1]))) for item in moves_state]
+            # play = [plays.get((player, tuple(item[1]))) for item in moves_state]
             play = [plays.get((player, tuple(item[1]))) if plays.get((player, tuple(item[1]))) else 0
-                                                        for item in moves_state]
+                    for item in moves_state]
             # 確保每個步驟都有初始值，而不是None
             # print 'play:{}'.format(play)
-            #if all(play):
+            # if all(play):
             if any(play):
                 # total log(模擬總次數)
-                #total = log(np.sum(play))
-                total = log(np.sum(play)+1)
+                # total = log(np.sum(play))
+                total = log(np.sum(play) + 1)
 
                 # 取得最大UCB1值state的action
-                #ucb = [((wins[(player, tuple(s))] / plays[(player, tuple(s))]) + self.C * np.sqrt(total / plays[(player, tuple(s))]), (pos, s)) for pos, s in moves_state]
-                ucb = [((wins[(player, tuple(s))] / plays[(player, tuple(s))]) + self.C * np.sqrt( total / plays[(player, tuple(s))] ),(pos, s))
-                            if plays.get((player, tuple(s))) else (1,(pos, s)) for pos, s in moves_state]
-                #print "ucb"
+                # ucb = [((wins[(player, tuple(s))] / plays[(player, tuple(s))]) + self.C * np.sqrt(total / plays[(player, tuple(s))]), (pos, s)) for pos, s in moves_state]
+                ucb = [((wins[(player, tuple(s))] / plays[(player, tuple(s))]) + self.C * np.sqrt(
+                    total / plays[(player, tuple(s))]), (pos, s))
+                       if plays.get((player, tuple(s))) else (1, (pos, s)) for pos, s in moves_state]
+                # print "ucb"
                 val, move_s = max(ucb)
                 pos, state = move_s[0], move_s[1]
 
             else:
-                pos, state = choice(moves_state) #self.valueNet(moves, state, player)#choice(moves)
+                pos, state = choice(moves_state)  # self.valueNet(moves, state, player)#choice(moves)
                 # state = self.updateState(state, pos, player)
-                #print state
+                # print state
             # 設定初始值
             if (expand and (player, tuple(state)) not in plays):
                 expand = False
@@ -306,12 +319,14 @@ class MonteCarlo(object):
             if player == winner:
                 wins[(player, state)] += 1
                 # print '{}: {}'.format(player, wins[(player, state)])
+
     # 回傳模擬的state
     def updateState(self, state, action, player):
         temp = np.copy(state)
         temp = np.array(temp).reshape(15, 15)
         temp[action[0]][action[1]] = player
         return temp
+
 
 """if __name__=="__main__":
     board = Board()

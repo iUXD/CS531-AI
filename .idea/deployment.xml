@@ -5,7 +5,7 @@
       <paths name="gpu-bart.eecs.oregonstate.edu">
         <serverdata>
           <mappings>
-            <mapping deploy="/nfs/stak/users/heli/heli/CS531" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
