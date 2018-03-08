@@ -5,7 +5,7 @@ import GUI
 import Tkinter
 import os
 from Tkinter import Button
-
+from policy_value_net_pytorch import PolicyValueNet
 def callback():
     cmd = 'python main.py'
     os.system(cmd)
@@ -22,3 +22,6 @@ if __name__ == '__main__':
     b.pack()
     # b2.pack()
     window.mainloop()
+
+
+    # print("done")

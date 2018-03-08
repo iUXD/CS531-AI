@@ -31,6 +31,19 @@ class Board(object):
         self.states = {}
         self.last_move = -1
 
+    def update_state(self, array_board):
+        # update state {}
+        # array_board:
+        self.states = {}
+        for i in range(self.height):
+            for j in range(self.width):
+                if array_board[i][j] != 0:
+                    key = i * self.width + j
+                    value = array_board[i][j]
+                    self.states[key] = value
+        return
+
+
     def move_to_location(self, move):
         """
         3*3 board's moves like:

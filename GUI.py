@@ -2,13 +2,18 @@
 # -*- coding: utf-8 -*-
 import Tkinter
 import math
+from collections import deque
+
 import Point
 import Record
 import time
 import MCTS
 import numpy as np
 from Tkinter import Button, Label
-
+from policy_value_net_pytorch import PolicyValueNet
+from mcts_alphaZero import MCTSPlayer
+from game import Board as Board2
+from game import Game
 
 class Chess_Board_Canvas(Tkinter.Canvas):
     # 棋盤繪製
@@ -16,15 +21,26 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         Tkinter.Canvas.__init__(self, master, height=height, width=width)
         self.step_record_chess_board = Record.Step_Record_Chess_Board()
         # 初始化記步器
+        self.height = 15
+        self.width = 15
         self.init_chess_board_points()  # 畫點
         self.init_chess_board_canvas()  # 畫棋盤
         self.board = MCTS.Board()
+        self.n_in_row = 4
+        self.n_playout = 400  # num of simulations for each move
+        self.c_puct = 5
+        self.board2 = Board2(width=self.width,
+                           height=self.height,
+                           n_in_row=self.n_in_row)
+        self.board2.init_board()
+        self.game = Game(self.board2)
+
         """
         Important 1: Python is pass by reference
         So the self.board will be modified by other operations
         """
-        self.AI = MCTS.MonteCarlo(self.board, 2)
-        self.AI_1 = MCTS.MonteCarlo(self.board, 1)
+        self.AI = MCTS.MonteCarlo(self.board, 1)
+        self.AI_1 = MCTS.MonteCarlo(self.board, 0)
         self.clicked = 0
         self.init = True  # first place is given by user (later need to be replaced as a random selection)
         self.train_or_play = True  # True - train, False - play
@@ -174,9 +190,34 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         #   Human vs AI
         #   Have to load trained NN
         """
-        self.train_or_play = False
+        self.train_or_play = False      # this will lock the "ai vs human" button
 
         return
+
+    def loadAI(self, init_model):
+        """"
+        # load AI
+        """
+
+        # return
+        # self.buffer_size = 10000
+        # self.batch_size = 512  # mini-batch size for training
+        # self.data_buffer = deque(maxlen=self.buffer_size)
+        if init_model:
+            # start training from an initial policy-value net
+            self.policy_value_net = PolicyValueNet(self.width,
+                                                   self.height,
+                                                   model_file=init_model)
+        else:
+            # start training from a new policy-value net
+            self.policy_value_net = PolicyValueNet(self.width,
+                                                   self.height)
+        print("agent1: load agent:-> 1")
+        self.mcts_player = MCTSPlayer(self.policy_value_net.policy_value_fn,
+                                      c_puct=self.c_puct,
+                                      n_playout=self.n_playout,
+                                      is_selfplay=1)
+
 
     def click3(self):
         """
@@ -184,7 +225,160 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         ##  make it self play, AI vs AI, no need to click the mouse, so no need to listen the event
         ##  problem: Let two AIs to play, and learn the NN
         """
-        self.train_or_play = True
+
+        self.train_or_play = True       # this will lock the "ai vs human" button
+        self.loadAI(False)
+        self.policy_value_net = PolicyValueNet(self.width,
+                                               self.height)
+        print(self.width, self.height)
+
+        # self.step += 1
+        # # self.train_agents()
+        # print("agent1: load")
+        self.train_nn_agents()
+
+    def train_nn_agents(self):
+        self.step += 1
+        print("agent0: beign")
+        if (self.clicked != 1):
+            x = 0
+            y = 0
+            max_value = 0
+            result = 0
+            for i in range(0, 15):
+                for j in range(0, 15):
+                    if (self.step_record_chess_board.value[1][i][j] >= 90000):
+                        x = i
+                        y = j
+                        max_value = 99999
+                        break
+                    elif (self.step_record_chess_board.value[0][i][j] >= max_value):
+                        x = i
+                        y = j
+                        max_value = self.step_record_chess_board.value[0][i][j]
+            if (self.step_record_chess_board.value[1][x][y] >= 90000):
+                result = 2
+
+
+            """
+            Important 2:
+            Only below 4 line are interact between the AI agent and the board
+            self.board.state = np.copy(self.step_record_chess_board.state)  # make a deep copy of state
+            self.AI_1.value = self.step_record_chess_board.value[1]         # assign board information, a 15*15 array
+            self.AI_1.update(self.board.state)                              # AI function, do some calculations
+            action = self.AI_1.bestAction()                                 # Best actions the AI will make
+            """
+            self.board.state = np.copy(self.step_record_chess_board.state)
+            self.board2.update_state(self.step_record_chess_board.value[1])
+            # self.mcts_player.get_action()
+            # self.AI_1.value = self.step_record_chess_board.value[1]
+            # self.AI_1.update(self.board.state)
+            # train it now, then predict
+            # self.collect_selfplay_data(1)
+
+            print("agent1: beign")
+            action = self.mcts_player.get_action(self.board2)
+            print("agent1: end", action)
+            x = action / self.width
+            y = action % self.width
+
+            self.step_record_chess_board.insert_record(x, y)
+
+            self.create_oval(self.chess_board_points[x][y].pixel_x - 10,
+                             self.chess_board_points[x][y].pixel_y - 10,
+                             self.chess_board_points[x][y].pixel_x + 10,
+                             self.chess_board_points[x][y].pixel_y + 10, fill='black')
+            if result == 1:
+                self.create_text(240, 475, text='the black wins')
+                return
+
+            elif result == 2:
+                self.create_text(240, 475, text='the white wins')
+                return
+            self.clicked = 1
+
+            # 根據價值網路落子
+        if (self.clicked == 1):  # White stone
+            x = 0
+            y = 0
+            max_value = 0
+            for i in range(0, 15):
+                for j in range(0, 15):
+                    if (self.step_record_chess_board.value[2][i][j] >= 90000):
+                        x = i
+                        y = j
+                        max_value = 99999
+                        break
+                    elif (self.step_record_chess_board.value[0][i][j] >= max_value):
+                        x = i
+                        y = j
+                        max_value = self.step_record_chess_board.value[0][i][j]
+
+            if (self.step_record_chess_board.value[2][x][y] >= 90000):
+                result = 2
+
+            self.board.state = np.copy(self.step_record_chess_board.state)
+            self.AI.value = self.step_record_chess_board.value[0]
+            self.AI.update(self.board.state)
+            action = self.AI.bestAction()
+            x, y = action
+
+            self.step_record_chess_board.insert_record(x, y)
+            self.create_oval(self.chess_board_points[x][y].pixel_x - 10, self.chess_board_points[x][y].pixel_y - 10,
+                             self.chess_board_points[x][y].pixel_x + 10, self.chess_board_points[x][y].pixel_y + 10,
+                             fill='white')
+
+            if result == 1:
+                self.create_text(240, 475, text='the black wins')
+
+                return
+            elif result == 2:
+                self.create_text(240, 475, text='the white wins')
+                return
+            self.clicked = 0
+
+        if  self.text_id:
+            print(self.text_id)
+            self.delete(self.text_id)
+        self.text_id = self.create_text(150, 475, text='Step: %d'%self.step)
+        self.after(10, self.train_nn_agents)
+
+    def collect_selfplay_data(self, n_games=1):
+        """collect self-play data for training"""
+        for i in range(n_games):
+            winner, play_data = self.game.start_self_play(self.mcts_player,
+                                                          temp=1)
+            play_data = list(play_data)[:]
+            self.episode_len = len(play_data)
+            # augment the data
+            play_data = self.get_equi_data(play_data)
+            self.data_buffer.extend(play_data)
+
+    def get_equi_data(self, play_data):
+        """augment the data set by rotation and flipping
+                play_data: [(state, mcts_prob, winner_z), ..., ...]
+                """
+        extend_data = []
+        for state, mcts_porb, winner in play_data:
+            for i in [1, 2, 3, 4]:
+                # rotate counterclockwise
+                equi_state = np.array([np.rot90(s, i) for s in state])
+                equi_mcts_prob = np.rot90(np.flipud(
+                    mcts_porb.reshape(self.height, self.width)), i)
+                extend_data.append((equi_state,
+                                    np.flipud(equi_mcts_prob).flatten(),
+                                    winner))
+                # flip horizontally
+                equi_state = np.array([np.fliplr(s) for s in equi_state])
+                equi_mcts_prob = np.fliplr(equi_mcts_prob)
+                extend_data.append((equi_state,
+                                    np.flipud(equi_mcts_prob).flatten(),
+                                    winner))
+        return extend_data
+
+
+
+    def train_agents(self):
         self.step += 1
         if (self.clicked != 1):
             x = 0
@@ -280,7 +474,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             print(self.text_id)
             self.delete(self.text_id)
         self.text_id = self.create_text(150, 475, text='Step: %d'%self.step)
-        self.after(10, self.click3)
+        self.after(10, self.train_agents)
 
 
 class Chess_Board_Frame(Tkinter.Frame):
