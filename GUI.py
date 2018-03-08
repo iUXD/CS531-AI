@@ -231,6 +231,11 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         self.loadAI(False)
         self.policy_value_net = PolicyValueNet(self.width,
                                                self.height)
+
+        self.mcts_player = MCTSPlayer(self.policy_value_net.policy_value_fn,
+                                      c_puct=self.c_puct,
+                                      n_playout=self.n_playout,
+                                      is_selfplay=1)
         print(self.width, self.height)
 
         # self.step += 1
@@ -270,7 +275,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             action = self.AI_1.bestAction()                                 # Best actions the AI will make
             """
             self.board.state = np.copy(self.step_record_chess_board.state)
-            self.board2.update_state(self.step_record_chess_board.value[1])
+            self.board2.update_state(self.step_record_chess_board.value[1],self.step_record_chess_board.value[2])
             # self.mcts_player.get_action()
             # self.AI_1.value = self.step_record_chess_board.value[1]
             # self.AI_1.update(self.board.state)
@@ -282,6 +287,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             print("agent1: end", action)
             x = action // self.width
             y = action % self.width
+            y = self.height - y - 1
 
             self.step_record_chess_board.insert_record(x, y)
 

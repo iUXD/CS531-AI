@@ -31,7 +31,7 @@ class Board(object):
         self.states = {}
         self.last_move = -1
 
-    def update_state(self, array_board):
+    def update_state(self, array_board, array_board2):
         # update state {}
         # array_board:
         self.states = {}
@@ -57,6 +57,12 @@ class Board(object):
                 if array_board[i][j] != 0:
                     key = (self.height - i - 1) * self.width + j
                     value = array_board[i][j]
+                    self.states[key] = value
+        for i in range(self.height):
+            for j in range(self.width):
+                if array_board[i][j] != 0:
+                    key = (self.height - i - 1) * self.width + j
+                    value = array_board2[i][j]
                     self.states[key] = value
         return
 
