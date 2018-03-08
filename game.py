@@ -35,10 +35,27 @@ class Board(object):
         # update state {}
         # array_board:
         self.states = {}
+        """
+        
+        
+        0 1 2
+        3 4 5
+        6 7 8
+        
+        to:
+        
+        6 7 8
+        3 4 5
+        0 1 2
+        
+        2 *3 = 9
+        
+        """
+
         for i in range(self.height):
             for j in range(self.width):
                 if array_board[i][j] != 0:
-                    key = (self.height - i) * self.width + j
+                    key = (self.height - i - 1) * self.width + j
                     value = array_board[i][j]
                     self.states[key] = value
         return

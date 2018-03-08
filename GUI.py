@@ -203,14 +203,15 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         # self.buffer_size = 10000
         # self.batch_size = 512  # mini-batch size for training
         # self.data_buffer = deque(maxlen=self.buffer_size)
-        init_model = "best_policy.model"
+        init_model = "current_policy.model"
 
         # self.policy_value_net = PolicyValueNet(self.width,
         #                                        self.height,
         #                                        model_file=False)
         self.policy_value_net = PolicyValueNet(self.width,
                                                    self.height,
-                                                   model_file=init_model)
+                                                   model_file=init_model,
+                                               use_gpu=False)
 
         self.mcts_player = MCTSPlayer(self.policy_value_net.policy_value_fn,
                                       c_puct=self.c_puct,
@@ -278,7 +279,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             print("agent1: beign")
             action = self.mcts_player.get_action(self.board2)
             print("agent1: end", action)
-            x = action / self.width
+            x = action // self.width
             y = action % self.width
 
             self.step_record_chess_board.insert_record(x, y)
