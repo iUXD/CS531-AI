@@ -203,16 +203,15 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         # self.buffer_size = 10000
         # self.batch_size = 512  # mini-batch size for training
         # self.data_buffer = deque(maxlen=self.buffer_size)
-        if init_model:
-            # start training from an initial policy-value net
-            self.policy_value_net = PolicyValueNet(self.width,
+        init_model = "best_policy.model"
+
+        # self.policy_value_net = PolicyValueNet(self.width,
+        #                                        self.height,
+        #                                        model_file=False)
+        self.policy_value_net = PolicyValueNet(self.width,
                                                    self.height,
                                                    model_file=init_model)
-        else:
-            # start training from a new policy-value net
-            self.policy_value_net = PolicyValueNet(self.width,
-                                                   self.height)
-        print("agent1: load agent:-> 1")
+
         self.mcts_player = MCTSPlayer(self.policy_value_net.policy_value_fn,
                                       c_puct=self.c_puct,
                                       n_playout=self.n_playout,

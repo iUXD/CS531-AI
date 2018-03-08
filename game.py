@@ -38,7 +38,7 @@ class Board(object):
         for i in range(self.height):
             for j in range(self.width):
                 if array_board[i][j] != 0:
-                    key = i * self.width + j
+                    key = (self.height - i) * self.width + j
                     value = array_board[i][j]
                     self.states[key] = value
         return
