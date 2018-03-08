@@ -204,6 +204,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         # self.batch_size = 512  # mini-batch size for training
         # self.data_buffer = deque(maxlen=self.buffer_size)
         init_model = "current_policy.model"
+        init_model = "gomoku.pt"
 
         # self.policy_value_net = PolicyValueNet(self.width,
         #                                        self.height,

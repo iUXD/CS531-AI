@@ -76,7 +76,7 @@ class PolicyValueNet():
 
         if model_file:
             net_params = pickle.load(open(model_file, 'rb'))
-            self.policy_value_net.load_state_dict(net_params, map_location=lambda storage, loc: storage)
+            self.policy_value_net.load_state_dict(torch.load(model_file))
 
     def policy_value(self, state_batch):
         """
