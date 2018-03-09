@@ -75,8 +75,8 @@ class PolicyValueNet():
                                     weight_decay=self.l2_const)
 
         if model_file:
-            net_params = pickle.load(open(model_file, 'rb'))
-            self.policy_value_net.load_state_dict(torch.load(model_file))
+            # net_params = pickle.load(open(model_file, 'rb'))
+            self.policy_value_net.load_state_dict(torch.load(model_file, map_location=lambda storage, loc: storage))
 
     def policy_value(self, state_batch):
         """

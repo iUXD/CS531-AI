@@ -204,7 +204,8 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         # self.batch_size = 512  # mini-batch size for training
         # self.data_buffer = deque(maxlen=self.buffer_size)
         init_model = "current_policy.model"
-        init_model = "gomoku.pt"
+        init_model = "best_policy.model"
+        init_model = 'best_policy.pt'
 
         # self.policy_value_net = PolicyValueNet(self.width,
         #                                        self.height,
@@ -217,7 +218,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         self.mcts_player = MCTSPlayer(self.policy_value_net.policy_value_fn,
                                       c_puct=self.c_puct,
                                       n_playout=self.n_playout,
-                                      is_selfplay=1)
+                                      is_selfplay=0)
 
 
     def click3(self):
@@ -229,13 +230,13 @@ class Chess_Board_Canvas(Tkinter.Canvas):
 
         self.train_or_play = True       # this will lock the "ai vs human" button
         self.loadAI(False)
-        self.policy_value_net = PolicyValueNet(self.width,
-                                               self.height)
+        # self.policy_value_net = PolicyValueNet(self.width,
+        #                                        self.height)
 
-        self.mcts_player = MCTSPlayer(self.policy_value_net.policy_value_fn,
-                                      c_puct=self.c_puct,
-                                      n_playout=self.n_playout,
-                                      is_selfplay=1)
+        # self.mcts_player = MCTSPlayer(self.policy_value_net.policy_value_fn,
+        #                               c_puct=self.c_puct,
+        #                               n_playout=self.n_playout,
+        #                               is_selfplay=1)
         print(self.width, self.height)
 
         # self.step += 1
@@ -247,50 +248,38 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         self.step += 1
         print("agent0: beign")
         if (self.clicked != 1):
-            x = 0
-            y = 0
-            max_value = 0
+            self.clicked = 1
+            if self.step_record_chess_board.who_to_play() == 1:
+                cur_play = 1                                        # current is black
+            elif self.step_record_chess_board.who_to_play() == 2:
+                cur_play = 2
             result = 0
-            for i in range(0, 15):
-                for j in range(0, 15):
-                    if (self.step_record_chess_board.value[1][i][j] >= 90000):
-                        x = i
-                        y = j
-                        max_value = 99999
-                        break
-                    elif (self.step_record_chess_board.value[0][i][j] >= max_value):
-                        x = i
-                        y = j
-                        max_value = self.step_record_chess_board.value[0][i][j]
-            if (self.step_record_chess_board.value[1][x][y] >= 90000):
-                result = 2
 
+            # NN AI do:
+            # get board state information
+            temp_board = np.copy(self.step_record_chess_board.state)
+            print(temp_board)
+            self.board2 = Board2(width=self.width,
+                                 height=self.height,
+                                 n_in_row=self.n_in_row)
+            self.board2.init_board(start_player=cur_play)
+            self.board2.update_state(temp_board)
+            print(self.board2.states)
 
-            """
-            Important 2:
-            Only below 4 line are interact between the AI agent and the board
-            self.board.state = np.copy(self.step_record_chess_board.state)  # make a deep copy of state
-            self.AI_1.value = self.step_record_chess_board.value[1]         # assign board information, a 15*15 array
-            self.AI_1.update(self.board.state)                              # AI function, do some calculations
-            action = self.AI_1.bestAction()                                 # Best actions the AI will make
-            """
-            self.board.state = np.copy(self.step_record_chess_board.state)
-            self.board2.update_state(self.step_record_chess_board.value[1],self.step_record_chess_board.value[2])
-            # self.mcts_player.get_action()
-            # self.AI_1.value = self.step_record_chess_board.value[1]
-            # self.AI_1.update(self.board.state)
-            # train it now, then predict
-            # self.collect_selfplay_data(1)
-
+            self.mcts_player.reset_player()
+            self.mcts_player.set_player_ind(cur_play)
             print("agent1: beign")
             action = self.mcts_player.get_action(self.board2)
-            print("agent1: end", action)
+
             x = action // self.width
             y = action % self.width
             y = self.height - y - 1
-
+            print("agent1: end", action, x, y)
+            # insert into the record, for the white player to use
             self.step_record_chess_board.insert_record(x, y)
 
+
+            # draw the black chess
             self.create_oval(self.chess_board_points[x][y].pixel_x - 10,
                              self.chess_board_points[x][y].pixel_y - 10,
                              self.chess_board_points[x][y].pixel_x + 10,

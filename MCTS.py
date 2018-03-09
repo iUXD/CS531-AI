@@ -11,6 +11,9 @@ class Board:
     def __init__(self):
         self.state = np.array([[0] * 15] * 15)
 
+    def set_move(self, x, y, pid):
+        # position x, y, and id
+        self.state[x][y] = pid
     # 判斷是否有贏家
     def isWin(self, state, action, player):
         i, j = action[0], action[1]
