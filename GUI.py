@@ -29,11 +29,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         self.n_in_row = 4
         self.n_playout = 400  # num of simulations for each move
         self.c_puct = 5
-        self.board2 = Board2(width=self.width,
-                           height=self.height,
-                           n_in_row=self.n_in_row)
-        self.board2.init_board()
-        self.game = Game(self.board2)
+
 
         """
         Important 1: Python is pass by reference
@@ -219,6 +215,11 @@ class Chess_Board_Canvas(Tkinter.Canvas):
                                       c_puct=self.c_puct,
                                       n_playout=self.n_playout,
                                       is_selfplay=0)
+        self.board2 = Board2(width=self.width,
+                             height=self.height,
+                             n_in_row=self.n_in_row)
+        self.board2.init_board(1)
+        self.game = Game(self.board2)
 
 
     def click3(self):
@@ -258,14 +259,14 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             # NN AI do:
             # get board state information
             temp_board = np.copy(self.step_record_chess_board.state)
-            print(temp_board)
-            self.board2 = Board2(width=self.width,
-                                 height=self.height,
-                                 n_in_row=self.n_in_row)
-            self.board2.init_board(start_player=cur_play)
+            print("temp board",temp_board)
+            # self.board2 = Board2(width=self.width,
+            #                      height=self.height,
+            #                      n_in_row=self.n_in_row)
+            # self.board2.init_board(start_player=cur_play)
             self.board2.update_state(temp_board)
             print(self.board2.states)
-
+            self.board2.current_player = cur_play
             self.mcts_player.reset_player()
             self.mcts_player.set_player_ind(cur_play)
             print("agent1: beign")
@@ -275,6 +276,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             y = action % self.width
             y = self.height - y - 1
             print("agent1: end", action, x, y)
+            # self.board2.do_move(action)
             # insert into the record, for the white player to use
             self.step_record_chess_board.insert_record(x, y)
 
@@ -323,6 +325,9 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             self.create_oval(self.chess_board_points[x][y].pixel_x - 10, self.chess_board_points[x][y].pixel_y - 10,
                              self.chess_board_points[x][y].pixel_x + 10, self.chess_board_points[x][y].pixel_y + 10,
                              fill='white')
+            move2 = (self.height - x- 1) * self.width + y
+            self.board2.current_player = 2
+            self.board2.do_move(move2)
 
             if result == 1:
                 self.create_text(240, 475, text='the black wins')
