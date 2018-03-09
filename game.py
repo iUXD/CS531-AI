@@ -52,10 +52,10 @@ class Board(object):
         
         """
 
-        for i in range(self.height):
-            for j in range(self.width):
+        for i in range(self.width):
+            for j in range(self.height):
                 if array_board[i][j] != 0:
-                    key = (self.height - i - 1) * self.width + j
+                    key = (self.height - j - 1) * self.width + i
                     value = array_board[i][j]
                     self.states[key] = value
         # for i in range(self.height):
@@ -128,7 +128,7 @@ class Board(object):
         moved = list(set(range(width * height)) - set(self.availables))
         if(len(moved) < self.n_in_row + 2):
             return False, -1
-
+        print("inside game function, moves ==>", moved, "states =>", states)
         for m in moved:
             h = m // width
             w = m % width
