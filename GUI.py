@@ -26,7 +26,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         self.init_chess_board_points()  # 畫點
         self.init_chess_board_canvas()  # 畫棋盤
         self.board = MCTS.Board()
-        self.n_in_row = 4
+        self.n_in_row = 5
         self.n_playout = 400  # num of simulations for each move
         self.c_puct = 5
 
@@ -248,64 +248,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
     def train_nn_agents(self):
         self.step += 1
         print("agent0: beign")
-        if (self.clicked != 1):
-            self.clicked = 1
-            if self.step_record_chess_board.who_to_play() == 1:
-                cur_play = 1                                        # current is black
-            elif self.step_record_chess_board.who_to_play() == 2:
-                cur_play = 2
-            result = 0
-
-            # NN AI do:
-            # get board state information
-            temp_board = np.copy(self.step_record_chess_board.state)
-            print("----------------------------------------")
-            print("White, NN agent: beign", self.step, self.step_record_chess_board.who_to_play())
-            print("temp board, before move", temp_board, cur_play)
-            test_moved = list(set(range(self.width * self.height)) - set(self.board2.availables))
-            print("moves ==> ", test_moved, self.board2.n_in_row, len(test_moved), len(test_moved) < self.board2.n_in_row + 2)
-            # self.board2 = Board2(width=self.width,
-            #                      height=self.height,
-            #                      n_in_row=self.n_in_row)
-            # self.board2.init_board(start_player=cur_play)
-            self.board2.update_state(temp_board)
-
-            self.board2.current_player = cur_play
-            self.mcts_player.reset_player()
-            self.mcts_player.set_player_ind(cur_play)
-            test_moved = list(set(range(self.width * self.height)) - set(self.board2.availables))
-            print(
-            "moves2 ==> ", test_moved, self.board2.n_in_row, len(test_moved), len(test_moved) < self.board2.n_in_row + 2)
-            print("before action", self.board2.states, len(self.board2.availables))
-            self.mcts_player.reset_player()
-            action = self.mcts_player.get_action(self.board2)
-
-            x = action % self.width
-            y = action // self.height
-            y = self.height - y - 1
-            print("after action",self.board2.states, len(self.board2.availables))
-            print("White, NN agent want to place at: ", action, x, y)
-            # self.board2.do_move(action)
-            # insert into the record, for the white player to use
-            self.step_record_chess_board.insert_record(x, y)
-            print("----------------------------------------")
-
-            # draw the black chess
-            self.create_oval(self.chess_board_points[x][y].pixel_x - 10,
-                             self.chess_board_points[x][y].pixel_y - 10,
-                             self.chess_board_points[x][y].pixel_x + 10,
-                             self.chess_board_points[x][y].pixel_y + 10, fill='white')
-            if result == 1:
-                self.create_text(240, 475, text='the black wins, w1')
-                return
-
-            elif result == 2:
-                self.create_text(240, 475, text='the white wins, w2')
-                return
-            self.clicked = 1
-
-            # 根據價值網路落子
-        if (self.clicked == 1):  # White stone
+        if (self.clicked == 1):  # Black stone
             x = 0
             y = 0
             max_value = 0
@@ -322,15 +265,17 @@ class Chess_Board_Canvas(Tkinter.Canvas):
                         y = j
                         max_value = self.step_record_chess_board.value[0][i][j]
 
-            if (self.step_record_chess_board.value[2][x][y] >= 90000):
-                result = 2
-
+            if (self.step_record_chess_board.value[1][x][y] >= 90000):
+                result = 1
+            # if result == 1:
+            #     self.create_text(240, 475, text='the black wins, b1')
+            #     return
 
 
             self.board.state = np.copy(self.step_record_chess_board.state)
-            print("===========================================")
-            print("Black, Gomoku agent: beign", self.step, self.step_record_chess_board.who_to_play())
-            print("temp state, before move", self.board.state)
+            # print("===========================================")
+            # print("Black, Gomoku agent: beign", self.step, self.step_record_chess_board.who_to_play())
+            # print("temp state, before move", self.board.state)
             self.AI.value = self.step_record_chess_board.value[0]
             self.AI.update(self.board.state)
             # print("temp state, before move", self.AI.value)
@@ -345,9 +290,10 @@ class Chess_Board_Canvas(Tkinter.Canvas):
 
             self.board2.current_player = 1
             self.board2.do_move(move2)
-            print("Black, Gomoku takes action: ", move2, x, y)
-            print(self.board.state)
-            print("===========================================")
+            # print("Black, Gomoku takes action: ", move2, x, y)
+            # print(self.board.state)
+            # print(np.copy(self.step_record_chess_board.state))
+            # print("===========================================")
             if result == 1:
                 self.create_text(240, 475, text='the black wins, b1')
 
@@ -356,6 +302,70 @@ class Chess_Board_Canvas(Tkinter.Canvas):
                 self.create_text(240, 475, text='the white wins, b2')
                 return
             self.clicked = 0
+
+
+        if (self.clicked != 1):             # white stone
+            self.clicked = 1
+            if self.step_record_chess_board.who_to_play() == 1:
+                cur_play = 1
+            elif self.step_record_chess_board.who_to_play() == 2:
+                cur_play = 2                                                # current is white, 2
+            result = 0
+            if (self.step_record_chess_board.value[2][x][y] >= 90000):
+                result = 2
+            if result == 2:
+                self.create_text(240, 475, text='the white wins, w2')
+                return
+            # NN AI do:
+            # get board state information
+            temp_board = np.copy(self.step_record_chess_board.state)
+            # print("----------------------------------------")
+            # print("White, NN agent: beign", self.step, self.step_record_chess_board.who_to_play())
+            # print("temp board, before move", temp_board, cur_play)
+            # test_moved = list(set(range(self.width * self.height)) - set(self.board2.availables))
+            # print("moves ==> ", test_moved, self.board2.n_in_row, len(test_moved), len(test_moved) < self.board2.n_in_row + 2)
+            # self.board2 = Board2(width=self.width,
+            #                      height=self.height,
+            #                      n_in_row=self.n_in_row)
+            # self.board2.init_board(start_player=cur_play)
+            self.board2.update_state(temp_board)
+
+            self.board2.current_player = cur_play
+            self.mcts_player.reset_player()
+            self.mcts_player.set_player_ind(cur_play)
+            test_moved = list(set(range(self.width * self.height)) - set(self.board2.availables))
+            # print(
+            # "moves2 ==> ", test_moved, self.board2.n_in_row, len(test_moved), len(test_moved) < self.board2.n_in_row + 2)
+            # print("before action", self.board2.states, len(self.board2.availables))
+            self.mcts_player.reset_player()
+            action = self.mcts_player.get_action(self.board2)
+            self.board2.do_move(action)
+            x = action % self.width
+            y = action // self.height
+            y = self.height - y - 1
+            # print("after action",self.board2.states, len(self.board2.availables))
+            # print("White, NN agent want to place at: ", action, x, y)
+            # self.board2.do_move(action)
+            # insert into the record, for the white player to use
+            self.step_record_chess_board.insert_record(x, y)
+            # print("----------------------------------------")
+
+            # draw the black chess
+            self.create_oval(self.chess_board_points[x][y].pixel_x - 10,
+                             self.chess_board_points[x][y].pixel_y - 10,
+                             self.chess_board_points[x][y].pixel_x + 10,
+                             self.chess_board_points[x][y].pixel_y + 10, fill='white')
+            if result == 1:
+                self.create_text(240, 475, text='the black wins, w1')
+                return
+
+            elif result == 2:
+                self.create_text(240, 475, text='the white wins, w2')
+                return
+            self.clicked = 1
+
+            # 根據價值網路落子
+
 
         if  self.text_id:
             print(self.text_id)

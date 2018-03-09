@@ -154,8 +154,8 @@ class PolicyValueNet():
 
     def save_model(self, model_file):
         """ save model params to file """
-        net_params = self.get_policy_param()  # get model params
-        pickle.dump(net_params, open(model_file, 'wb'), protocol=2)
+        # net_params = self.get_policy_param()  # get model params
+        # pickle.dump(net_params, open(model_file, 'wb'), protocol=2)
         # just save the model:
 
-        torch.save(self.policy_value_net.state_dict(),'gomoku.pt')
+        torch.save(self.policy_value_net.state_dict(),model_file)

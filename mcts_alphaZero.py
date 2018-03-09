@@ -149,6 +149,18 @@ class MCTS(object):
         # calc the move probabilities based on visit counts at the root node
         act_visits = [(act, node._n_visits)
                       for act, node in self._root._children.items()]
+        # print("inside mcts_alphaZero ==> ", act_visits)
+        if act_visits == []:
+            print(self._root.is_leaf(), self._root.is_root())
+            print(state)
+            print(self._policy(state))
+            print(state.game_end())
+            print(state.has_a_winner())
+            print(state.n_in_row)
+
+
+
+
         acts, visits = zip(*act_visits)
         act_probs = softmax(1.0/temp * np.log(np.array(visits) + 1e-10))
 
