@@ -130,8 +130,8 @@ class MonteCarlo(object):
         self.board = board
         self.player = player
         self.C = 1.4
-        self.MAX_TIME = 3
-        self.MAX_MOVE = 100
+        self.MAX_TIME = 0.1
+        self.MAX_MOVE = 10
         self.MAX_DEPTH = 0
         self.states = []
         self.value = np.array([[[0] * 15] * 15])

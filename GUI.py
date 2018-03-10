@@ -282,7 +282,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             action = self.AI.bestAction()
             x, y = action
 
-            self.step_record_chess_board.insert_record(x, y)
+
             self.create_oval(self.chess_board_points[x][y].pixel_x - 10, self.chess_board_points[x][y].pixel_y - 10,
                              self.chess_board_points[x][y].pixel_x + 10, self.chess_board_points[x][y].pixel_y + 10,
                              fill='black')
@@ -290,7 +290,8 @@ class Chess_Board_Canvas(Tkinter.Canvas):
 
             self.board2.current_player = 1
             self.board2.do_move(move2)
-            # print("Black, Gomoku takes action: ", move2, x, y)
+            print("Black, Gomoku takes action: ", move2, x, y, (self.step,self.step_record_chess_board.who_to_play()))
+            self.step_record_chess_board.insert_record(x, y)
             # print(self.board.state)
             # print(np.copy(self.step_record_chess_board.state))
             # print("===========================================")
@@ -344,7 +345,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             y = action // self.height
             y = self.height - y - 1
             # print("after action",self.board2.states, len(self.board2.availables))
-            # print("White, NN agent want to place at: ", action, x, y)
+            print("White, NN agent want to place at: ", action, x, y, (self.step,self.step_record_chess_board.who_to_play()))
             # self.board2.do_move(action)
             # insert into the record, for the white player to use
             self.step_record_chess_board.insert_record(x, y)
