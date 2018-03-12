@@ -331,6 +331,8 @@ class MonteCarlo(object):
         return temp
 
 
+
+
 """if __name__=="__main__":
     board = Board()
     STATE = np.copy(board.state)
