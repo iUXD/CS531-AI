@@ -130,8 +130,8 @@ class MonteCarlo(object):
         self.board = board
         self.player = player
         self.C = 1.4
-        self.MAX_TIME = 0.1
-        self.MAX_MOVE = 10
+        self.MAX_TIME = 1
+        self.MAX_MOVE = 10000
         self.MAX_DEPTH = 0
         self.states = []
         self.value = np.array([[[0] * 15] * 15])
@@ -210,11 +210,10 @@ class MonteCarlo(object):
         # 如果很多走法，找一個最好的
         game = 0
         begin = time.time()
-
         while (time.time() - begin) < self.MAX_TIME:
             self.simulation()
             game += 1
-
+        print(game)
         moves_states = [(pos, self.updateState(state, pos, self.player).reshape(1, 225)[0]) for pos in moves]
         # 確認模擬次數，時間
         # print 'Turn: {0},
@@ -222,16 +221,24 @@ class MonteCarlo(object):
         # print 'Play: {}, Win: {}'.format(self.plays.values(), self.wins.values())
         # 選擇最大勝率的走法
         totalMoves = []
+        check = []
         for item in moves_states:
             t1 = float(self.wins.get((self.player, tuple(item[1])), 0))
             t2 = self.plays.get((self.player, tuple(item[1])), 1)
             if t2 != 0:
                 totalMoves.append(((t1 / t2), item[0]))
+                check.append ((t1, t2, (t1/t2), item[0]))
             else:
                 totalMoves.append((0.0, item[0]))
 
         max = -1
         best_move = moves_states
+        tt = []
+        for p, m in totalMoves:
+            if p != 0:
+                print(p, m)
+                tt.append((p, m))
+
         for p, move in totalMoves:
             if (p > max):
                 max = p
@@ -295,6 +302,8 @@ class MonteCarlo(object):
 
             else:
                 pos, state = choice(moves_state)  # self.valueNet(moves, state, player)#choice(moves)
+                # pos, state = moves_state[0]
+                # print("see me means wrong!")
                 # state = self.updateState(state, pos, player)
                 # print state
             # 設定初始值

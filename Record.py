@@ -40,8 +40,8 @@ class Step_Record_Chess_Board:
         # print x
         # print y
         # print self.state
-        for i in range(-4, 5):
-            for j in range(-4, 5):
+        for i in range(-1, 2):
+            for j in range(-1, 1):
                 if (not self.checkState(x + i, y + j) == None):
                     continue;
                 # 重新計算player1 value

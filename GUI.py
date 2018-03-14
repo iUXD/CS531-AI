@@ -201,7 +201,7 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         # self.data_buffer = deque(maxlen=self.buffer_size)
         init_model = "current_policy.model"
         init_model = "best_policy.model"
-        init_model = 'best_policy_3000.pt'
+        init_model = 'best_policy_4000.pt'
 
         self.result =False
 
@@ -296,7 +296,8 @@ class Chess_Board_Canvas(Tkinter.Canvas):
             # if (self.step_record_chess_board.value[2][x][y] >= 90000):
             #     print("win black in black")
             #     result = 1
-            if result == 1:
+            m6 = self.board.isWin(self.step_record_chess_board.state, (x, y), 1)
+            if result == 1 or m6:
                 self.create_text(240, 475, text='the black wins, b11')
                 return
             elif result == 2:
