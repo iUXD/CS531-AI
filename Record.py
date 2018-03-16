@@ -41,7 +41,7 @@ class Step_Record_Chess_Board:
         # print y
         # print self.state
         for i in range(-1, 2):
-            for j in range(-1, 1):
+            for j in range(-1, 2):
                 if (not self.checkState(x + i, y + j) == None):
                     continue;
                 # 重新計算player1 value
