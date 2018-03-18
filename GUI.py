@@ -201,7 +201,8 @@ class Chess_Board_Canvas(Tkinter.Canvas):
         # self.data_buffer = deque(maxlen=self.buffer_size)
         init_model = "current_policy.model"
         init_model = "best_policy.model"
-        init_model = 'best_policy_8000.pt'
+        init_model = 'best_policy_12000.pt'
+        # init_model = 'best_policy200.pt'
 
         self.result =False
 
