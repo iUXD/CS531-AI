@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="88088e99-32d0-47b3-9813-a616b99bc132" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/agent.txt" afterPath="$PROJECT_DIR$/agent.txt" />
       <change beforePath="$PROJECT_DIR$/data/45agent2_1000.txt" afterPath="$PROJECT_DIR$/data/45agent2_1000.txt" />
@@ -9,6 +10,14 @@
 =======
     <list default="true" id="957bca56-7b9a-4399-8b39-09c5c239419e" name="Default" comment="" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <list default="true" id="a94822ea-c17e-429c-867c-cf03142fcdaa" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Inference.py" afterPath="$PROJECT_DIR$/Inference.py" />
+      <change beforePath="$PROJECT_DIR$/data/result.txt" afterPath="$PROJECT_DIR$/data/result.txt" />
+      <change beforePath="$PROJECT_DIR$/test.txt" afterPath="$PROJECT_DIR$/test.txt" />
+    </list>
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +26,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+<<<<<<< HEAD
 <<<<<<< HEAD
     <SUITE FILE_PATH="coverage/AI_Vacuum$resultPlot.coverage" NAME="resultPlot Coverage Results" MODIFIED="1516667361996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AI_Vacuum$vacuum2.coverage" NAME="vacuum2 Coverage Results" MODIFIED="1516683863268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -43,21 +53,47 @@
               <caret line="525" column="63" lean-forward="false" selection-start-line="525" selection-start-column="23" selection-end-line="525" selection-end-column="63" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
+=======
+    <SUITE FILE_PATH="coverage/SuDoKu$SuDoKu__1_.coverage" NAME="SuDoKu (1) Coverage Results" MODIFIED="1518818359065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SuDoKu$SuDoKu3.coverage" NAME="SuDoKu3 Coverage Results" MODIFIED="1518819071487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SuDoKu$SuDoKu.coverage" NAME="SuDoKu Coverage Results" MODIFIED="1519069440413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SuDoKu$plot_result.coverage" NAME="plot_result Coverage Results" MODIFIED="1519029613425" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SuDoKu$Nosetests_in_SuDoKu2_py.coverage" NAME="Nosetests in SuDoKu2.py Coverage Results" MODIFIED="1518818387359" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="plot_result.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plot_result.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="282">
+              <caret line="187" column="39" lean-forward="false" selection-start-line="187" selection-start-column="39" selection-end-line="187" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="vacuum2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vacuum2.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
               <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+=======
+      <file leaf-file-name="test.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="70" lean-forward="false" selection-start-line="5" selection-start-column="70" selection-end-line="5" selection-end-column="70" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="45agent2_1000.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/45agent2_1000.txt">
           <provider selected="true" editor-type-id="text-editor">
@@ -75,32 +111,56 @@
             <state relative-caret-position="-332">
               <caret line="60" column="26" lean-forward="true" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <file leaf-file-name="sudoku-problems.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/sudoku-problems.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="70">
+              <caret line="484" column="9" lean-forward="false" selection-start-line="484" selection-start-column="3" selection-end-line="484" selection-end-column="9" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
               <folding />
             </state>
           </provider>
         </entry>
       </file>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <file leaf-file-name="45agent2_0.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/45agent2_0.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
               <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+=======
+      <file leaf-file-name="SuDoKu.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SuDoKu.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1134">
+              <caret line="83" column="26" lean-forward="true" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="simple_random_reflex.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simple_random_reflex.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="468">
               <caret line="69" column="28" lean-forward="false" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="28" />
+=======
+      <file leaf-file-name="fixed_baseline.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fixed_baseline.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="22" column="56" lean-forward="true" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="resultPlot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resultPlot.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -117,10 +177,29 @@
                 <element signature="e#125#143#0" expanded="true" />
               </folding>
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <file leaf-file-name="MCV.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MCV.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="19" column="39" lean-forward="false" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Inference.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Inference.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+              <folding />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <file leaf-file-name="agent2_average_test1.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/agent2_average_test1.png">
@@ -131,6 +210,18 @@
       </file>
 =======
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <file leaf-file-name="utility.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utility.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="600">
+              <caret line="243" column="14" lean-forward="true" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -142,6 +233,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <find>print</find>
       <find>_updateAgent</find>
@@ -157,6 +249,32 @@
       <find>curS</find>
       <find>curStat</find>
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <find>forw</find>
+      <find>248317695</find>
+      <find>2483176959615284375739461286157</find>
+      <find>248317695961528437573946128615</find>
+      <find>24831769596152843757394612861</find>
+      <find>24831769596152843757394</find>
+      <find>2483176959615284375739461</find>
+      <find>248317695961528437573946</find>
+      <find>294</find>
+      <find>True, True</find>
+      <find>2483176959615284375739461286157932848291645737342859611864793</find>
+      <find>248317695961528437573946128615793284829164573734285961186479</find>
+      <find>************************************7</find>
+      <find>I am</find>
+      <find>296</find>
+      <find>777</find>
+      <find>I am here</find>
+      <find>I am</find>
+      <find>295</find>
+      <find>[]</find>
+      <find>295, 33</find>
+      <find>290</find>
+      <find>hidden_single</find>
+      <find>cleaning_numbers</find>
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -165,6 +283,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <option value="$PROJECT_DIR$/grid.kv" />
         <option value="$PROJECT_DIR$/model_reflex.py" />
@@ -189,6 +308,25 @@
         <option value="$PROJECT_DIR$/analysis.py" />
         <option value="$PROJECT_DIR$/CorvallisTowers.py" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+        <option value="$PROJECT_DIR$/sudoku-problems.txt" />
+        <option value="$PROJECT_DIR$/data/sudoku-problems.txt" />
+        <option value="$PROJECT_DIR$/SuDoKu_backup.py" />
+        <option value="$PROJECT_DIR$/SuDoKu2.py" />
+        <option value="$PROJECT_DIR$/SuDoKu3.py" />
+        <option value="$PROJECT_DIR$/utility/utility.py" />
+        <option value="$PROJECT_DIR$/fixed_baseline2.py" />
+        <option value="$PROJECT_DIR$/fixed_baseline_back.py" />
+        <option value="$PROJECT_DIR$/plot_result.py" />
+        <option value="$PROJECT_DIR$/utility.py" />
+        <option value="$PROJECT_DIR$/SuDoKu.py" />
+        <option value="$PROJECT_DIR$/data/result1.txt" />
+        <option value="$PROJECT_DIR$/test.txt" />
+        <option value="$PROJECT_DIR$/fixed_baseline.py" />
+        <option value="$PROJECT_DIR$/MCV.py" />
+        <option value="$PROJECT_DIR$/data/result.txt" />
+        <option value="$PROJECT_DIR$/Inference.py" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       </list>
     </option>
   </component>
@@ -198,6 +336,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+<<<<<<< HEAD
   <component name="ProjectFrameBounds">
 <<<<<<< HEAD
     <option name="x" value="71" />
@@ -210,6 +349,12 @@
     <option name="width" value="2059" />
     <option name="height" value="1027" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
+    <option name="width" value="2560" />
+    <option name="height" value="1417" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -230,13 +375,18 @@
     </navigator>
     <panes>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <pane id="Scope" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <pane id="Scratches" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
+<<<<<<< HEAD
 <<<<<<< HEAD
               <item name="AI_Vacuum" type="b2602c69:ProjectViewProjectNode" />
               <item name="AI_Vacuum" type="462c0819:PsiDirectoryNode" />
@@ -278,17 +428,35 @@
               <item name="CorvallisTowers" type="462c0819:PsiDirectoryNode" />
               <item name="resultPlots" type="462c0819:PsiDirectoryNode" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+              <item name="SuDoKu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SuDoKu" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SuDoKu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SuDoKu" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SuDoKu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SuDoKu" type="462c0819:PsiDirectoryNode" />
+              <item name="plots" type="462c0819:PsiDirectoryNode" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
       <pane id="Scratches" />
 <<<<<<< HEAD
+=======
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
 =======
     </panes>
@@ -311,6 +479,23 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/data" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/helq/Liqiang/CS/CS531_2018Winter/Assignments/CodingAssignment1/SuDoKu/fixed_baseline.py" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/../SuDoKu2" />
+      <recent name="$PROJECT_DIR$/data" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data" />
+      <recent name="$PROJECT_DIR$" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
     </key>
   </component>
   <component name="RunDashboard">
@@ -326,8 +511,13 @@
     </option>
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="RunManager" selected="Python.vacuum2">
     <configuration name="resultPlot" type="PythonConfigurationType" factoryName="Python" temporary="true">
+=======
+  <component name="RunManager" selected="Python.SuDoKu">
+    <configuration name="SuDoKu" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -338,19 +528,29 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+<<<<<<< HEAD
       <module name="AI_Vacuum" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/resultPlot.py" />
+=======
+      <module name="SuDoKu" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SuDoKu.py" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+<<<<<<< HEAD
     <configuration name="vacuum" type="PythonConfigurationType" factoryName="Python" temporary="true">
 =======
   <component name="RunManager" selected="Python.CorvallisTowers">
     <configuration name="CorvallisTowers" type="PythonConfigurationType" factoryName="Python" temporary="true">
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <configuration name="SuDoKu3" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -361,6 +561,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+<<<<<<< HEAD
 <<<<<<< HEAD
       <module name="AI_Vacuum" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
@@ -370,16 +571,25 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CorvallisTowers.py" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <module name="SuDoKu" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SuDoKu3.py" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <configuration name="vacuum2" type="PythonConfigurationType" factoryName="Python" temporary="true">
 =======
     <configuration name="analysis" type="PythonConfigurationType" factoryName="Python" temporary="true">
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <configuration name="plot_result" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -391,6 +601,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <module name="AI_Vacuum" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vacuum2.py" />
@@ -399,11 +610,17 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analysis.py" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <module name="SuDoKu" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot_result.py" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.vacuum" />
@@ -425,6 +642,18 @@
         <item index="0" class="java.lang.String" itemvalue="Python.CorvallisTowers" />
         <item index="1" class="java.lang.String" itemvalue="Python.analysis" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Python.SuDoKu3" />
+      <item index="1" class="java.lang.String" itemvalue="Python.SuDoKu" />
+      <item index="2" class="java.lang.String" itemvalue="Python.plot_result" />
+    </list>
+    <recent_temporary>
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.SuDoKu" />
+        <item index="1" class="java.lang.String" itemvalue="Python.plot_result" />
+        <item index="2" class="java.lang.String" itemvalue="Python.SuDoKu3" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       </list>
     </recent_temporary>
   </component>
@@ -436,6 +665,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <changelist id="88088e99-32d0-47b3-9813-a616b99bc132" name="Default" comment="" />
       <created>1516400973439</created>
@@ -472,10 +702,28 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3998136" sideWeight="0.4978166" order="3" side_tool="false" content_ui="tabs" />
 =======
     <frame x="268" y="452" width="2059" height="1027" extended-state="0" />
+=======
+      <changelist id="a94822ea-c17e-429c-867c-cf03142fcdaa" name="Default" comment="" />
+      <created>1518668484723</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1518668484723</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="Nosetests_in_SuDoKu2_py - 2018.02.16 at 13h 59m 47s.xml">
+      <configuration name="Nosetests in SuDoKu2.py" configurationId="tests" />
+    </history-entry>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="2560" height="1417" extended-state="6" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46424642" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -487,12 +735,25 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4187837" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13741064" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22676727" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39876828" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+<<<<<<< HEAD
 <<<<<<< HEAD
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -523,6 +784,11 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -531,6 +797,7 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
+<<<<<<< HEAD
 <<<<<<< HEAD
     <breakpoint-manager>
       <option name="time" value="2" />
@@ -568,10 +835,47 @@
     </entry>
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/vacuum.py">
+=======
+    <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="2" />
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="cells_status[31]" language="Python" />
+        <watch expression="helper(i, cells_status, n)" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>helper(i, cells_status, n)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>helper()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>cells_status[31]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/plot_result.py">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="e#0#10#0" expanded="true" />
 =======
     <entry file="file://$PROJECT_DIR$/analysis.py">
@@ -592,36 +896,65 @@
           <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+=======
+            <element signature="e#0#31#0" expanded="true" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/test.py" />
     <entry file="file://$PROJECT_DIR$/grid.kv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+=======
+    <entry file="file://$PROJECT_DIR$/SuDoKu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1152">
+          <caret line="146" column="38" lean-forward="false" selection-start-line="146" selection-start-column="38" selection-end-line="146" selection-end-column="38" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/simple_reflex.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
           <caret line="83" column="51" lean-forward="true" selection-start-line="83" selection-start-column="51" selection-end-line="83" selection-end-column="51" />
+=======
+    <entry file="file://$PROJECT_DIR$/test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="80" column="9" lean-forward="false" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/model_reflex.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+=======
+    <entry file="file://$PROJECT_DIR$/data/sudoku-problems.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14220">
+          <caret line="790" column="11" lean-forward="true" selection-start-line="790" selection-start-column="11" selection-end-line="790" selection-end-column="11" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/agent1.txt">
+=======
+    <entry file="file://$PROJECT_DIR$/SuDoKu2.py" />
+    <entry file="file://$PROJECT_DIR$/SuDoKu.py">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -629,7 +962,11 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/agent2.txt">
+=======
+    <entry file="file://$PROJECT_DIR$/SuDoKu.py">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -637,6 +974,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/agent3.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -662,10 +1000,17 @@
         <state relative-caret-position="2718">
           <caret line="151" column="0" lean-forward="false" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <entry file="file://$PROJECT_DIR$/data/sudoku-problems.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15228">
+          <caret line="846" column="0" lean-forward="true" selection-start-line="846" selection-start-column="0" selection-end-line="846" selection-end-column="0" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/agent2_used2.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -702,10 +1047,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/data/SuDoKu.py" />
+    <entry file="file://$PROJECT_DIR$/SuDoKu_backup.py" />
+    <entry file="file://$PROJECT_DIR$/SuDoKu2.py" />
+    <entry file="file://$PROJECT_DIR$/fixed_baseline2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fixed_baseline_back.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="3" column="46" lean-forward="false" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Python/2.7/site-packages/matplotlib/artist.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="756" column="0" lean-forward="false" selection-start-line="756" selection-start-column="0" selection-end-line="756" selection-end-column="0" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/agent2_used1.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -732,10 +1101,28 @@
     </entry>
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Agent2_3.png">
+=======
+    <entry file="file://$PROJECT_DIR$/SuDoKu3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="133" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/result_diff.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="57" column="4" lean-forward="true" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_0_Evil.png">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Agent2_2.png">
 =======
     <entry file="file://$PROJECT_DIR$/analysis.py">
@@ -750,25 +1137,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CPUtime_problemSize.png">
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_2_med.png" />
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_0_Hard.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_0_med.png" />
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_1_Hard.png">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Agent2_1.png">
 =======
     <entry file="file://$PROJECT_DIR$/nodesNum_problemSize.png">
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_1.png" />
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_2_Hard.png">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/agent2_ss1.png">
+=======
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_2_Evil.png">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/agent2_use.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -799,19 +1206,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CPUtime_problemSize.png">
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_2_Easy.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_1_Easy.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_3_Easy.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_3_Evil.png">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/agent2_ss2.png">
 =======
     <entry file="file://$PROJECT_DIR$/nodesNum_problemSize.png">
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_3_med.png" />
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_3_Hard.png">
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/data/agent2_34.txt">
 =======
@@ -893,34 +1324,113 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3186">
           <caret line="177" column="22" lean-forward="true" selection-start-line="177" selection-start-column="22" selection-end-line="177" selection-end-column="22" />
+=======
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_1_med.png" />
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_1_Evil.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_0_Medium.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/ave1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/ave_mvc_time.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/rule_set_0_Easy.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/ave_fb_time.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/ave_mvc.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plots/ave_fb.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_result.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="187" column="39" lean-forward="false" selection-start-line="187" selection-start-column="39" selection-end-line="187" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="243" column="14" lean-forward="true" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/data/agent0_2.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/SuDoKu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1134">
+          <caret line="83" column="26" lean-forward="true" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/data/agent2_5.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="70" lean-forward="false" selection-start-line="5" selection-start-column="70" selection-end-line="5" selection-end-column="70" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/resultPlot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
           <caret line="31" column="27" lean-forward="false" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
+=======
+    <entry file="file://$PROJECT_DIR$/data/sudoku-problems.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="484" column="9" lean-forward="false" selection-start-line="484" selection-start-column="3" selection-end-line="484" selection-end-column="9" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/agent2_average_test1.png">
 =======
     <entry file="file://$PROJECT_DIR$/data/4.txt">
@@ -1017,10 +1527,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="69" column="28" lean-forward="false" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="28" />
+=======
+    <entry file="file://$PROJECT_DIR$/fixed_baseline.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="22" column="56" lean-forward="true" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/vacuum.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9450">
@@ -1049,18 +1566,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+=======
+    <entry file="file://$PROJECT_DIR$/MCV.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="19" column="39" lean-forward="false" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/result.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="694">
+          <caret line="312" column="0" lean-forward="true" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/data/45agent2_0.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/data/result1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="280" column="39" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/data/45agent2_1000.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
@@ -1071,6 +1610,12 @@
         <state relative-caret-position="-332">
           <caret line="60" column="26" lean-forward="true" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+    <entry file="file://$PROJECT_DIR$/Inference.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
           <folding />
         </state>
       </provider>

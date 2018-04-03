@@ -3,10 +3,14 @@
   <component name="ProjectModuleManager">
     <modules>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/AI_Vacuum.iml" filepath="$PROJECT_DIR$/.idea/AI_Vacuum.iml" />
 =======
       <module fileurl="file://$PROJECT_DIR$/.idea/CorvallisTowers.iml" filepath="$PROJECT_DIR$/.idea/CorvallisTowers.iml" />
 >>>>>>> c0e8d4569d31bc09cc9cae622391e0ad8abde99e
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/SuDoKu.iml" filepath="$PROJECT_DIR$/.idea/SuDoKu.iml" />
+>>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
     </modules>
   </component>
 </project>
