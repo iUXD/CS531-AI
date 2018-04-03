@@ -2,6 +2,7 @@
 <project version="4">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (tensorFlow_python3)" project-jdk-type="Python SDK" />
 =======
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (virtualenv_python3) (2)" project-jdk-type="Python SDK" />
@@ -9,4 +10,7 @@
 =======
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 2.7" project-jdk-type="Python SDK" />
 >>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 2.7 (myenv2)" project-jdk-type="Python SDK" />
+>>>>>>> 7d8a6fe2468c54a9045b1032f82299e2443c9b30
 </project>

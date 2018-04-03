@@ -4,6 +4,7 @@
     <modules>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/AI_Vacuum.iml" filepath="$PROJECT_DIR$/.idea/AI_Vacuum.iml" />
 =======
       <module fileurl="file://$PROJECT_DIR$/.idea/CorvallisTowers.iml" filepath="$PROJECT_DIR$/.idea/CorvallisTowers.iml" />
@@ -11,6 +12,9 @@
 =======
       <module fileurl="file://$PROJECT_DIR$/.idea/SuDoKu.iml" filepath="$PROJECT_DIR$/.idea/SuDoKu.iml" />
 >>>>>>> e30a54eb2a5967576c852a36847b26f64f16cd83
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/GoMoKu_CS531.iml" filepath="$PROJECT_DIR$/.idea/GoMoKu_CS531.iml" />
+>>>>>>> 7d8a6fe2468c54a9045b1032f82299e2443c9b30
     </modules>
   </component>
 </project>
